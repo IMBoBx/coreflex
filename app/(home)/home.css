@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hero {
+    @apply h-[90vh] flex flex-col justify-center  overflow-hidden text-flame transition-all duration-500;
+}
