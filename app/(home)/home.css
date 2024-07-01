@@ -17,6 +17,10 @@
     @apply h-screen w-[50vw] object-cover overflow-hidden flex flex-col justify-center items-center gap-0;
 }
 
+.program a {
+    /* @apply hover:border-flame hover:border-2px; */
+}
+
 .pilates {
     background: url('/choosePilates.jpg');
     @apply bg-cover bg-right;
@@ -27,10 +31,10 @@
     @apply bg-cover bg-left;
 }
 
-.pilates div {
+.pilates * div {
     @apply text-3xl bg-black text-sunset p-2 rounded-t-md text-center w-96;
 }
 
-.program span {
-    @apply text-7xl bg-sunset text-black p-5 rounded-b-md text-center w-96;
+.mainProgramText {
+    @apply text-7xl bg-sunset text-black p-5 rounded-b-md text-center w-96 hover:bg-flame transition-all duration-500;
 }
