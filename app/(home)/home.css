@@ -14,11 +14,7 @@
 /* program select section */
 
 .program {
-    @apply h-screen w-[50vw] object-cover overflow-hidden flex flex-col justify-center items-center gap-0;
-}
-
-.program a {
-    /* @apply hover:border-flame hover:border-2px; */
+    @apply h-screen md:w-[50vw] flex flex-col justify-center items-center md:gap-0 md:rounded-none rounded-3xl md:m-0 m-3
 }
 
 .pilates {
@@ -27,14 +23,15 @@
 }
 
 .yoga {
-    background: url('/chooseYoga.jpg');
+    @apply md:bg-[url('/chooseYoga.jpg')] bg-[url('/chooseYogaMobile.jpg')];
+
     @apply bg-cover bg-left;
 }
 
 .pilates * div {
-    @apply text-3xl bg-black text-sunset p-2 rounded-t-md text-center w-96;
+    @apply md:text-3xl text-xl bg-black text-sunset md:p-2 p-1 rounded-t-md text-center w-96;
 }
 
 .mainProgramText {
-    @apply text-7xl bg-sunset text-black p-5 rounded-b-md text-center w-96 hover:bg-flame transition-all duration-500;
+    @apply md:text-7xl text-5xl bg-sunset text-black md:p-5 p-3 rounded-b-md text-center w-96 hover:bg-flame transition-all duration-500;
 }

@@ -88,19 +88,19 @@ export default function ProgramSelect() {
     }, []);
 
     return (
-        <section id="programSelectPC" className={"flex gap-0 justify-center h-screen overflow-hidden relative " + _urbanist}> 
+        <section id="programSelectPC" className={"flex md:gap-0 md:flex-row flex-col justify-center h-screen " + _urbanist}> 
             <div className="program pilates h-48">
                 <Link className="flex flex-col" href={"#"}>
                     <div>
-                        <p id="pilatesProgram" className="transition-all h-12 grid place-items-center">{currentPilates}</p>
+                        <p id="pilatesProgram" className="transition-all md:h-12 grid place-items-center">{currentPilates}</p>
                     </div>
-                    <span className="mainProgramText h-36 grid place-items-center">Pilates</span>
+                    <span className="mainProgramText md:h-36 grid place-items-center">Pilates</span>
                 </Link>
             </div>
 
             <div className="program yoga">
                 <Link className="grid place-items-center rounded-lg mainProgramText" href={"#"}>
-                   <p id="yogaProgram" className="transition-all h-48 grid place-items-center">{currentYoga}</p>
+                   <p id="yogaProgram" className="transition-all h-24 md:h-48 grid place-items-center">{currentYoga}</p>
                 </Link>
             </div>
         </section>
