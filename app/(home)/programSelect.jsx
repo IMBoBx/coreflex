@@ -19,37 +19,69 @@ export default function ProgramSelect() {
     const [i, setI] = useState(0);
     const [currentPilates, setPilates] = useState(pilatesPrograms[i]);
     
-    useEffect(() => {
-        const pilatesElement = document.getElementById("pilatesProgram");
-        const interval = setInterval(() => {
-            setI(prevI => {
-                const nextI = prevI === pilatesPrograms.length - 1 ? 0 : prevI + 1;
+    // useEffect(() => {
+    //     const pilatesElement = document.getElementById("pilatesProgram");
+    //     const interval = setInterval(() => {
+    //         setI(prevI => {
+    //             const nextI = prevI === pilatesPrograms.length - 1 ? 0 : prevI + 1;
 
+    //             pilatesElement.style = `
+    //                 transform: translateX(50%);
+    //                 opacity: 0;
+    //             `;
+    //             setTimeout(() => {
+    //                 setPilates(pilatesPrograms[nextI]);
+    //                 pilatesElement.style = `
+        //                 transform: translateX(-50%);
+        //                 opacity: 0; 
+    //                 `;
+    //                 setTimeout(() => {
+    //                     pilatesElement.style = `
+    //                     transform: translateX(0);
+    //                     opacity: 1;
+    //                     `;
+    //                 }, 150);
+    //             }, 150);
+    //             return nextI;
+    //         });
+            
+    //     }, 1200);
+
+    //     // Clear the interval when the component unmounts
+    //     return () => clearInterval(interval);
+    // }, []);
+
+    useEffect(() => {
+    const pilatesElement = document.getElementById("pilatesProgram");
+    const interval = setInterval(() => {
+        setI(prevI => {
+            const nextI = prevI === pilatesPrograms.length - 1 ? 0 : prevI + 1;
+            // Start by moving to the left and fading out
+            pilatesElement.style = `
+                transform: scale(.75);
+                opacity: 0;
+            `;
+            setTimeout(() => {
+                setPilates(pilatesPrograms[nextI]);
+                // Move to the right (off-screen) and set opacity to 0 in preparation for the next step
                 pilatesElement.style = `
-                    transform: translateX(50%);
-                    opacity: 0;
+                transform: scale(1.25);
+                opacity: 0;
                 `;
                 setTimeout(() => {
-                    setPilates(pilatesPrograms[nextI]);
+                    // Move back to center and fade in
                     pilatesElement.style = `
-                    transform: translateX(-50%);
-                    opacity: 0; 
+                    transform: scale(1);
+                    opacity: 1;
                     `;
-                    setTimeout(() => {
-                        pilatesElement.style = `
-                        transform: translateX(0);
-                        opacity: 1;
-                        `;
-                    }, 150);
-                }, 150);
-                return nextI;
-            });
-            
-        }, 1200);
-
-        // Clear the interval when the component unmounts
-        return () => clearInterval(interval);
-    }, []);
+                }, 150); 
+            }, 150);
+            return nextI;
+        });
+    }, 1200); // Interval for changing programs
+    // Clear the interval when the component unmounts
+    return () => clearInterval(interval);
+}, []);
 
 
     const [j, setJ] = useState(0);
@@ -62,18 +94,18 @@ export default function ProgramSelect() {
                 const nextJ = prevJ === yogaPrograms.length - 1 ? 0 : prevJ + 1;
 
                 yogaElement.style = `
-                    transform: translateY(25%);
+                    transform: scale(0.75);
                     opacity: 0;
                 `;
                 setTimeout(() => {
                     setYoga(yogaPrograms[nextJ]);
                     yogaElement.style = `
-                    transform: translateY(-35%);
+                    transform: scale(1.25);
                     opacity: 0; 
                     `;
                     setTimeout(() => {
                         yogaElement.style = `
-                        transform: translateY(0);
+                        transform: scale(1);
                         opacity: 1;
                         `;
                     }, 150);
@@ -88,7 +120,7 @@ export default function ProgramSelect() {
     }, []);
 
     return (
-        <section id="programSelectPC" className={"flex md:gap-0 md:flex-row flex-col justify-center h-screen " + _urbanist}> 
+        <section id="programSelectPC" className={"flex md:gap-0 md:flex-row flex-col justify-center " + _urbanist}> 
             <div className="program pilates h-48">
                 <Link className="flex flex-col" href={"#"}>
                     <div>

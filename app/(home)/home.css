@@ -2,9 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    scroll-snap-type: y mandatory;
+}
+
+section {
+    @apply md:h-[90vh] h-[93vh];
+    scroll-snap-align: end;
+}
+
 /* Hero section */
 .hero {
-    @apply h-[90vh] flex flex-col justify-center overflow-hidden text-flame transition-all duration-500;
+    @apply h-[90vh] flex flex-col justify-center overflow-hidden text-sunset transition-all duration-500;
 }
 
 .heroImage {
@@ -13,8 +22,17 @@
 
 /* program select section */
 
+#pilatesProgram, #yogaProgram {
+    transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
+    transition: all .15s ease-in-out;
+}
+
 .program {
-    @apply h-screen md:w-[50vw] flex flex-col justify-center items-center md:gap-0 md:rounded-none rounded-3xl md:m-0 m-3
+    @apply md:h-[90vh] h-[30vh] md:w-[50vw] flex flex-col justify-center items-center md:gap-0 md:rounded-none rounded-3xl md:m-0 m-3;
+}
+
+.program a {
+    @apply scale-[.7];
 }
 
 .pilates {

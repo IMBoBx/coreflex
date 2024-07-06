@@ -24,16 +24,16 @@ export default function Hero() {
         width={10000}
         height={10000}
         alt=""
-        className={"heroImage hidden md:block"}
+        className={"heroImage hidden md:block blur-sm"}
       />
       <Image 
         src={heroImageMobile}
         width={10000}
         height={10000}
         alt=""
-        className={"heroImage block md:hidden"}
+        className={"heroImage block md:hidden blur-sm"}
       />
-      <div className={"h-[100vh] w-[100vw] bg-black opacity-80 -z-10 absolute top-0 left-0"}/>
+      <div className={"h-[100vh] w-[100vw] bg-black opacity-50 -z-10 absolute top-0 left-0"}/>
     </section>
   )
 }
