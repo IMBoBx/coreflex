@@ -32,7 +32,7 @@ section {
 }
 
 .program a {
-    @apply scale-[.7];
+    @apply scale-75 md:scale-100;
 }
 
 .pilates {
