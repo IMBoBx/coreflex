@@ -124,7 +124,7 @@ export default function ProgramSelect() {
             <div className="program pilates h-48">
                 <Link className="flex flex-col" href={"#"}>
                     <div>
-                        <p id="pilatesProgram" className="transition-all md:h-12 grid place-items-center">{currentPilates}</p>
+                        <h4 id="pilatesProgram" className="transition-all md:h-12 grid place-items-center">{currentPilates}</h4>
                     </div>
                     <span className="mainProgramText md:h-36 grid place-items-center">Pilates</span>
                 </Link>
@@ -132,7 +132,7 @@ export default function ProgramSelect() {
 
             <div className="program yoga">
                 <Link className="grid place-items-center rounded-lg mainProgramText" href={"#"}>
-                   <p id="yogaProgram" className="transition-all h-24 md:h-48 grid place-items-center">{currentYoga}</p>
+                   <span id="yogaProgram" className="transition-all h-24 md:h-48 grid place-items-center">{currentYoga}</span>
                 </Link>
             </div>
         </section>

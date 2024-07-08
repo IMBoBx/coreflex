@@ -16,9 +16,9 @@ const _stickNoBills = stickNoBills.className;
 export default function Hero() {
   return (
     <section id="hero" className="section hero relative text-center">
-      <p className={`${_urbanist} text-2xl md:text-4xl`}>Welcome to</p>
-      <p className={`${_stickNoBills} text-7xl md:text-9xl`}>CoreFlex Pilates Studio</p>
-      <p className={`${_urbanist} text-2xl md:text-4xl`}>Your All-in-One Wellness Destination</p>
+      <h4 className={`${_urbanist}`}>Welcome to</h4>
+      <h1 className={`${_stickNoBills}`}>CoreFlex Pilates Studio</h1>
+      <h4 className={`${_urbanist}`}>Your All-in-One Wellness Destination</h4>
       <Image
         src={heroImagePC}
         width={10000}
