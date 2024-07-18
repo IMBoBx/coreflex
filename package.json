@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/accordion": "^2.0.36",
+    "@nextui-org/image": "^2.0.29",
     "@nextui-org/popover": "^2.1.24",
     "@nextui-org/scroll-shadow": "^2.1.17",
     "@nextui-org/system": "^2.2.2",

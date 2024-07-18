@@ -1,6 +1,7 @@
 import Hero from "./hero";
 import ProgramSelect from "./programSelect";
 import Testimonials from "./testimonials";
+import ExplorePrograms from "./explorePrograms";
 
 export default function Page() {
     return(
@@ -8,6 +9,7 @@ export default function Page() {
             <Hero />
             <ProgramSelect />
             <Testimonials />
+            <ExplorePrograms />
         </>
     )
 }

@@ -25,8 +25,8 @@ const reviews = [
 
 export default function Testimonials() {
     return (
-        <section id="testimonialSection" className="text-center py-7 bg-black text-lavender-bush">
-            <h2 className={_urbanist + " md:pt-8 md:pb-12 max-w-[90%] mx-auto underline underline-offset-8 "}>Hear From Our Clients</h2>
+        <section id="testimonialSection" className="py-7 bg-black text-lavender-bush">
+            <h2 className={_urbanist + " sectionHeader"}>Hear From Our Clients</h2>
             <ScrollShadow className="testimonialContainer container mx-auto flex flex-wrap justify-around overflow-y-auto max-h-[calc(100%-6.5rem)]" hideScrollBar> 
                 {
                     reviews.map(review => (

@@ -19,38 +19,6 @@ export default function ProgramSelect() {
     const [i, setI] = useState(0);
     const [currentPilates, setPilates] = useState(pilatesPrograms[i]);
     
-    // useEffect(() => {
-    //     const pilatesElement = document.getElementById("pilatesProgram");
-    //     const interval = setInterval(() => {
-    //         setI(prevI => {
-    //             const nextI = prevI === pilatesPrograms.length - 1 ? 0 : prevI + 1;
-
-    //             pilatesElement.style = `
-    //                 transform: translateX(50%);
-    //                 opacity: 0;
-    //             `;
-    //             setTimeout(() => {
-    //                 setPilates(pilatesPrograms[nextI]);
-    //                 pilatesElement.style = `
-        //                 transform: translateX(-50%);
-        //                 opacity: 0; 
-    //                 `;
-    //                 setTimeout(() => {
-    //                     pilatesElement.style = `
-    //                     transform: translateX(0);
-    //                     opacity: 1;
-    //                     `;
-    //                 }, 150);
-    //             }, 150);
-    //             return nextI;
-    //         });
-            
-    //     }, 1200);
-
-    //     // Clear the interval when the component unmounts
-    //     return () => clearInterval(interval);
-    // }, []);
-
     useEffect(() => {
     const pilatesElement = document.getElementById("pilatesProgram");
     const interval = setInterval(() => {

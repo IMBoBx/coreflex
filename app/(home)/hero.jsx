@@ -21,20 +21,6 @@ export default function Hero() {
         <h1 className={`${_stickNoBills}`}>CoreFlex Pilates Studio</h1>
         <h4 className={`${_urbanist}`}>Your All-in-One Wellness Destination</h4>
       </div>
-      {/* <Image
-        src={heroImagePC}
-        width={10000}
-        height={10000}
-        alt=""
-        className={"heroImage hidden md:block blur-sm"}
-      />
-      <Image 
-        src={heroImageMobile}
-        width={10000}
-        height={10000}
-        alt=""
-        className={"heroImage block md:hidden blur-sm"}
-      /> */}
       <div className={"h-full w-full bg-black opacity-[.50] absolute top-0 left-0"}/>
     </section>
   )
