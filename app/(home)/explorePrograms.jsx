@@ -23,7 +23,7 @@ export default function ExplorePrograms() {
             <h2 className={_urbanist + " sectionHeader py-5 md:my-auto"}>What We Offer</h2>
             <ScrollShadow className="weOfferContainer h-[80vh] overflow-auto snap" hideScrollBar isEnabled={false}>
                 <div className="weOfferSection">
-                    <h3 className={_josefinSans + " mb-5 md:my-auto"}>Pilates</h3>
+                    <h3 className={_josefinSans + " mb-5 md:my-auto"}>Pilates — Our Signature Class</h3>
                     <div className="programContainer">
                         <div className="programImagesContainer overflow-y-hidden md:h-[50vh] h-[40vh]">
                                 <Image 
