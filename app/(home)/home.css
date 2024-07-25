@@ -16,11 +16,11 @@ h1 {
 }
 
 h2 {
-	@apply text-6xl md:text-8xl;
+	@apply text-5xl md:text-8xl;
 }
 
 h3 {
-	@apply text-5xl md:text-7xl;
+	@apply text-4xl md:text-7xl;
 }
 
 h4, .h4 {
@@ -94,6 +94,7 @@ p, .para {
 
 .weOfferContainer {
 	scroll-snap-type: y mandatory;
+	@apply border-red-500 ;
 }
 
 .weOfferSection {
@@ -105,3 +106,14 @@ p, .para {
 	@apply container mx-auto w-full flex flex-col md:flex-row justify-between md:justify-around items-center md:h-[60vh] h-[65vh] border-gray-700;
 }
 
+.programImagesContainer {
+	@apply overflow-y-hidden md:h-[50vh] h-[30vh]
+}
+
+.programImagesContainer img {
+	@apply h-[25vh] md:h-[50vh] w-[100%] object-cover
+}
+
+.programAccordionContainer { 
+	@apply container mx-auto w-full md:w-[50%] text-lavender-bush md:h-[50vh] h-[40vh] overflow-y-scroll flex flex-col
+}

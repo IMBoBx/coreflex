@@ -20,19 +20,19 @@ export default function ExplorePrograms() {
 
     return (
         <section id="explore" className=" bg-black text-lavender-bush ">
-            <h2 className={_urbanist + " sectionHeader py-5 md:my-auto"}>What We Offer</h2>
+            <h2 className={_urbanist + " sectionHeader h-[10vh] md:h-[20vh]  border-blue-300"}>What We Offer</h2>
             <ScrollShadow className="weOfferContainer h-[80vh] overflow-auto snap" hideScrollBar isEnabled={false}>
                 <div className="weOfferSection">
                     <h3 className={_josefinSans + " mb-5 md:my-auto"}>Pilates — Our Signature Class</h3>
                     <div className="programContainer">
-                        <div className="programImagesContainer overflow-y-hidden md:h-[50vh] h-[40vh]">
+                        <div className="programImagesContainer">
                                 <Image 
                                     src="/choosePilatesMobile.jpg"
                                     alt=""
-                                    className="h-[30vh] md:h-[50vh] w-[100%] object-cover"    
+                                    className="programImagesContainer>img"    
                                 />
                         </div>
-                        <div className="programAccordionContainer container mx-auto w-full md:w-[50%] text-lavender-bush md:h-[50vh] h-[40vh] overflow-y-scroll flex flex-col" >
+                        <div className="programAccordionContainer" >
                             <ScrollShadow hideScrollBar>
                                 <Accordion itemClasses={accordionClasses} showDivider={false} className="">
                                     <AccordionItem aria-label="Reformer Pilates" title="Reformer Pilates">
@@ -52,14 +52,14 @@ export default function ExplorePrograms() {
                 <div className="weOfferSection">
                     <h3 className={_josefinSans + " mb-5 md:my-auto"}>Yoga & Other Programs</h3>
                     <div className="programContainer">
-                        <div className="programImagesContainer overflow-y-hidden md:h-[50vh] h-[40vh]">
+                        <div className="programImagesContainer ">
                                 <Image 
                                     src="/chooseYogaMobile.jpg"
                                     alt=""
-                                    className="h-[30vh] md:h-[50vh] w-[100%] object-cover"    
+                                    className="programImagesContainer>img"    
                                 />
                         </div>
-                        <div className="programAccordionContainer container mx-auto w-full md:w-[50%] text-lavender-bush md:h-[50vh] h-[40vh] overflow-y-scroll flex flex-col" >
+                        <div className="programAccordionContainer" >
                             <ScrollShadow size={40}>
                                 <Accordion itemClasses={accordionClasses} showDivider={false} className="">
                                     <AccordionItem aria-label="Yoga" title="Yoga">
