@@ -92,6 +92,16 @@ p, .para {
 
 /* explore programs */
 
+.weOfferContainer {
+	scroll-snap-type: y mandatory;
+}
+
+.weOfferSection {
+	scroll-snap-align: start;
+	@apply h-full;
+}
+
 .programContainer {
 	@apply container mx-auto w-full flex flex-col md:flex-row justify-between md:justify-around items-center md:h-[60vh] h-[65vh] border-gray-700;
 }
+
