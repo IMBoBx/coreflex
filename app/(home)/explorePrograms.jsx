@@ -13,15 +13,16 @@ const _manrope = manrope.className;
 export default function ExplorePrograms() {
 
     const accordionClasses = {
-        title: "text-lavender-bush h5 " + _manrope,
+        base: "py-0 w-full m-0",
+        title: _manrope + " text-lavender-bush h5 m-0 py-0",
         indicator: "md:scale-[.3] scale-[.4]",
-        content: "text-lavender-bush text-left text-lg md:text-xl " + _manrope
+        content:  _manrope + " text-lavender-bush text-left text-lg md:text-xl",
     };
 
     return (
         <section id="explore" className=" bg-black text-lavender-bush ">
             <h2 className={_urbanist + " sectionHeader h-[10vh] md:h-[20vh]  border-blue-300"}>What We Offer</h2>
-            <ScrollShadow className="weOfferContainer h-[80vh] overflow-auto snap" hideScrollBar isEnabled={false}>
+            <ScrollShadow className="weOfferContainer" hideScrollBar isEnabled={false}>
                 <div className="weOfferSection">
                     <h3 className={_josefinSans + " mb-5 md:my-auto"}>Pilates — Our Signature Class</h3>
                     <div className="programContainer">
@@ -34,7 +35,7 @@ export default function ExplorePrograms() {
                         </div>
                         <div className="programAccordionContainer" >
                             <ScrollShadow hideScrollBar>
-                                <Accordion itemClasses={accordionClasses} showDivider={false} className="">
+                                <Accordion itemClasses={accordionClasses}>
                                     <AccordionItem aria-label="Reformer Pilates" title="Reformer Pilates">
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem quos facilis fugiat assumenda quibusdam amet optio magni. Nihil, quae laboriosam incidunt quam est aliquam non explicabo ut magnam quod distinctio?
                                     </AccordionItem>
@@ -61,7 +62,7 @@ export default function ExplorePrograms() {
                         </div>
                         <div className="programAccordionContainer" >
                             <ScrollShadow size={40}>
-                                <Accordion itemClasses={accordionClasses} showDivider={false} className="">
+                                <Accordion itemClasses={accordionClasses}>
                                     <AccordionItem aria-label="Yoga" title="Yoga">
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem quos facilis fugiat assumenda quibusdam amet optio magni. Nihil, quae laboriosam incidunt quam est aliquam non explicabo ut magnam quod distinctio?
                                     </AccordionItem>

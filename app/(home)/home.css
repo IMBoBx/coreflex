@@ -6,8 +6,8 @@ html {
 	scroll-snap-type: y mandatory;
 }
 
-section {
-	@apply h-[90vh] text-center;
+body > section {
+	@apply md:h-[90vh] h-screen text-center py-10 md:py-[0];
 	scroll-snap-align: end;
 }
 
@@ -61,7 +61,7 @@ p, .para {
 }
 
 .program {
-	@apply md:h-[90vh] h-[40vh] md:w-[50vw] flex flex-col justify-center items-center md:gap-0 md:rounded-none rounded-3xl md:m-0 m-3;
+	@apply md:h-full h-[40vh] md:w-[50vw] flex flex-col justify-center items-center md:gap-0 md:rounded-none rounded-3xl md:m-0 m-3;
 }
 
 .program a {
@@ -94,7 +94,7 @@ p, .para {
 
 .weOfferContainer {
 	scroll-snap-type: y mandatory;
-	@apply border-red-500 ;
+	@apply border-red-500 md:h-[80vh] h-[90vh] overflow-auto;
 }
 
 .weOfferSection {
@@ -107,13 +107,13 @@ p, .para {
 }
 
 .programImagesContainer {
-	@apply overflow-y-hidden md:h-[50vh] h-[30vh]
+	@apply md:h-[50vh] h-[30vh];
 }
 
 .programImagesContainer img {
-	@apply h-[25vh] md:h-[50vh] w-[100%] object-cover
+	@apply h-[calc(100%-10vh)] md:h-[50vh] w-[90%] md:w-full object-cover mx-auto ;
 }
 
 .programAccordionContainer { 
-	@apply container mx-auto w-full md:w-[50%] text-lavender-bush md:h-[50vh] h-[40vh] overflow-y-scroll flex flex-col
+	@apply container mx-auto w-full md:w-[50%] text-lavender-bush md:h-[50vh] h-[40vh] overflow-y-scroll flex flex-col;
 }
