@@ -9,7 +9,7 @@ html {
 
 body > section {
 	@apply md:h-[90vh] h-screen text-center py-10 md:py-[0];
-	scroll-snap-align: end;
+	@apply snap-start md:snap-end;
 }
 
 h1 {
