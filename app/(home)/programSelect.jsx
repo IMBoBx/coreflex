@@ -90,7 +90,7 @@ export default function ProgramSelect() {
     return (
         <section id="programSelectPC" className={"flex md:gap-0 md:flex-row flex-col justify-center " + _urbanist}> 
             <div className="program pilates h-48">
-                <Link className="flex flex-col" href={"#"}>
+                <Link className="flex flex-col" href={"#weOfferPilates"}>
                     <div>
                         <h4 id="pilatesProgram" className="transition-all md:h-12 grid place-items-center">{currentPilates}</h4>
                     </div>
@@ -99,7 +99,7 @@ export default function ProgramSelect() {
             </div>
 
             <div className="program yoga">
-                <Link className="grid place-items-center rounded-lg mainProgramText" href={"#"}>
+                <Link className="grid place-items-center rounded-lg mainProgramText" href={"#weOfferYoga"}>
                    <span id="yogaProgram" className="transition-all h-24 md:h-48 grid place-items-center">{currentYoga}</span>
                 </Link>
             </div>

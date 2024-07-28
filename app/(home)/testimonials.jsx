@@ -25,7 +25,7 @@ const reviews = [
 
 export default function Testimonials() {
     return (
-        <section id="testimonialSection" className="py-7 bg-black text-lavender-bush">
+        <section id="testimonialSection" className="py-7 md:py-0 bg-black text-lavender-bush">
             <h2 className={_urbanist + " sectionHeader"}>Hear From Our Clients</h2>
             <ScrollShadow className="testimonialContainer container mx-auto flex flex-wrap justify-around overflow-y-auto max-h-[calc(100%-6.5rem)]" hideScrollBar> 
                 {

@@ -4,6 +4,7 @@
 
 html {
 	scroll-snap-type: y mandatory;
+	scroll-behavior: smooth;
 }
 
 body > section {
@@ -38,7 +39,11 @@ p, .para {
 }
 
 .sectionHeader {
-	@apply md:pt-8 md:pb-12 max-w-[90%] mx-auto underline underline-offset-8;
+	@apply md:pt-8 md:pb-12 max-w-[90%] mx-auto underline underline-offset-8 h-[10vh] md:h-[20vh];
+}
+
+.logoSVG, #logoSVG {
+	@apply fill-flame;
 }
 
 /* Hero section */
@@ -94,12 +99,12 @@ p, .para {
 
 .weOfferContainer {
 	scroll-snap-type: y mandatory;
-	@apply border-red-500 md:h-[80vh] h-[90vh] overflow-auto;
+	@apply border-red-500 md:h-[70vh] h-[90vh] overflow-auto;
 }
 
 .weOfferSection {
 	scroll-snap-align: start;
-	@apply h-full;
+	@apply h-full 
 }
 
 .programContainer {
@@ -117,3 +122,5 @@ p, .para {
 .programAccordionContainer { 
 	@apply container mx-auto w-full md:w-[50%] text-lavender-bush md:h-[50vh] h-[40vh] overflow-y-scroll flex flex-col;
 }
+
+/* contact us */

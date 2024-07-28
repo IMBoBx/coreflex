@@ -21,9 +21,9 @@ export default function ExplorePrograms() {
 
     return (
         <section id="explore" className=" bg-black text-lavender-bush ">
-            <h2 className={_urbanist + " sectionHeader h-[10vh] md:h-[20vh]  border-blue-300"}>What We Offer</h2>
-            <ScrollShadow className="weOfferContainer" hideScrollBar isEnabled={false}>
-                <div className="weOfferSection">
+            <h2 className={_urbanist + " sectionHeader"}>What We Offer</h2>
+            <ScrollShadow className="weOfferContainer" id="weOfferContainer" hideScrollBar isEnabled={false}>
+                <div className="weOfferSection" id="weOfferPilates">
                     <h3 className={_josefinSans + " mb-5 md:my-auto"}>Pilates — Our Signature Class</h3>
                     <div className="programContainer">
                         <div className="programImagesContainer">
@@ -50,7 +50,7 @@ export default function ExplorePrograms() {
                         </div>
                     </div>
                 </div>
-                <div className="weOfferSection">
+                <div className="weOfferSection" id="weOfferYoga">
                     <h3 className={_josefinSans + " mb-5 md:my-auto"}>Yoga & Other Programs</h3>
                     <div className="programContainer">
                         <div className="programImagesContainer ">
