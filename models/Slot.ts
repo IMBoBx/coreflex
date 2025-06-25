@@ -49,7 +49,7 @@ slotSchema.pre("save", function (next) {
         this.time_end = new Date(this.time_start.getTime() + 60 * 60 * 1000);
     }
 
-    if (this.time_end > this.time_start) {
+    if (this.time_end < this.time_start) {
         return next(
             new Error("Session end time must be after session start time.")
         );

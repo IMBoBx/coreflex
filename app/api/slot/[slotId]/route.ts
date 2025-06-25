@@ -68,3 +68,36 @@ export async function PATCH(
         );
     }
 }
+
+export async function DELETE(
+    req: NextRequest,
+    { params }: { params: { slotId: string } }
+) {
+    try {
+        await connectDB();
+        const { slotId } = params;
+        const slot = await Slot.findById(slotId);
+        if (!slot) {
+            return NextResponse.json(
+                { error: "Slot not found" },
+                { status: 404 }
+            );
+        }
+        // Cancel bookings for all members
+        for (const userId of slot.members) {
+            try {
+                await SlotService.cancelBooking(userId.toString(), slotId);
+            } catch (e) {
+                // Optionally log or handle individual cancellation errors
+                // TODO - add logs
+            }
+        }
+        await Slot.findByIdAndDelete(slotId);
+        return NextResponse.json({ success: true }, { status: 200 });
+    } catch (error: any) {
+        return NextResponse.json(
+            { error: error.message || "DELETE request failed" },
+            { status: 500 }
+        );
+    }
+}
