@@ -8,7 +8,7 @@ export async function GET(
 ) {
     try {
         await connectDB();
-        const { programId } = params;
+        const { programId } = await params;
         const program = await Program.findById(programId);
         if (!program) {
             return NextResponse.json(
@@ -31,7 +31,7 @@ export async function PATCH(
 ) {
     try {
         await connectDB();
-        const { programId } = params;
+        const { programId } = await params;
         const updates = await req.json();
         // Only allow updating name and description
         const allowedFields = ["name", "description"];

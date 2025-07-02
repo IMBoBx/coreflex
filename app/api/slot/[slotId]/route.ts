@@ -40,7 +40,7 @@ export async function PATCH(
     try {
         await connectDB();
 
-        const { slotId } = params;
+        const { slotId } = await params;
         const { userId, action } = await req.json();
         if (!userId || !action) {
             return NextResponse.json(
@@ -75,7 +75,7 @@ export async function DELETE(
 ) {
     try {
         await connectDB();
-        const { slotId } = params;
+        const { slotId } = await params;
         const slot = await Slot.findById(slotId);
         if (!slot) {
             return NextResponse.json(

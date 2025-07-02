@@ -18,8 +18,8 @@ const programSchema: Schema<IProgram> = new mongoose.Schema({
     },
 });
 
-const Program: Model<IProgram> = mongoose.model<IProgram>(
-    "Program",
-    programSchema
-);
+const Program: Model<IProgram> =
+    mongoose.models.Program ||
+    mongoose.model<IProgram>("Program", programSchema);
+
 export default Program;

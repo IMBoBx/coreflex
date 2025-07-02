@@ -5,13 +5,12 @@ interface IUser extends Document {
 
     username: string;
     role: "client" | "admin";
-    sessions_left: {
-        [programId: string]: number;
-    };
+    sessions_left: Types.Map<number>,
     email: string;
     phone: string;
 
     hasSessionsLeft(programId: string): boolean;
+    addSessions(programId: string, inc: number) : number;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
@@ -41,8 +40,21 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 });
 
 userSchema.methods.hasSessionsLeft = function (programId: string) {
-    return this.sessions_left[programId] > 0;
+    return (this.sessions_left.get(programId) ?? 0) > 0;
 };
 
-const User: Model<IUser> = mongoose.model<IUser>("User", userSchema);
+userSchema.methods.addSessions = async function (
+    programId: string,
+    inc: number
+) {
+    const current = this.sessions_left.get(programId) ?? 0;
+    this.sessions_left.set(programId, current + inc);
+    await this.save();
+
+    return this.sessions_left_get(programId);
+};
+
+const User: Model<IUser> =
+    mongoose.models.User || mongoose.model<IUser>("User", userSchema);
+
 export default User;

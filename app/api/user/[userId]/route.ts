@@ -8,15 +8,16 @@ export async function GET(
 ) {
     try {
         await connectDB();
-        const { userId } = params;
+        const { userId } = await params;
         const user = await User.findById(userId);
+        
         if (!user) {
             return NextResponse.json(
                 { error: "User not found" },
                 { status: 404 }
             );
         }
-        return NextResponse.json(user.toObject(), { status: 200 });
+        return NextResponse.json({...user.toObject(), sessions_left: user.sessions_left}, { status: 200 });
     } catch (error: any) {
         return NextResponse.json(
             { error: error.message || "GET request failed" },
@@ -31,7 +32,7 @@ export async function PATCH(
 ) {
     try {
         await connectDB();
-        const { userId } = params;
+        const { userId } = await params;
         const updates = await req.json();
         // Only allow updating certain fields
         const allowedFields = [

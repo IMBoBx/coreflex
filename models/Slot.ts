@@ -70,5 +70,7 @@ slotSchema.methods.hasUser = function (userId: Types.ObjectId) {
     );
 };
 
-const Slot: Model<ISlot> = mongoose.model<ISlot>("Slot", slotSchema);
+const Slot: Model<ISlot> =
+    mongoose.models.Slot || mongoose.model<ISlot>("Slot", slotSchema);
+    
 export default Slot;

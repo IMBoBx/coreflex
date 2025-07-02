@@ -46,7 +46,8 @@ export class SlotService {
                     );
                 }
 
-                user.sessions_left[programId]--;
+                const currentSessionsLeft = user.sessions_left.get(programId) ?? 1;
+                user.sessions_left.set(programId, currentSessionsLeft - 1);
                 await user.save({ session: mongoSession });
             });
         } finally {
@@ -79,7 +80,9 @@ export class SlotService {
                         !member.equals(user._id)
                 );
                 slot.filled--;
-                user.sessions_left[programId]++;
+
+                const currentSessionsLeft = user.sessions_left.get(programId) ?? 0;
+                user.sessions_left.set(programId, currentSessionsLeft + 1);
 
                 await slot.save({ session: mongoSession });
                 await user.save({ session: mongoSession });
