@@ -9,13 +9,23 @@ export async function GET(req: NextRequest) {
         await connectDB();
         const { searchParams } = new URL(req.url);
         const all = searchParams.get("all");
+        const programId = searchParams.get("programId");
+        const date = searchParams.get("date"); // new param: expects YYYY-MM-DD
+
         let slots;
-        if (all === "true") {
-            slots = await Slot.find({});
-        } else {
-            // Default: only future slots
-            slots = await Slot.find({ time_start: { $gte: new Date() } });
+
+        const query: mongoose.FilterQuery<ISlot> = {};
+        all !== "true" && (query.time_start = { $gte: new Date() });
+        programId && (query.program = new mongoose.Types.ObjectId(programId));
+        if (date) {
+            // Parse date as local midnight to next midnight
+            const start = new Date(date + "T00:00:00");
+            const end = new Date(date + "T23:59:59.999");
+            query.time_start = { ...query.time_start, $gte: start, $lte: end };
         }
+
+        slots = await Slot.find(query);
+
         const slotsJson = slots.map((slot) => slot.toObject());
         return NextResponse.json(slotsJson, { status: 200 });
     } catch (error: any) {

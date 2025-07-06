@@ -13,6 +13,10 @@ export interface ISlot extends Document {
     hasUser(userId: Types.ObjectId): boolean;
 }
 
+export interface ISlotModel extends Model<ISlot> {
+    findByProgramId(programId: Types.ObjectId): Promise<ISlot[]>;
+}
+
 const slotSchema: Schema<ISlot> = new Schema({
     program: {
         type: mongoose.SchemaTypes.ObjectId,
@@ -70,7 +74,14 @@ slotSchema.methods.hasUser = function (userId: Types.ObjectId) {
     );
 };
 
-const Slot: Model<ISlot> =
-    mongoose.models.Slot || mongoose.model<ISlot>("Slot", slotSchema);
-    
+slotSchema.statics.findByProgramId = async function (
+    programId: Types.ObjectId
+) {
+    return this.find({ program: programId });
+};
+
+const Slot: ISlotModel =
+    (mongoose.models.Slot as ISlotModel) ||
+    mongoose.model<ISlot, ISlotModel>("Slot", slotSchema);
+
 export default Slot;
