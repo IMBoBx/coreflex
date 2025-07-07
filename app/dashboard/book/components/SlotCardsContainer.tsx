@@ -11,8 +11,9 @@ export default function SlotsCardContainer(props: {
     name: string;
     description: string;
     date: Date;
+    userId: string;
 }) {
-    const { programId: id, name, description, date } = props;
+    const { programId: id, name, description, date, userId } = props;
     const [slots, setSlots] = useState<ISlot[]>([]);
     const [morningSlots, setMorningSlots] = useState<ISlot[]>([]);
     const [eveningSlots, setEveningSlots] = useState<ISlot[]>([]);
@@ -56,14 +57,16 @@ export default function SlotsCardContainer(props: {
         setSelectedSlot(slot);
     }
 
-    async function handleBook(slotId: string, userId: string) {
+    async function handleBook(slotId: string) {
         // Replace with real userId as needed
         // const userId = "demo-user";
+
         const res = await FetchApi.patch(`/slot/${slotId}`, {
             action: "book",
             userId,
         });
-        if (res?.data.success == "true") {
+
+        if (res?.data.success === true) {
             setShowAlert({ text: "Booking successful!", color: "green" });
             setSelectedSlot(null);
             // Optionally refresh slots
@@ -85,9 +88,9 @@ export default function SlotsCardContainer(props: {
             <div className="mb-2 text-left font-bold text-base md:text-lg">
                 Morning
             </div>
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex flex-wrap gap-4 mb-4">
                 {morningSlots.length === 0 && (
-                    <span className="text-gray-400 text-sm">No slots</span>
+                    <span className="text-gray-400 text-sm">No slots yet</span>
                 )}
                 {morningSlots.map((slot) => (
                     <SlotCard
@@ -99,15 +102,17 @@ export default function SlotsCardContainer(props: {
                         capacity={slot.capacity}
                         filled={slot.filled}
                         onClick={() => handleSlotClick(slot)}
+                        userId={userId}
+                        members={slot.members}
                     />
                 ))}
             </div>
             <div className="mb-2 text-left font-bold text-base md:text-lg">
                 Evening
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 md:gap-3.5">
                 {eveningSlots.length === 0 && (
-                    <span className="text-gray-400 text-sm">No slots</span>
+                    <span className="text-gray-400 text-sm">No slots yet</span>
                 )}
                 {eveningSlots.map((slot) => (
                     <SlotCard
@@ -119,6 +124,8 @@ export default function SlotsCardContainer(props: {
                         capacity={slot.capacity}
                         filled={slot.filled}
                         onClick={() => handleSlotClick(slot)}
+                        userId={userId}
+                        members={slot.members}
                     />
                 ))}
             </div>
@@ -130,10 +137,10 @@ export default function SlotsCardContainer(props: {
                     time_end={selectedSlot.time_end}
                     capacity={selectedSlot.capacity}
                     filled={selectedSlot.filled}
-                    userId={"68698a1db1b51e9fa63f74ef"}
+                    userId={userId}
                     isOpen={true}
                     onClose={() => setSelectedSlot(null)}
-                    onBook={async () => handleBook(selectedSlot._id + "", "68698a1db1b51e9fa63f74ef")}
+                    onBook={async () => handleBook(selectedSlot._id + "")}
                 />
             )}
             {showAlert && (

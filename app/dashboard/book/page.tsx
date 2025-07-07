@@ -5,6 +5,8 @@ import { FetchApi } from "@/lib/fetchApi";
 import SlotsCardContainer from "./components/SlotCardsContainer";
 import DateScroller from "./components/DateScroller";
 
+const dummyUserId = "686bcc20f43d36dc7f5f74f0";
+
 const getDateArray = (days: number) => {
     const arr = [];
     const today = new Date();
@@ -52,6 +54,7 @@ export default function Page() {
                                 name={program.name}
                                 description={program.description ?? ""}
                                 date={selectedDate}
+                                userId={dummyUserId}
                             />
                         </div>
                     );

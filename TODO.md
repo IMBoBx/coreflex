@@ -12,4 +12,6 @@ also change the caching of schema models or whatever 👍  ------- done
 
 
 
-TimedAlert -- booking successful logic not working. Same with booking fail, doesn't get error message.
+TimedAlert:
+- booking successful logic not working.  > done
+- Same with booking fail, doesn't get error message. > giving up for now
