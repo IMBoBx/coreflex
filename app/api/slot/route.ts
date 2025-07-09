@@ -1,6 +1,8 @@
 import { connectDB } from "@/lib/db";
-import Slot, { ISlot } from "@/models/Slot";
 import mongoose from "mongoose";
+import "@/models/Program";
+import "@/models/User";
+import Slot, { ISlot, ISlotPopulated } from "@/models/Slot";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -11,12 +13,17 @@ export async function GET(req: NextRequest) {
         const all = searchParams.get("all");
         const programId = searchParams.get("programId");
         const date = searchParams.get("date"); // new param: expects YYYY-MM-DD
+        const userId = searchParams.get("userId");
+        const populated = searchParams.get("populated");
 
         let slots;
 
         const query: mongoose.FilterQuery<ISlot> = {};
-        all !== "true" && (query.time_start = { $gte: new Date() });
+
+        all !== "true" && !date && (query.time_start = { $gte: new Date() });
+
         programId && (query.program = new mongoose.Types.ObjectId(programId));
+
         if (date) {
             // Parse date as local midnight to next midnight
             const start = new Date(date + "T00:00:00");
@@ -24,7 +31,21 @@ export async function GET(req: NextRequest) {
             query.time_start = { ...query.time_start, $gte: start, $lte: end };
         }
 
-        slots = await Slot.find(query);
+        if (userId) {
+            const userObj = new mongoose.Types.ObjectId(userId);
+            query.members = {
+                $elemMatch: { $eq: userObj },
+            };
+        }
+
+        if (populated === "true") {
+            slots = await Slot.find(query)
+                .populate("program")
+                .populate("members")
+                .sort({ time_start: 1 });
+        } else {
+            slots = await Slot.find(query).sort({ time_start: 1 });
+        }
 
         const slotsJson = slots.map((slot) => slot.toObject());
         return NextResponse.json(slotsJson, { status: 200 });

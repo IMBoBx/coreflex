@@ -15,3 +15,6 @@ also change the caching of schema models or whatever 👍  ------- done
 TimedAlert:
 - booking successful logic not working.  > done
 - Same with booking fail, doesn't get error message. > giving up for now
+
+
+Fix the .populate() issue > done

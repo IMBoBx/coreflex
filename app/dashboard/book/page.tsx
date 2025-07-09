@@ -5,7 +5,7 @@ import { FetchApi } from "@/lib/fetchApi";
 import SlotsCardContainer from "./components/SlotCardsContainer";
 import DateScroller from "./components/DateScroller";
 
-const dummyUserId = "686bcc20f43d36dc7f5f74f0";
+const dummyUserId = "686ed7361441e138d380e537";
 
 const getDateArray = (days: number) => {
     const arr = [];

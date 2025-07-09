@@ -1,4 +1,6 @@
 import mongoose, { Schema, Document, Model, Types } from "mongoose";
+import { IProgram } from "./Program";
+import { IUser } from "./User";
 
 export interface ISlot extends Document {
     _id: Types.ObjectId;
@@ -11,6 +13,11 @@ export interface ISlot extends Document {
 
     isFull(): boolean;
     hasUser(userId: Types.ObjectId): boolean;
+}
+
+export interface ISlotPopulated extends Omit<ISlot, "program" | "members"> {
+    program: IProgram;
+    members: IUser[];
 }
 
 export interface ISlotModel extends Model<ISlot> {
