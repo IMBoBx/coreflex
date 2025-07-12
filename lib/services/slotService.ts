@@ -20,8 +20,10 @@ export class SlotService {
 
                 const programId = slot.program.toString();
 
-                if (!user.hasSessionsLeft(programId)) {
-                    throw new Error("No more sessions left.");
+                if (!user.isPackageActive(programId)) {
+                    throw new Error(
+                        "Cannot book. Package for this program not active."
+                    );
                 }
 
                 const updatedSlot = await Slot.findOneAndUpdate(
@@ -46,8 +48,8 @@ export class SlotService {
                     );
                 }
 
-                const currentSessionsLeft = user.sessions_left.get(programId) ?? 1;
-                user.sessions_left.set(programId, currentSessionsLeft - 1);
+                await user.removeSessions(programId, 1);
+
                 await user.save({ session: mongoSession });
             });
         } finally {
@@ -81,8 +83,7 @@ export class SlotService {
                 );
                 slot.filled--;
 
-                const currentSessionsLeft = user.sessions_left.get(programId) ?? 0;
-                user.sessions_left.set(programId, currentSessionsLeft + 1);
+                await user.addSessions(programId, 1);
 
                 await slot.save({ session: mongoSession });
                 await user.save({ session: mongoSession });

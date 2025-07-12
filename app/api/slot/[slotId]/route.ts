@@ -63,7 +63,7 @@ export async function PATCH(
         }
     } catch (error: any) {
         return NextResponse.json(
-            { error: error.message ?? "Booking failed." },
+            { error: error ?? "Booking failed." },
             { status: 500 }
         );
     }

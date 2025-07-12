@@ -10,17 +10,20 @@ export async function GET(
         await connectDB();
         const { userId } = await params;
         const user = await User.findById(userId);
-        
+
         if (!user) {
             return NextResponse.json(
                 { error: "User not found" },
                 { status: 404 }
             );
         }
-        return NextResponse.json({...user.toObject(), sessions_left: user.sessions_left}, { status: 200 });
+        return NextResponse.json(
+            { ...user.toObject(), package_details: user.package_details },
+            { status: 200 }
+        );
     } catch (error: any) {
         return NextResponse.json(
-            { error: error.message || "GET request failed" },
+            { error: error || "GET request failed" },
             { status: 500 }
         );
     }
@@ -37,10 +40,10 @@ export async function PATCH(
         // Only allow updating certain fields
         const allowedFields = [
             "username",
-            "role",
-            "sessions_left",
+            // "role",
             "email",
             "phone",
+            "package_details",
         ];
         const updateData: Record<string, any> = {};
         for (const key of allowedFields) {
