@@ -4,8 +4,7 @@ import { IProgram } from "@/models/Program";
 import { FetchApi } from "@/lib/fetchApi";
 import SlotsCardContainer from "./components/SlotCardsContainer";
 import DateScroller from "./components/DateScroller";
-
-const dummyUserId = "686ed7361441e138d380e537";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 const getDateArray = (days: number) => {
     const arr = [];
@@ -19,46 +18,57 @@ const getDateArray = (days: number) => {
 };
 
 export default function Page() {
+    const [token, setToken] = useState("");
+    const [userId, setUserId] = useState("");
     const [programs, setPrograms] = useState<IProgram[]>([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const dateArray = getDateArray(30);
+
+    useEffect(() => {
+        setToken(localStorage.getItem("token") ?? "");
+        setUserId(localStorage.getItem("userId") ?? "");
+    }, []);
 
     useEffect(() => {
         const fetchPrograms = async () => {
-            const res = await FetchApi.get("/program");
+            const res = await FetchApi.get("/program", {
+                headers: { Authorization: `Bearer ${token}` },
+            });
             res && setPrograms(res.data);
         };
         fetchPrograms();
-    }, []);
+    }, [token]);
 
     return (
-        <div className="max-w-sm md:max-w-4xl mx-auto p-2">
-            {/* Date selector */}
-            <DateScroller
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-                days={30}
-            />
-            {programs.length > 0 &&
-                programs.map((program) => {
-                    return (
-                        <div key={program._id + ""}>
-                            <div className="flex justify-center mb-4">
-                                <div className="font-semibold text-xl md:text-2xl">
-                                    {program.name}
+        <ProtectedRoute allowedRoles={["admin", "client"]}>
+            <div className="max-w-sm md:max-w-4xl mx-auto p-2">
+                {/* Date selector */}
+                <DateScroller
+                    selectedDate={selectedDate}
+                    setSelectedDate={setSelectedDate}
+                    days={30}
+                />
+                {programs.length > 0 &&
+                    programs.map((program) => {
+                        return (
+                            <div key={program._id + ""}>
+                                <div className="flex justify-center mb-4">
+                                    <div className="font-semibold text-xl md:text-2xl">
+                                        {program.name}
+                                    </div>
                                 </div>
-                            </div>
 
-                            <SlotsCardContainer
-                                programId={program._id + ""}
-                                name={program.name}
-                                description={program.description ?? ""}
-                                date={selectedDate}
-                                userId={dummyUserId}
-                            />
-                        </div>
-                    );
-                })}
-        </div>
+                                <SlotsCardContainer
+                                    programId={program._id + ""}
+                                    name={program.name}
+                                    description={program.description ?? ""}
+                                    date={selectedDate}
+                                    userId={userId}
+                                    token={token}
+                                />
+                            </div>
+                        );
+                    })}
+            </div>
+        </ProtectedRoute>
     );
 }

@@ -12,8 +12,9 @@ export default function SlotsCardContainer(props: {
     description: string;
     date: Date;
     userId: string;
+    token: string;
 }) {
-    const { programId: id, name, description, date, userId } = props;
+    const { programId: id, name, description, date, userId, token } = props;
     const [slots, setSlots] = useState<ISlot[]>([]);
     const [morningSlots, setMorningSlots] = useState<ISlot[]>([]);
     const [eveningSlots, setEveningSlots] = useState<ISlot[]>([]);
@@ -28,7 +29,8 @@ export default function SlotsCardContainer(props: {
             // Format date as YYYY-MM-DD
             const dateStr = date.toISOString().slice(0, 10);
             const res = await FetchApi.get(
-                `/slot?programId=${id}&date=${dateStr}&all=true`
+                `/slot?programId=${id}&date=${dateStr}&all=true`,
+                { headers: { Authorization: `Bearer ${token}` } }
             );
             setSlots(res?.data || []);
         };
@@ -61,10 +63,14 @@ export default function SlotsCardContainer(props: {
         // Replace with real userId as needed
         // const userId = "demo-user";
 
-        const res = await FetchApi.patch(`/slot/${slotId}`, {
-            action: "book",
-            userId,
-        });
+        const res = await FetchApi.patch(
+            `/slot/${slotId}`,
+            {
+                action: "book",
+                userId,
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
 
         if (res?.data.success === true) {
             setShowAlert({ text: "Booking successful!", color: "green" });
@@ -72,7 +78,8 @@ export default function SlotsCardContainer(props: {
             // Optionally refresh slots
             const dateStr = date.toISOString().slice(0, 10);
             const refreshed = await FetchApi.get(
-                `/slot?programId=${id}&date=${dateStr}&all=true`
+                `/slot?programId=${id}&date=${dateStr}&all=true`,
+                { headers: { Authorization: `Bearer ${token}` } }
             );
             setSlots(refreshed?.data || []);
         } else {

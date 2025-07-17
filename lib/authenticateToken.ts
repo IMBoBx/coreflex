@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 const JWT_SECRET = process.env.JWT_SECRET!;
 
 export interface DecodedPayload {
-    userId: mongoose.Types.ObjectId;
+    userId: string;
     role: 'client' | 'admin';
     iat: number;
     exp: number;
