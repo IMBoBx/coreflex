@@ -1,7 +1,7 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 export class FetchApi {
-    static async get(path: string, config?: any) {
+    static async get(path: string, config?: AxiosRequestConfig<any> | undefined) {
         try {
             const res = await axios.get("/api" + path);
             return res;
@@ -11,7 +11,7 @@ export class FetchApi {
         }
     }
 
-    static async patch(path: string, body?: any, config?: any) {
+    static async patch(path: string, body?: any, config?: AxiosRequestConfig<any> | undefined) {
         try {
             const res = await axios.patch("/api" + path, body, config);
             return res;
@@ -21,7 +21,7 @@ export class FetchApi {
         }
     }
 
-    static async put(path: string, body?: any, config?: any) {
+    static async put(path: string, body?: any, config?: AxiosRequestConfig<any> | undefined) {
         try {
             const res = await axios.put("/api" + path, body, config);
             return res;
@@ -31,7 +31,7 @@ export class FetchApi {
         }
     }
 
-    static async delete(path: string, config?: any) {
+    static async delete(path: string, config?: AxiosRequestConfig<any> | undefined) {
         try {
             const res = await axios.delete("/api" + path, config);
             return res;

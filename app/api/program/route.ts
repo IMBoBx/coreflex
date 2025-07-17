@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Program from "@/models/Program";
+import { authenticateToken } from "@/lib/authenticateToken";
 
 export async function GET(req: NextRequest) {
+    const authResult = authenticateToken(req);
+    if (!authResult.success) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     try {
         await connectDB();
         const programs = await Program.find({});
@@ -17,6 +23,11 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    const authResult = authenticateToken(req);
+    if (!authResult.success || authResult.decoded?.role !== "admin") {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     try {
         await connectDB();
         const body = await req.json();

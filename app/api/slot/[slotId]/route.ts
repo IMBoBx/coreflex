@@ -2,12 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { SlotService } from "@/lib/services/slotService";
 import Slot from "@/models/Slot";
 import { connectDB } from "@/lib/db";
+import { authenticateToken } from "@/lib/authenticateToken";
 
 export async function GET(
     req: NextRequest,
     { params }: { params: { slotId: string } }
 ) {
-    // ADD AUTH
+    const authResult = authenticateToken(req);
+    if (!authResult.success) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
 
     try {
         await connectDB();
@@ -36,6 +40,10 @@ export async function PATCH(
     { params }: { params: { slotId: string } }
 ) {
     // ADD AUTH
+    const authResult = authenticateToken(req);
+    if (!authResult.success) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
 
     try {
         await connectDB();
@@ -73,6 +81,11 @@ export async function DELETE(
     req: NextRequest,
     { params }: { params: { slotId: string } }
 ) {
+    const authResult = authenticateToken(req);
+    if (!authResult.success || authResult.decoded?.role !== "admin") {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     try {
         await connectDB();
         const { slotId } = await params;

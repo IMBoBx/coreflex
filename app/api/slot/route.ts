@@ -4,9 +4,15 @@ import "@/models/Program";
 import "@/models/User";
 import Slot, { ISlot, ISlotPopulated } from "@/models/Slot";
 import { NextRequest, NextResponse } from "next/server";
+import { authenticateToken } from "@/lib/authenticateToken";
 
 export async function GET(req: NextRequest) {
     // ADD AUTH if needed
+    const authResult = authenticateToken(req);
+    if (!authResult.success) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     try {
         await connectDB();
         const { searchParams } = new URL(req.url);
@@ -58,6 +64,11 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    const authResult = authenticateToken(req);
+    if (!authResult.success || authResult.decoded?.role !== "admin") {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     try {
         await connectDB();
 

@@ -16,9 +16,14 @@ export interface IUser extends Document {
     phone: string;
     package_details: Types.Map<IPackageDetail>;
 
+    otp?: {
+        value: string;
+        expiresAt: Date;
+    };
+
     isPackageActive(programId: string): boolean;
     addSessions(programId: string, inc: number): number;
-    removeSessions(programId: string, inc: number): number;
+    removeSessions(programId: string, dec: number): number;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
@@ -67,12 +72,22 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
         ),
         default: {},
     },
+    otp: {
+        value: { type: String },
+        expiresAt: { type: Date },
+    },
 });
 
 userSchema.pre("save", function (next) {
     this.package_details.forEach((pkg) => {
-        pkg.start_date.setHours(0, 0, 0, 0); // 00:00 hrs
-        pkg.end_date.setHours(23, 59, 59, 999); // 23:59 hrs
+        const start_date = new Date(pkg.start_date);
+        const end_date = new Date(pkg.end_date);
+
+        start_date.setHours(0, 0, 0, 0); // 00:00 hrs
+        end_date.setHours(23, 59, 59, 999); // 23:59 hrs
+
+        pkg.start_date = start_date;
+        pkg.end_date = new Date(end_date);
     });
 
     next();
@@ -116,8 +131,6 @@ userSchema.methods.removeSessions = async function (
     }
     return -1;
 };
-
-
 
 const User: Model<IUser> =
     mongoose.models.User || mongoose.model<IUser>("User", userSchema);

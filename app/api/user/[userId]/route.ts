@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import User from "@/models/User";
+import { authenticateToken } from "@/lib/authenticateToken";
 
 export async function GET(
     req: NextRequest,
     { params }: { params: { userId: string } }
 ) {
+    const authResult = authenticateToken(req);
+    if (!authResult.success) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    // maybe make this admin only ^^
+
     try {
         await connectDB();
         const { userId } = await params;
@@ -33,6 +41,11 @@ export async function PATCH(
     req: NextRequest,
     { params }: { params: { userId: string } }
 ) {
+    const authResult = authenticateToken(req);
+    if (!authResult.success || authResult.decoded?.role !== "admin") {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     try {
         await connectDB();
         const { userId } = await params;

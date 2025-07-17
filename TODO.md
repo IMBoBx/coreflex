@@ -18,3 +18,7 @@ TimedAlert:
 
 
 Fix the .populate() issue > done
+
+Check the pre-save function on User.ts -- should set start/end date properly. According to IST.
+
+Maybe make /api/user/[userId]/GET admin only

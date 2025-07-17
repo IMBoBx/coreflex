@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Program from "@/models/Program";
+import { authenticateToken } from "@/lib/authenticateToken";
 
 export async function GET(
     req: NextRequest,
     { params }: { params: { programId: string } }
 ) {
+    const authResult = authenticateToken(req);
+        if (!authResult.success) {
+            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+        }
     try {
         await connectDB();
         const { programId } = await params;
@@ -29,6 +34,11 @@ export async function PATCH(
     req: NextRequest,
     { params }: { params: { programId: string } }
 ) {
+    const authResult = authenticateToken(req);
+    if (!authResult.success || authResult.decoded?.role !== "admin") {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     try {
         await connectDB();
         const { programId } = await params;
