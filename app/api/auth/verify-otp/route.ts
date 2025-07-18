@@ -6,9 +6,10 @@ import "dotenv/config";
 
 export async function POST(req: NextRequest) {
     await connectDB();
-
     const { email, otp } = await req.json();
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate(
+        "package_details.$*.program"
+    );
     if (!user) {
         return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
@@ -21,8 +22,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "OTP expired" }, { status: 410 });
     }
 
-    // user.otp = undefined;
-    // await user.save();
+    user.otp = undefined;
+    await user.save();
 
     // issue JWT
 
@@ -32,5 +33,14 @@ export async function POST(req: NextRequest) {
         { expiresIn: "15d" }
     );
 
-    return NextResponse.json({ success: true, token, user }, { status: 200 });
+    return NextResponse.json(
+        {
+            success: true,
+            token,
+            userId: user._id.toString(),
+            role: user.role,
+            user,
+        },
+        { status: 200 }
+    );
 }

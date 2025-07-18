@@ -54,4 +54,19 @@ export class FetchApi {
             // throw e;
         }
     }
+
+    static async post(
+        path: string,
+        body?: any,
+        config?: AxiosRequestConfig<any> | undefined
+    ) {
+        try {
+            const res = await axios.post("/api" + path, body, config);
+            return res;
+        } catch (e: any) {
+            console.error("POST error:", e.response?.data || e.message);
+            // throw e;
+        }
+    }
 }
+

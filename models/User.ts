@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, Model, Types } from "mongoose";
+import { IProgram } from "./Program";
 
 export interface IPackageDetail {
     program: Types.ObjectId;
@@ -24,6 +25,14 @@ export interface IUser extends Document {
     isPackageActive(programId: string): boolean;
     addSessions(programId: string, inc: number): number;
     removeSessions(programId: string, dec: number): number;
+}
+
+export interface IPackageDetailPopulated extends Omit<IPackageDetail, "program"> {
+    program: IProgram;
+}
+
+export interface IUserPopulated extends Omit<IUser, "package_details"> {
+    package_details: Types.Map<IPackageDetailPopulated>;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
@@ -63,7 +72,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
                     default: new Date(),
                 },
                 end_date: {
-                    type: Number,
+                    type: Date,
                     required: true,
                     default: new Date(),
                 },

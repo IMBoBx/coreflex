@@ -25,6 +25,13 @@ export default function ProtectedRoute({
 
         try {
             const decoded: DecodedPayload = jwtDecode(token);
+            // if token expired, return
+            if (decoded.exp && Date.now() >= decoded.exp * 1000) {
+                localStorage.removeItem("token");
+                router.push("/login");
+                return;
+            }
+
             if (allowedRoles.includes(decoded.role)) {
                 setAuthChecked(true);
             } else {
