@@ -25,13 +25,17 @@ export default function ProtectedRoute({
 
         try {
             const decoded: DecodedPayload = jwtDecode(token);
-            // if token expired, return
+
+            // Check if token expired
             if (decoded.exp && Date.now() >= decoded.exp * 1000) {
                 localStorage.removeItem("token");
+                localStorage.removeItem("userData");
+                localStorage.removeItem("userDataTimestamp");
                 router.push("/login");
                 return;
             }
 
+            // Check role authorization
             if (allowedRoles.includes(decoded.role)) {
                 setAuthChecked(true);
             } else {
@@ -40,9 +44,11 @@ export default function ProtectedRoute({
             }
         } catch {
             localStorage.removeItem("token");
+            localStorage.removeItem("userData");
+            localStorage.removeItem("userDataTimestamp");
             router.push("/login");
         }
     }, [router, allowedRoles]);
 
-    return authChecked && <>{children}</>;
+    return authChecked ? <>{children}</> : null;
 }

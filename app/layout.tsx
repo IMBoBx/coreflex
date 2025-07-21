@@ -32,7 +32,7 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <nav className="sticky top-0 left-0 w-full h-12 md:h-14 bg-black text-white">
+                <nav className="sticky top-0 left-0 w-full h-12 md:h-14 bg-black text-white z-50">
                     {/* Placeholder Navbar */}
                 </nav>
                 {children}

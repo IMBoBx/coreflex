@@ -6,10 +6,9 @@ import "dotenv/config";
 
 export async function POST(req: NextRequest) {
     await connectDB();
+
     const { email, otp } = await req.json();
-    const user = await User.findOne({ email }).populate(
-        "package_details.$*.program"
-    );
+    const user = await User.findOne({ email }).populate("");
     if (!user) {
         return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
@@ -33,14 +32,5 @@ export async function POST(req: NextRequest) {
         { expiresIn: "15d" }
     );
 
-    return NextResponse.json(
-        {
-            success: true,
-            token,
-            userId: user._id.toString(),
-            role: user.role,
-            user,
-        },
-        { status: 200 }
-    );
+    return NextResponse.json({ success: true, token, user }, { status: 200 });
 }

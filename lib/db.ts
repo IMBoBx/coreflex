@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import "dotenv/config";
 
-import "@/models/User";
-import "@/models/Slot";
-import "@/models/Program";
+// import "@/models/User";
+// import "@/models/Slot";
+// import "@/models/Program";
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
 

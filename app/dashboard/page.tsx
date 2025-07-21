@@ -1,5 +1,6 @@
 "use client";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { loadUserData } from "@/lib/userDataCache";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -17,60 +18,69 @@ interface IPackageDetail {
 export default function Page() {
     const [username, setUsername] = useState<string>("");
     const [activePackages, setActivePackages] = useState<IPackageDetail[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            // Get username from userData or fallback to localStorage
-            const userData = localStorage.getItem("userData");
-            let displayName = "User";
-
-            if (userData) {
+        const loadDashboardData = async () => {
+            if (typeof window !== "undefined") {
                 try {
-                    const parsedUser = JSON.parse(userData);
-                    displayName = parsedUser.username || "User";
+                    const userData = await loadUserData();
+                    let displayName = "User";
 
-                    // Extract active packages
-                    if (parsedUser.package_details) {
-                        const packages: IPackageDetail[] = [];
-                        const today = new Date();
+                    if (userData) {
+                        displayName = userData.username || "User";
 
-                        // Convert Map entries to array if it's a Map
-                        const packageEntries =
-                            parsedUser.package_details instanceof Map
-                                ? Array.from(
-                                      parsedUser.package_details.entries()
-                                  )
-                                : Object.entries(parsedUser.package_details);
+                        // Extract active packages
+                        if (userData.package_details) {
+                            const packages: IPackageDetail[] = [];
+                            const today = new Date();
 
-                        packageEntries.forEach(
-                            //@ts-ignore
-                            ([programId, pkg]: [string, any]) => {
-                                const endDate = new Date(pkg.end_date);
+                            // Convert Map entries to array if it's a Map
+                            const packageEntries =
+                                userData.package_details instanceof Map
+                                    ? Array.from(
+                                          userData.package_details.entries()
+                                      )
+                                    : Object.entries(userData.package_details);
 
-                                // Check if package is active (not expired and has sessions left)
-                                if (endDate > today && pkg.sessions_left > 0) {
-                                    packages.push({
-                                        program: pkg.program,
-                                        sessions_left: pkg.sessions_left,
-                                        start_date: pkg.start_date,
-                                        end_date: pkg.end_date,
-                                    });
+                            packageEntries.forEach(
+                                //@ts-ignore
+                                ([programId, pkg]: [string, any]) => {
+                                    const endDate = new Date(pkg.end_date);
+
+                                    // Check if package is active (not expired and has sessions left)
+                                    if (
+                                        endDate > today &&
+                                        pkg.sessions_left > 0
+                                    ) {
+                                        packages.push({
+                                            program: pkg.program,
+                                            sessions_left: pkg.sessions_left,
+                                            start_date: pkg.start_date,
+                                            end_date: pkg.end_date,
+                                        });
+                                    }
                                 }
-                            }
-                        );
+                            );
 
-                        setActivePackages(packages);
+                            setActivePackages(packages);
+                        }
                     }
-                } catch (error) {
-                    console.error("Error parsing user data:", error);
-                }
-            } else {
-                // Fallback to just username from localStorage
-                displayName = localStorage.getItem("username") ?? "User";
-            }
 
-            setUsername(displayName);
-        }
+                    setUsername(displayName);
+                } catch (error) {
+                    console.error("Failed to load dashboard data:", error);
+                    // Fallback to just username from localStorage
+                    const fallbackName =
+                        localStorage.getItem("username") ?? "User";
+                    setUsername(fallbackName);
+                } finally {
+                    setLoading(false);
+                }
+            }
+        };
+
+        loadDashboardData();
     }, []);
 
     return (
@@ -182,7 +192,15 @@ export default function Page() {
                             Active Packages
                         </h3>
 
-                        {activePackages.length === 0 ? (
+                        {loading ? (
+                            <div className="text-center py-4">
+                                <div className="animate-pulse">
+                                    <p className="opacity-80 text-sm">
+                                        Loading packages...
+                                    </p>
+                                </div>
+                            </div>
+                        ) : activePackages.length === 0 ? (
                             <div className="text-center py-4">
                                 <p className="opacity-80 text-sm">
                                     No active packages
@@ -198,7 +216,7 @@ export default function Page() {
                                         key={index}
                                         className="bg-white/10 rounded-lg p-4 backdrop-blur-sm"
                                     >
-                                        <h4 className="font-semibold text-sm mb-2">
+                                        <h4 className="font-semibold text-sm mb-2 text-white">
                                             {pkg.program.name}
                                         </h4>
                                         <div className="grid grid-cols-2 gap-3 text-xs">
