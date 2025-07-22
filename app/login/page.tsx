@@ -112,7 +112,7 @@ export default function Page() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-6">
+        <div className="min-h-[calc(100vh-3rem)] md:min-h-[calc(100vh-3.5rem)] bg-gray-50 flex items-center justify-center px-4 py-6">
             <div className="w-full max-w-sm">
                 {/* Header */}
                 <div className="text-center mb-8">

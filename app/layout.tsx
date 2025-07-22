@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Open_Sans } from "next/font/google";
 import "./globals.css";
+import Logout from "@/components/Logout";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
             >
                 <nav className="sticky top-0 left-0 w-full h-12 md:h-14 bg-black text-white z-50">
                     {/* Placeholder Navbar */}
+                    <Logout />
                 </nav>
                 {children}
             </body>
