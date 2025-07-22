@@ -24,7 +24,6 @@ export default function SlotCard(props: {
         userId,
     } = props;
     const time_start = new Date(props.time_start);
-    const time_end = props.time_end ? new Date(props.time_end) : undefined;
 
     const checkBooked = () => {
         for (let user of members) {
@@ -75,7 +74,7 @@ export default function SlotCard(props: {
     return (
         <div className="flex flex-col items-center">
             <button
-                className={`block w-auto text-center rounded-lg border shadow-sm px-3 py-2 my-0 md:my-0 focus:outline-none focus:ring-2 focus:ring-blue-400 transition ${getButtonColor()}`}
+                className={`block w-28 text-center rounded-lg border shadow-sm px-3 py-2 my-0 md:my-0 focus:outline-none focus:ring-2 focus:ring-blue-400 transition ${getButtonColor()}`}
                 onClick={onClick}
                 type="button"
                 disabled={booked || capacity - filled === 0}
@@ -93,7 +92,7 @@ export default function SlotCard(props: {
                 </div>
             )}
             {booked &&
-                <div className="mt-1 text-xs text-green-300 font-semibold">
+                <div className="mt-1 text-xs text-green-600 font-semibold">
                     Booked
                 </div>
             }

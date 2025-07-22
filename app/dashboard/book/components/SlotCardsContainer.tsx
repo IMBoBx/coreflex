@@ -89,10 +89,10 @@ export default function SlotsCardContainer(props: {
 
     return (
         <div className="p-3 text-center">
-            <div className="mb-2 text-left font-bold text-base md:text-lg">
+            <div className="mb-2 text-center md:text-left font-bold text-base md:text-lg">
                 Morning
             </div>
-            <div className="flex flex-wrap gap-4 mb-4">
+            <div className="flex flex-wrap justify-center md:justify-normal gap-x-6 gap-y-4 mb-4">
                 {morningSlots.length === 0 && (
                     <span className="text-gray-400 text-sm">No slots yet</span>
                 )}
@@ -111,10 +111,10 @@ export default function SlotsCardContainer(props: {
                     />
                 ))}
             </div>
-            <div className="mb-2 text-left font-bold text-base md:text-lg">
+            <div className="mb-2 text-center md:text-left font-bold text-base md:text-lg">
                 Evening
             </div>
-            <div className="flex flex-wrap gap-2 md:gap-3.5">
+            <div className="flex flex-wrap justify-center md:justify-normal gap-x-6 gap-y-4 md:gap-3.5">
                 {eveningSlots.length === 0 && (
                     <span className="text-gray-400 text-sm">No slots yet</span>
                 )}
