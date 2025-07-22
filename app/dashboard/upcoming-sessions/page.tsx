@@ -148,7 +148,7 @@ export default function Page() {
                                         </button>
                                         {dropdownOpen ===
                                             slot._id.toString() && (
-                                            <div className="absolute top-10 md:-top-8 -right-8 md:-right-15 bg-white border border-gray-300 rounded-xl shadow-md dropdown-menu">
+                                            <div className="absolute top-10 md:-top-8 -right-8 md:-right-15 bg-white border border-gray-300 rounded-xl shadow-md dropdown-menu z-30">
                                                 <button
                                                     className="block px-4 py-2 text-md text-red-500  w-full h-12 text-left cursor-pointer"
                                                     onClick={() =>

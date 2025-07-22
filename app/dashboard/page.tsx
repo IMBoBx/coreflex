@@ -1,6 +1,6 @@
 "use client";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import { loadUserData } from "@/lib/userDataCache";
+import { FetchApi } from "@/lib/fetchApi";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -19,12 +19,20 @@ export default function Page() {
     const [username, setUsername] = useState<string>("");
     const [activePackages, setActivePackages] = useState<IPackageDetail[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [token, setToken] = useState<string>("");
+    const [userId, setUserId] = useState<string>("");
+
+    useEffect(() => {
+        setToken(localStorage.getItem("token") ?? "");
+        setUserId(localStorage.getItem("userId") ?? "");
+    }, []);
 
     useEffect(() => {
         const loadDashboardData = async () => {
             if (typeof window !== "undefined") {
                 try {
-                    const userData = await loadUserData();
+                    const res = await FetchApi.get(`/user/${userId}`, {headers: {Authorization: `Bearer ${token}`}});
+                    const userData = res?.data;
                     let displayName = "User";
 
                     if (userData) {
@@ -80,8 +88,8 @@ export default function Page() {
             }
         };
 
-        loadDashboardData();
-    }, []);
+        token !== "" && loadDashboardData();
+    }, [userId]);
 
     return (
         <ProtectedRoute allowedRoles={["client", "admin"]}>

@@ -18,8 +18,9 @@ const getDateArray = (days: number) => {
 };
 
 export default function Page() {
+    const [loading, setLoading] = useState(true);
     const [token, setToken] = useState("");
-    const [userId, setUserId] = useState("");
+    const [userId, setUserId] = useState("")
     const [programs, setPrograms] = useState<IProgram[]>([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -27,19 +28,20 @@ export default function Page() {
         setToken(localStorage.getItem("token") ?? "");
         setUserId(localStorage.getItem("userId") ?? "");
     }, []);
-
+    
     useEffect(() => {
+        setLoading(false)
         const fetchPrograms = async () => {
             const res = await FetchApi.get("/program", {
                 headers: { Authorization: `Bearer ${token}` },
             });
             res && setPrograms(res.data);
         };
-        fetchPrograms();
+        !loading && fetchPrograms();
     }, [token]);
 
     return (
-        <ProtectedRoute allowedRoles={["admin", "client"]}>
+        loading ? "Loading..." : <ProtectedRoute allowedRoles={["admin", "client"]}>
             <div className="max-w-sm md:max-w-4xl mx-auto p-2">
                 {/* Date selector */}
                 <DateScroller

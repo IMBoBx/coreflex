@@ -1,5 +1,7 @@
 "use client";
+import { DecodedPayload } from "@/lib/authenticateToken";
 import { FetchApi } from "@/lib/fetchApi";
+import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -16,6 +18,11 @@ export default function Page() {
     useEffect(() => {
         if (typeof window !== "undefined") {
             const token = localStorage.getItem("token");
+
+            // const decoded = jwtDecode(token ?? "") as DecodedPayload;
+            // localStorage.setItem("role", decoded.role);
+            // localStorage.setItem("userId", decoded.userId);
+
             if (token) {
                 router.push("/dashboard");
             }

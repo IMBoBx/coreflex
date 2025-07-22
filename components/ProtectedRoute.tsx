@@ -37,6 +37,8 @@ export default function ProtectedRoute({
 
             // Check role authorization
             if (allowedRoles.includes(decoded.role)) {
+                localStorage.setItem("userId", decoded.userId);
+                localStorage.setItem("role", decoded.role);
                 setAuthChecked(true);
             } else {
                 router.push("/login");

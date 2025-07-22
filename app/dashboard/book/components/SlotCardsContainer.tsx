@@ -60,14 +60,11 @@ export default function SlotsCardContainer(props: {
     }
 
     async function handleBook(slotId: string) {
-        // Replace with real userId as needed
-        // const userId = "demo-user";
-
         const res = await FetchApi.patch(
             `/slot/${slotId}`,
             {
                 action: "book",
-                userId,
+                userId: userId,
             },
             { headers: { Authorization: `Bearer ${token}` } }
         );

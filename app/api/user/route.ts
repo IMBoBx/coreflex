@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import User from "@/models/User";
 import { authenticateToken } from "@/lib/authenticateToken";
+import "@/models/Program";
 
 export async function GET(req: NextRequest) {
     const authResult = authenticateToken(req);
@@ -11,7 +12,7 @@ export async function GET(req: NextRequest) {
 
     try {
         await connectDB();
-        const users = await User.find({});
+        const users = await User.find({}).populate("package_detail.$*.program");
 
         const usersWithPackageDetails = users.map((user) => {
             const packageDetails = Array.from(
@@ -37,7 +38,6 @@ export async function GET(req: NextRequest) {
         );
     }
 }
-
 
 export async function POST(req: NextRequest) {
     const authResult = authenticateToken(req);
