@@ -43,7 +43,7 @@ export default function SlotsCardContainer(props: {
         setMorningSlots(
             slots.filter((slot) => {
                 const hour = new Date(slot.time_start).getHours();
-                return hour >= 0 && hour < 14;
+                return hour >= 0 && hour <= 14;
             })
         );
 

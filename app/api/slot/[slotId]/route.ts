@@ -47,9 +47,8 @@ export async function PATCH(
 
     try {
         await connectDB();
-
         const { slotId } = await params;
-        const { userId, action } = await req.json();
+        const { userId, action, force = false } = await req.json();
         if (!userId || !action) {
             return NextResponse.json(
                 { error: "userId and action are required" },
@@ -61,7 +60,7 @@ export async function PATCH(
             await SlotService.bookUserToSlot(userId, slotId);
             return NextResponse.json({ success: true }, { status: 200 });
         } else if (action === "cancel") {
-            await SlotService.cancelBooking(userId, slotId);
+            await SlotService.cancelBooking(userId, slotId, force);
             return NextResponse.json({ success: true }, { status: 200 });
         } else {
             return NextResponse.json(

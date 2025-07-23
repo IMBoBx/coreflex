@@ -2,6 +2,7 @@ import { connectDB } from "@/lib/db";
 import { sendOTPEmail } from "@/lib/mailer";
 import User from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
+import { getCurrentISTDate } from "@/lib/dateUtils";
 
 export async function POST(req: NextRequest) {
     /* 
@@ -9,7 +10,7 @@ export async function POST(req: NextRequest) {
         "email": "abc@gmail.com"
     }
     */
-   await connectDB();
+    await connectDB();
 
     const { email } = await req.json();
     const user = await User.findOne({ email });
@@ -19,9 +20,9 @@ export async function POST(req: NextRequest) {
             { status: 404 }
         );
     }
-
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // + 15 mins
+    const currentIST = getCurrentISTDate();
+    const expiresAt = new Date(currentIST.getTime() + 15 * 60 * 1000); // + 15 mins from IST time
 
     user.otp = { value: otp, expiresAt };
     await user.save();

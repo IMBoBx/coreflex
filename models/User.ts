@@ -1,5 +1,10 @@
 import mongoose, { Schema, Document, Model, Types } from "mongoose";
 import { IProgram } from "./Program";
+import {
+    toISTStartOfDay,
+    toISTEndOfDay,
+    getCurrentISTDate,
+} from "@/lib/dateUtils";
 
 export interface IPackageDetail {
     program: Types.ObjectId;
@@ -27,7 +32,8 @@ export interface IUser extends Document {
     removeSessions(programId: string, dec: number): number;
 }
 
-export interface IPackageDetailPopulated extends Omit<IPackageDetail, "program"> {
+export interface IPackageDetailPopulated
+    extends Omit<IPackageDetail, "program"> {
     program: IProgram;
 }
 
@@ -89,14 +95,12 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 
 userSchema.pre("save", function (next) {
     this.package_details.forEach((pkg) => {
-        const start_date = new Date(pkg.start_date);
-        const end_date = new Date(pkg.end_date);
-
-        start_date.setHours(0, 0, 0, 0); // 00:00 hrs
-        end_date.setHours(23, 59, 59, 999); // 23:59 hrs
+        // Convert dates to IST start/end of day
+        const start_date = toISTStartOfDay(new Date(pkg.start_date));
+        const end_date = toISTEndOfDay(new Date(pkg.end_date));
 
         pkg.start_date = start_date;
-        pkg.end_date = new Date(end_date);
+        pkg.end_date = end_date;
     });
 
     next();
@@ -104,11 +108,14 @@ userSchema.pre("save", function (next) {
 
 userSchema.methods.isPackageActive = function (programId: string): boolean {
     const pkg = this.package_details.get(programId);
-    const today = new Date();
     if (!pkg) return false;
-    const end_date = new Date(pkg.end_date); // Correctly use pkg.end_date
 
-    if (today < pkg.start_date || today > end_date) return false;
+    // Use IST current time for comparison
+    const todayIST = getCurrentISTDate();
+    const start_date = new Date(pkg.start_date);
+    const end_date = new Date(pkg.end_date);
+
+    if (todayIST < start_date || todayIST > end_date) return false;
 
     return pkg.sessions_left > 0;
 };

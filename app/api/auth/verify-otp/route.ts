@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 import "@/models/Program";
+import { getCurrentISTDate } from "@/lib/dateUtils";
 
 export async function POST(req: NextRequest) {
     await connectDB();
@@ -13,18 +14,20 @@ export async function POST(req: NextRequest) {
     if (!user) {
         return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
-
-    if (!otp || !user.otp?.value || !(otp === user.otp.value || otp === "111111")) {
+    if (
+        !otp ||
+        !user.otp?.value ||
+        !(otp === user.otp.value || otp === "111111")
+    ) {
         return NextResponse.json({ error: "Incorrect OTP" }, { status: 401 });
     }
 
-    if (new Date() > user.otp.expiresAt) {
+    if (getCurrentISTDate() > user.otp.expiresAt) {
         return NextResponse.json({ error: "OTP expired" }, { status: 410 });
     }
 
     user.otp = undefined;
     await user.save();
-
 
     // issue JWT
 
@@ -36,5 +39,8 @@ export async function POST(req: NextRequest) {
 
     const userPopulated = await user.populate("package_details.$*.program");
 
-    return NextResponse.json({ success: true, token, user: await userPopulated.toJSON() }, { status: 200 });
+    return NextResponse.json(
+        { success: true, token, user: await userPopulated.toJSON() },
+        { status: 200 }
+    );
 }

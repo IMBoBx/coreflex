@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Slot from "@/models/Slot";
 import User from "@/models/User";
+import { getCurrentISTDate } from "@/lib/dateUtils";
 
 export class SlotService {
     static async bookUserToSlot(userId: string, slotId: string) {
@@ -56,8 +57,11 @@ export class SlotService {
             mongoSession.endSession();
         }
     }
-
-    static async cancelBooking(userId: string, slotId: string) {
+    static async cancelBooking(
+        userId: string,
+        slotId: string,
+        force: boolean = false
+    ) {
         const mongoSession = await mongoose.startSession();
 
         try {
@@ -75,6 +79,42 @@ export class SlotService {
 
                 if (!slot.hasUser(user._id)) {
                     throw new Error("User not booked into session.");
+                }
+
+                // Check cancellation time restrictions (unless force is true)
+                if (!force) {
+                    const currentTimeIST = getCurrentISTDate();
+                    const sessionStartTime = new Date(slot.time_start);
+                    const timeLeftInHours =
+                        (sessionStartTime.getTime() -
+                            currentTimeIST.getTime()) /
+                        (1000 * 60 * 60);
+
+                    // Get hour in IST to determine if it's morning or evening class
+                    const sessionHourIST = sessionStartTime.toLocaleString(
+                        "en-US",
+                        {
+                            timeZone: "Asia/Kolkata",
+                            hour12: false,
+                            hour: "2-digit",
+                        }
+                    );
+                    const hourIST = parseInt(sessionHourIST);
+
+                    const isMorningClass = hourIST >= 0 && hourIST < 15;
+                    const isEveningClass = hourIST >= 15 && hourIST <= 23;
+
+                    if (isMorningClass && timeLeftInHours < 12) {
+                        throw new Error(
+                            "Cannot cancel morning sessions within 12 hours of start time."
+                        );
+                    }
+
+                    if (isEveningClass && timeLeftInHours < 6) {
+                        throw new Error(
+                            "Cannot cancel evening sessions within 6 hours of start time."
+                        );
+                    }
                 }
 
                 slot.members = slot.members.filter(

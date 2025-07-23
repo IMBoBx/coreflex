@@ -5,6 +5,11 @@ import "@/models/User";
 import Slot, { ISlot, ISlotPopulated } from "@/models/Slot";
 import { NextRequest, NextResponse } from "next/server";
 import { authenticateToken } from "@/lib/authenticateToken";
+import {
+    getISTStartOfDay,
+    getISTEndOfDay,
+    getCurrentISTDate,
+} from "@/lib/dateUtils";
 
 export async function GET(req: NextRequest) {
     // ADD AUTH if needed
@@ -23,17 +28,16 @@ export async function GET(req: NextRequest) {
         const populated = searchParams.get("populated");
 
         let slots;
+        let query: mongoose.FilterQuery<ISlot> = {};
 
-        const query: mongoose.FilterQuery<ISlot> = {};
-
-        all !== "true" && !date && (query.time_start = { $gte: new Date() });
+        all !== "true" &&
+            !date &&
+            (query.time_start = { $gte: getCurrentISTDate() });
 
         programId && (query.program = new mongoose.Types.ObjectId(programId));
-
         if (date) {
-            // Parse date as local midnight to next midnight
-            const start = new Date(date + "T00:00:00");
-            const end = new Date(date + "T23:59:59.999");
+            const start = getISTStartOfDay(date);
+            const end = getISTEndOfDay(date);
             query.time_start = { ...query.time_start, $gte: start, $lte: end };
         }
 
