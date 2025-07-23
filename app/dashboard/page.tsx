@@ -97,7 +97,7 @@ export default function Page() {
                 {/* Header */}
                 <div className="max-w-sm mx-auto mb-8">
                     <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center">
-                        Welcome back, {username}!
+                        Welcome back, {username.split(" ")[0]}!
                     </h1>
                     <p className="text-gray-600 text-center mt-2">
                         What would you like to do today?
