@@ -5,16 +5,16 @@ import { useEffect, useState } from "react";
 import SlotCard from "./SlotCard";
 import BookingModal from "./BookingModal";
 import TimedAlert from "@/components/TimedAlert";
+import { useAuth } from "@/components/ProtectedRoute";
 
 export default function SlotsCardContainer(props: {
     programId: string;
     name: string;
     description: string;
     date: Date;
-    userId: string;
-    token: string;
 }) {
-    const { programId: id, name, description, date, userId, token } = props;
+    const { programId: id, name, description, date } = props;
+    const { token, userId } = useAuth();
     const [slots, setSlots] = useState<ISlot[]>([]);
     const [morningSlots, setMorningSlots] = useState<ISlot[]>([]);
     const [eveningSlots, setEveningSlots] = useState<ISlot[]>([]);
@@ -23,9 +23,9 @@ export default function SlotsCardContainer(props: {
         text: string;
         color: "green" | "red" | "orange";
     }>(null);
-
     useEffect(() => {
         const fetchSlots = async () => {
+            if (!token) return;
             // Format date as YYYY-MM-DD
             const dateStr = date.toISOString().slice(0, 10);
             const res = await FetchApi.get(
@@ -35,7 +35,7 @@ export default function SlotsCardContainer(props: {
             setSlots(res?.data || []);
         };
         fetchSlots();
-    }, [id, date]);
+    }, [id, date, token]);
 
     // Group slots by time of day
 
@@ -58,8 +58,9 @@ export default function SlotsCardContainer(props: {
     function handleSlotClick(slot: ISlot) {
         setSelectedSlot(slot);
     }
-
     async function handleBook(slotId: string) {
+        if (!token || !userId) return;
+
         const res = await FetchApi.patch(
             `/slot/${slotId}`,
             {
@@ -71,8 +72,7 @@ export default function SlotsCardContainer(props: {
 
         if (res?.data.success === true) {
             setShowAlert({ text: "Booking successful!", color: "green" });
-            setSelectedSlot(null);
-            // Optionally refresh slots
+            setSelectedSlot(null); // Optionally refresh slots
             const dateStr = date.toISOString().slice(0, 10);
             const refreshed = await FetchApi.get(
                 `/slot?programId=${id}&date=${dateStr}&all=true`,
@@ -91,49 +91,51 @@ export default function SlotsCardContainer(props: {
         <div className="p-3 text-center">
             <div className="mb-2 text-center md:text-left font-bold text-base md:text-lg">
                 Morning
-            </div>
+            </div>{" "}
             <div className="flex flex-wrap justify-center md:justify-normal gap-x-6 gap-y-4 mb-4">
                 {morningSlots.length === 0 && (
                     <span className="text-gray-400 text-sm">No slots yet</span>
                 )}
-                {morningSlots.map((slot) => (
-                    <SlotCard
-                        key={slot._id + ""}
-                        slotId={slot._id + ""}
-                        program={name}
-                        time_start={slot.time_start}
-                        time_end={slot.time_end}
-                        capacity={slot.capacity}
-                        filled={slot.filled}
-                        onClick={() => handleSlotClick(slot)}
-                        userId={userId}
-                        members={slot.members}
-                    />
-                ))}
+                {userId &&
+                    morningSlots.map((slot) => (
+                        <SlotCard
+                            key={slot._id + ""}
+                            slotId={slot._id + ""}
+                            program={name}
+                            time_start={slot.time_start}
+                            time_end={slot.time_end}
+                            capacity={slot.capacity}
+                            filled={slot.filled}
+                            onClick={() => handleSlotClick(slot)}
+                            userId={userId}
+                            members={slot.members}
+                        />
+                    ))}
             </div>
             <div className="mb-2 text-center md:text-left font-bold text-base md:text-lg">
                 Evening
-            </div>
+            </div>{" "}
             <div className="flex flex-wrap justify-center md:justify-normal gap-x-6 gap-y-4 md:gap-3.5">
                 {eveningSlots.length === 0 && (
                     <span className="text-gray-400 text-sm">No slots yet</span>
                 )}
-                {eveningSlots.map((slot) => (
-                    <SlotCard
-                        key={slot._id + ""}
-                        slotId={slot._id + ""}
-                        program={name}
-                        time_start={slot.time_start}
-                        time_end={slot.time_end}
-                        capacity={slot.capacity}
-                        filled={slot.filled}
-                        onClick={() => handleSlotClick(slot)}
-                        userId={userId}
-                        members={slot.members}
-                    />
-                ))}
-            </div>
-            {selectedSlot && (
+                {userId &&
+                    eveningSlots.map((slot) => (
+                        <SlotCard
+                            key={slot._id + ""}
+                            slotId={slot._id + ""}
+                            program={name}
+                            time_start={slot.time_start}
+                            time_end={slot.time_end}
+                            capacity={slot.capacity}
+                            filled={slot.filled}
+                            onClick={() => handleSlotClick(slot)}
+                            userId={userId}
+                            members={slot.members}
+                        />
+                    ))}
+            </div>{" "}
+            {selectedSlot && userId && (
                 <BookingModal
                     slotId={selectedSlot._id + ""}
                     program={name}

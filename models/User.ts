@@ -4,7 +4,7 @@ import {
     toISTStartOfDay,
     toISTEndOfDay,
     getCurrentISTDate,
-} from "@/lib/dateUtils";
+} from "../lib/dateUtils";
 
 export interface IPackageDetail {
     program: Types.ObjectId;
@@ -28,6 +28,7 @@ export interface IUser extends Document {
     };
 
     isPackageActive(programId: string): boolean;
+    isActive(): boolean;
     addSessions(programId: string, inc: number): number;
     removeSessions(programId: string, dec: number): number;
 }
@@ -119,6 +120,21 @@ userSchema.methods.isPackageActive = function (programId: string): boolean {
 
     return pkg.sessions_left > 0;
 };
+
+userSchema.methods.isActive = function (): boolean {
+    for (const pkg of this.package_details){
+        const todayIST = getCurrentISTDate();
+        const start_date = new Date(pkg.start_date);
+        const end_date = new Date(pkg.end_date);
+
+        if (todayIST > start_date && todayIST < end_date && pkg.sessions_left > 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 
 userSchema.methods.addSessions = async function (
     programId: string,
