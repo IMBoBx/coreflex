@@ -12,7 +12,9 @@ export async function GET(req: NextRequest) {
 
     try {
         await connectDB();
-        const users = await User.find({}).populate("package_detail.$*.program");
+        const users = await User.find({ role: "client" })
+            .sort({ username: "asc" })
+            .populate("package_details.$*.program");
 
         const usersWithPackageDetails = users.map((user) => {
             const packageDetails = Array.from(

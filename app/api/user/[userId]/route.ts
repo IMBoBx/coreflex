@@ -15,8 +15,6 @@ export async function GET(
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    // maybe make this admin only ^^
-
     try {
         await connectDB();
 
@@ -70,13 +68,9 @@ export async function PATCH(
 
         const allowedFields = [
             "username",
-
             // "role",
-
             "email",
-
             "phone",
-
             "package_details",
         ];
 
