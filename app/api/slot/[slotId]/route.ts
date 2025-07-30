@@ -15,8 +15,20 @@ export async function GET(
 
     try {
         await connectDB();
-        const { slotId } = params;
-        const slot = await Slot.findById(slotId);
+        const { slotId } = await params;
+        const { searchParams } = new URL(req.url);
+        const populate = searchParams.get("populate") === "true";
+
+        let slot;
+        if (populate) {
+            slot = await Slot.findById(slotId).populate(
+                "members",
+                "username phone email"
+            );
+        } else {
+            slot = await Slot.findById(slotId);
+        }
+
         if (!slot) {
             return NextResponse.json(
                 { error: "session not found" },
@@ -44,23 +56,53 @@ export async function PATCH(
     if (!authResult.success) {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
-
     try {
         await connectDB();
         const { slotId } = await params;
-        const { userId, action, force = false } = await req.json();
+        const {
+            userId,
+            action,
+            force = false,
+            capacity,
+            filled,
+            time_start,
+            time_end,
+        } = await req.json();
+        if (action === "update" && authResult.decoded?.role === "admin") {
+            const slot = await Slot.findById(slotId);
+            if (!slot) {
+                return NextResponse.json(
+                    { error: "Session not found" },
+                    { status: 404 }
+                );
+            }
+            if (capacity !== undefined) slot.capacity = capacity;
+            if (filled !== undefined) slot.filled = filled;
+            if (time_start !== undefined)
+                slot.time_start = new Date(time_start);
+            if (time_end !== undefined) slot.time_end = new Date(time_end);
+
+            await slot.save();
+            return NextResponse.json({ success: true }, { status: 200 });
+        }
+
         if (!userId || !action) {
             return NextResponse.json(
                 { error: "userId and action are required" },
                 { status: 400 }
             );
         }
-
         if (action === "book") {
             await SlotService.bookUserToSlot(userId, slotId);
             return NextResponse.json({ success: true }, { status: 200 });
         } else if (action === "cancel") {
             await SlotService.cancelBooking(userId, slotId, force);
+            return NextResponse.json({ success: true }, { status: 200 });
+        } else if (
+            action === "remove" &&
+            authResult.decoded?.role === "admin"
+        ) {
+            await SlotService.cancelBooking(userId, slotId, true); // Force remove as admin
             return NextResponse.json({ success: true }, { status: 200 });
         } else {
             return NextResponse.json(

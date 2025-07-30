@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 import { IProgram } from "@/models/Program";
 import { FetchApi } from "@/lib/fetchApi";
-import SlotsCardContainer from "./components/SlotCardsContainer";
+import AdminSlotsCardContainer from "./components/AdminSlotsCardContainer";
 import DateScroller from "@/components/DateScroller";
 import { useAuth } from "@/components/ProtectedRoute";
+import { IST_TIMEZONE } from "@/lib/dateUtils";
 
-
-export default function Page() {
+export default function AdminSessionsPage() {
     const { token, userId } = useAuth();
     const [loading, setLoading] = useState(true);
     const [programs, setPrograms] = useState<IProgram[]>([]);
@@ -23,6 +23,7 @@ export default function Page() {
         };
         token && fetchPrograms();
     }, [token]);
+
     return loading ? (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
             <div className="flex items-center space-x-3">
@@ -36,22 +37,48 @@ export default function Page() {
                 {/* Header */}
                 <div className="mb-6 md:mb-8">
                     <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-2">
-                        Book Your Session
+                        Sessions Manager
                     </h1>
                     <p className="text-gray-600 text-center text-sm md:text-base">
-                        Select a date and choose your preferred time slot
-                    </p>
-                </div>
-
+                        Manage sessions and view member bookings
+                    </p>{" "}
+                </div>{" "}
                 {/* Date selector */}
-                <div className="mb-6 md:mb max-w-full overflow-x-auto flex justify-center-safe">
-                    <DateScroller
-                        selectedDate={selectedDate}
-                        setSelectedDate={setSelectedDate}
-                        days={15}
-                    />
-                </div>
+                <div className="mb-6 md:mb-8 flex flex-row items-center gap-3 max-w-full">
+                    {/* Date Picker */}
+                    <div className="flex-shrink-0 w-auto">
+                        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-2 md:p-3">
+                            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 text-center">
+                                Jump to Date
+                            </label>
+                            <input
+                                type="date"
+                                value={selectedDate.toLocaleDateString(
+                                    "en-CA",
+                                    {
+                                        timeZone: IST_TIMEZONE,
+                                    }
+                                )}
+                                onChange={(e) => {
+                                    const newDate = new Date(
+                                        e.target.value + "T12:00:00"
+                                    );
+                                    setSelectedDate(newDate);
+                                }}
+                                className="w-full px-2 py-1 md:px-3 md:py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-xs md:text-sm"
+                            />
+                        </div>
+                    </div>
 
+                    {/* Date Scroller */}
+                    <div className="flex-1 overflow-x-auto flex justify-center-safe">
+                        <DateScroller
+                            selectedDate={selectedDate}
+                            setSelectedDate={setSelectedDate}
+                            days={15}
+                        />
+                    </div>
+                </div>
                 {/* Programs */}
                 {programs.length > 0 ? (
                     <div className="space-y-6 md:space-y-8">
@@ -72,9 +99,9 @@ export default function Page() {
                                                 </p>
                                             )}
                                         </div>
-                                    </div>{" "}
+                                    </div>
                                     <div className="p-4 md:p-6">
-                                        <SlotsCardContainer
+                                        <AdminSlotsCardContainer
                                             programId={program._id + ""}
                                             name={program.name}
                                             description={
@@ -100,7 +127,7 @@ export default function Page() {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     strokeWidth={1}
-                                    d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4h3a2 2 0 012 2v2M8 7H5a2 2 0 00-2 2v8a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-5 0V7"
+                                    d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4h3a2 2 0 012 2v2M8 7H5a2 2 0 00-2 2v8a2 2 0 002 2V9a2 2 0 00-2-2h-3m-5 0V7"
                                 />
                             </svg>
                         </div>

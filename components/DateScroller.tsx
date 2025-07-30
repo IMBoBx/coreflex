@@ -23,59 +23,7 @@ export default function DateScroller({
     days = 30,
 }: DateScrollerProps) {
     const dateArray = getDateArray(days);
-    const [scrollIndex, setScrollIndex] = useState(0);
-    const visibleCount = 4; // Number of dates visible at once (mobile-first)
-    const scrollStep = 3; // Scroll 3 days per click
     const scrollerRef = useRef<HTMLDivElement>(null);
-    const maxIndex = Math.max(0, dateArray.length - visibleCount);
-
-    const handleScroll = (dir: "left" | "right") => {
-        let newIndex =
-            scrollIndex + (dir === "left" ? -scrollStep : scrollStep);
-        newIndex = Math.max(0, Math.min(newIndex, maxIndex));
-        setScrollIndex(newIndex);
-        if (scrollerRef.current) {
-            const width = scrollerRef.current.offsetWidth / visibleCount;
-            scrollerRef.current.scrollTo({
-                left: newIndex * width,
-                behavior: "smooth",
-            });
-        }
-    };
-
-    // SVG icons for arrows (Heroicons, MIT License)
-    const LeftIcon = (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-        >
-            <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 19.5L8.25 12l7.5-7.5"
-            />
-        </svg>
-    );
-    const RightIcon = (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-        >
-            <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
-        </svg>
-    );
 
     return (
         <div className="mb-4">

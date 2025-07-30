@@ -138,7 +138,7 @@ export default function SlotsCardContainer(props: {
             {selectedSlot && userId && (
                 <BookingModal
                     slotId={selectedSlot._id + ""}
-                    program={name}
+                    program_name={name}
                     time_start={selectedSlot.time_start}
                     time_end={selectedSlot.time_end}
                     capacity={selectedSlot.capacity}

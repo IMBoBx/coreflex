@@ -5,6 +5,7 @@ import { IUserPopulated } from "@/models/User";
 import { useEffect, useState } from "react";
 import ClientCard from "./ClientCard";
 import ClientModal from "./ClientModal";
+import NewClientModal from "./NewClientModal";
 import { useAuth } from "@/components/ProtectedRoute";
 
 export default function ClientCardContainer() {
@@ -15,6 +16,7 @@ export default function ClientCardContainer() {
         null
     );
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isNewClientModalOpen, setIsNewClientModalOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
 
     // ...existing code...
@@ -106,6 +108,7 @@ export default function ClientCardContainer() {
                 </div>
             ) : (
                 <div className="max-w-7xl mx-auto space-y-8">
+                    {" "}
                     {/* Search Bar */}
                     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
@@ -117,31 +120,55 @@ export default function ClientCardContainer() {
                                     Search and manage all your clients
                                 </p>
                             </div>
-                            <div className="relative w-full sm:w-80">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <div className="flex items-center gap-3">
+                                <div className="relative w-full sm:w-80">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg
+                                            className="h-5 w-5 text-gray-400"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder="Search by name or phone number..."
+                                        value={searchQuery}
+                                        onChange={(e) =>
+                                            setSearchQuery(e.target.value)
+                                        }
+                                        className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    />
+                                </div>
+                                {/* Desktop New Client Button */}
+                                <button
+                                    onClick={() =>
+                                        setIsNewClientModalOpen(true)
+                                    }
+                                    className="hidden sm:flex px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 items-center gap-2 whitespace-nowrap"
+                                >
                                     <svg
-                                        className="h-5 w-5 text-gray-400"
+                                        className="w-4 h-4"
                                         fill="none"
-                                        viewBox="0 0 24 24"
                                         stroke="currentColor"
+                                        viewBox="0 0 24 24"
                                     >
                                         <path
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
                                             strokeWidth={2}
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                                         />
                                     </svg>
-                                </div>
-                                <input
-                                    type="text"
-                                    placeholder="Search by name or phone number..."
-                                    value={searchQuery}
-                                    onChange={(e) =>
-                                        setSearchQuery(e.target.value)
-                                    }
-                                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                />
+                                    New Client
+                                </button>
                             </div>
                         </div>
                         {searchQuery && (
@@ -151,22 +178,26 @@ export default function ClientCardContainer() {
                                 matching "{searchQuery}"
                             </div>
                         )}
-                    </div>
+                    </div>{" "}
                     {/* Active Clients Section */}
                     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                        <div className="flex items-center mb-6">
-                            <div className="w-3 h-3 bg-green-500 rounded-full mr-3"></div>{" "}
-                            <h2 className="text-xl font-semibold text-gray-900">
-                                Active Clients
-                                <span className="ml-2 text-sm font-normal text-gray-500">
-                                    (
-                                    {
-                                        filteredClients.filter(isClientActive)
-                                            .length
-                                    }
-                                    )
-                                </span>
-                            </h2>
+                        {" "}
+                        <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center">
+                                <div className="w-3 h-3 bg-green-500 rounded-full mr-3"></div>{" "}
+                                <h2 className="text-xl font-semibold text-gray-900">
+                                    Active Clients
+                                    <span className="ml-2 text-sm font-normal text-gray-500">
+                                        (
+                                        {
+                                            filteredClients.filter(
+                                                isClientActive
+                                            ).length
+                                        }
+                                        )
+                                    </span>
+                                </h2>
+                            </div>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                             {filteredClients.filter(isClientActive).length >
@@ -264,7 +295,26 @@ export default function ClientCardContainer() {
                     </div>{" "}
                 </div>
             )}{" "}
-            {/* Modal */}
+            {/* Mobile Floating Button */}
+            <button
+                onClick={() => setIsNewClientModalOpen(true)}
+                className="sm:hidden fixed bottom-6 right-6 w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center z-40"
+            >
+                <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                </svg>
+            </button>
+            {/* Modals */}
             {selectedClient && (
                 <ClientModal
                     client={selectedClient}
@@ -273,6 +323,11 @@ export default function ClientCardContainer() {
                     onSave={getClients}
                 />
             )}
+            <NewClientModal
+                isOpen={isNewClientModalOpen}
+                onClose={() => setIsNewClientModalOpen(false)}
+                onSave={getClients}
+            />
         </div>
     );
 }

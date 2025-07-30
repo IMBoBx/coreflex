@@ -26,6 +26,7 @@ export async function GET(req: NextRequest) {
         const date = searchParams.get("date"); // new param: expects YYYY-MM-DD
         const userId = searchParams.get("userId");
         const populated = searchParams.get("populated");
+        const order = searchParams.get("order");
 
         let slots;
         let query: mongoose.FilterQuery<ISlot> = {};
@@ -54,7 +55,7 @@ export async function GET(req: NextRequest) {
                 .populate("members")
                 .sort({ time_start: 1 });
         } else {
-            slots = await Slot.find(query).sort({ time_start: 1 });
+            slots = await Slot.find(query).sort({ time_start: (order === "desc" ? "desc" : "asc") });
         }
 
         const slotsJson = slots.map((slot) => slot.toObject());

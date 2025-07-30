@@ -14,15 +14,7 @@ export default function SlotCard(props: {
     members: mongoose.Types.ObjectId[];
     userId: string;
 }) {
-    const {
-        slotId: id,
-        program,
-        capacity,
-        filled,
-        onClick,
-        members,
-        userId,
-    } = props;
+    const { capacity, filled, onClick, members, userId } = props;
     const time_start = new Date(props.time_start);
 
     const checkBooked = () => {
@@ -65,7 +57,7 @@ export default function SlotCard(props: {
         } else if (remaining == 1) {
             return "text-red-600";
         } else if (remaining <= capacity / 2) {
-            return "text-orange-600";
+            return "text-orange-500";
         } else {
             return "text-blue-700";
         }
@@ -91,16 +83,21 @@ export default function SlotCard(props: {
                     Last spot!
                 </div>
             )}
-            {booked &&
+            {capacity - filled <= capacity / 2 && capacity - filled !== 1 && (
+                <div className="mt-1 text-xs text-orange-500 font-semibold">
+                    Filling Fast!
+                </div>
+            )}
+            {booked && (
                 <div className="mt-1 text-xs text-green-600 font-semibold">
                     Booked
                 </div>
-            }
-            {capacity - filled === 0 && !booked &&
+            )}
+            {capacity - filled === 0 && !booked && (
                 <div className="mt-1 text-xs text-gray-400 font-semibold">
                     Slot full
                 </div>
-            }
+            )}
         </div>
     );
 }
