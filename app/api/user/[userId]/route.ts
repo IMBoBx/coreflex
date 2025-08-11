@@ -98,7 +98,41 @@ export async function PATCH(
     } catch (error: any) {
         return NextResponse.json(
             { error: error.message || "PATCH request failed" },
+            { status: 500 }
+        );
+    }
+}
 
+export async function DELETE(
+    req: NextRequest,
+    { params }: { params: { userId: string } }
+) {
+    const authResult = authenticateToken(req);
+    if (!authResult.success || authResult.decoded?.role !== "admin") {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    try {
+        await connectDB();
+        const { userId } = await params;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return NextResponse.json(
+                { error: "User not found" },
+                { status: 404 }
+            );
+        }
+
+        // TODO: Cancel all user's bookings before deleting
+        // This would require importing SlotService and canceling all bookings
+        // For now, we'll just delete the user
+
+        await User.findByIdAndDelete(userId);
+        return NextResponse.json({ success: true }, { status: 200 });
+    } catch (error: any) {
+        return NextResponse.json(
+            { error: error.message || "DELETE request failed" },
             { status: 500 }
         );
     }

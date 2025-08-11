@@ -40,6 +40,7 @@ export default function AdminSessionModal({
         }), // YYYY-MM-DD format
     });
     const [confirmRemove, setConfirmRemove] = useState<string | null>(null);
+    const [confirmDelete, setConfirmDelete] = useState(false);
     useEffect(() => {
         if (isOpen && slot) {
             fetchSlotMembers();
@@ -54,6 +55,7 @@ export default function AdminSessionModal({
             });
             setIsEditing(false);
             setConfirmRemove(null);
+            setConfirmDelete(false);
         }
     }, [isOpen, slot]);
 
@@ -178,6 +180,33 @@ export default function AdminSessionModal({
         setIsEditing(false);
     };
 
+    const handleDeleteSession = async () => {
+        if (!token) return;
+        try {
+            const res = await FetchApi.delete(`/slot/${slot._id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            if (res?.data.success) {
+                onAlert({
+                    text: "Session deleted successfully",
+                    color: "green",
+                });
+                onUpdate();
+                onClose();
+            } else {
+                onAlert({
+                    text: res?.data.error || "Failed to delete session",
+                    color: "red",
+                });
+            }
+        } catch (error) {
+            onAlert({ text: "Failed to delete session", color: "red" });
+        } finally {
+            setConfirmDelete(false);
+        }
+    };
+
     if (!isOpen) return null;
 
     const timeStart = new Date(slot.time_start);
@@ -201,15 +230,47 @@ export default function AdminSessionModal({
                             <p className="text-sm text-gray-600">
                                 {programName}
                             </p>
-                        </div>
+                        </div>{" "}
                         <div className="flex items-center gap-2">
                             {!isEditing ? (
-                                <button
-                                    onClick={() => setIsEditing(true)}
-                                    className="px-3 py-1 text-sm text-blue-600 hover:text-blue-700 border border-blue-300 rounded-md hover:bg-blue-50 transition"
-                                >
-                                    Edit
-                                </button>
+                                <>
+                                    <button
+                                        onClick={() => setIsEditing(true)}
+                                        className="px-3 py-1 text-sm text-blue-600 hover:text-blue-700 border border-blue-300 rounded-md hover:bg-blue-50 transition"
+                                    >
+                                        Edit
+                                    </button>
+                                    {!confirmDelete ? (
+                                        <button
+                                            onClick={() =>
+                                                setConfirmDelete(true)
+                                            }
+                                            className="px-3 py-1 text-sm text-red-600 hover:text-red-700 border border-red-300 rounded-md hover:bg-red-50 transition"
+                                        >
+                                            Delete
+                                        </button>
+                                    ) : (
+                                        <div className="flex gap-1">
+                                            <span className="px-2 py-1 text-xs text-gray-600">
+                                                Sure?
+                                            </span>
+                                            <button
+                                                onClick={handleDeleteSession}
+                                                className="px-2 py-1 text-xs text-white bg-red-600 hover:bg-red-700 rounded-md transition"
+                                            >
+                                                Yes
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    setConfirmDelete(false)
+                                                }
+                                                className="px-2 py-1 text-xs text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition"
+                                            >
+                                                No
+                                            </button>
+                                        </div>
+                                    )}
+                                </>
                             ) : (
                                 <div className="flex gap-2">
                                     <button
@@ -380,8 +441,11 @@ export default function AdminSessionModal({
                     {/* Members List */}
                     <div>
                         <h3 className="font-semibold text-gray-900 mb-3">
-                            Registered Clients ({slot.members.length}) 
-                            {editableSlot.filled !== slot.members.length && ` + Trial/Other Clients (${editableSlot.filled - slot.members.length})`}
+                            Registered Clients ({slot.members.length})
+                            {editableSlot.filled !== slot.members.length &&
+                                ` + Trial/Other Clients (${
+                                    editableSlot.filled - slot.members.length
+                                })`}
                         </h3>
 
                         {loading ? (

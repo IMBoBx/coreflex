@@ -1,7 +1,5 @@
 "use client";
-import { DecodedPayload } from "@/lib/authenticateToken";
 import { FetchApi } from "@/lib/fetchApi";
-import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -18,13 +16,10 @@ export default function Page() {
     useEffect(() => {
         if (typeof window !== "undefined") {
             const token = localStorage.getItem("token");
-
-            // const decoded = jwtDecode(token ?? "") as DecodedPayload;
-            // localStorage.setItem("role", decoded.role);
-            // localStorage.setItem("userId", decoded.userId);
+            const role = localStorage.getItem("role");
 
             if (token) {
-                router.push("/dashboard");
+                router.push(role === "admin" ? "/admin" : "/dashboard");
             }
         }
     }, [router]);
@@ -78,7 +73,9 @@ export default function Page() {
                 );
 
                 // Redirect to dashboard
-                router.push("/dashboard");
+                router.push(
+                    res.data.role === "admin" ? "/admin" : "/dashboard"
+                );
             } else if (res?.data?.error) {
                 setError(res.data.error);
             }

@@ -37,8 +37,13 @@ export async function GET(req: NextRequest) {
 
         programId && (query.program = new mongoose.Types.ObjectId(programId));
         if (date) {
-            const start = getISTStartOfDay(date);
-            const end = getISTEndOfDay(date);
+            // Subtract one day to compensate for timezone issues
+            const adjustedDate = new Date(date);
+            adjustedDate.setDate(adjustedDate.getDate() + 1);
+            const adjustedDateStr = adjustedDate.toISOString().split("T")[0];
+
+            const start = getISTStartOfDay(adjustedDateStr);
+            const end = getISTEndOfDay(adjustedDateStr);
             query.time_start = { ...query.time_start, $gte: start, $lte: end };
         }
 
@@ -53,11 +58,12 @@ export async function GET(req: NextRequest) {
             slots = await Slot.find(query)
                 .populate("program")
                 .populate("members")
-                .sort({ time_start: 1 });
+                .sort({ time_start: order === "desc" ? "desc" : "asc" });
         } else {
-            slots = await Slot.find(query).sort({ time_start: (order === "desc" ? "desc" : "asc") });
+            slots = await Slot.find(query).sort({
+                time_start: order === "desc" ? "desc" : "asc",
+            });
         }
-
         const slotsJson = slots.map((slot) => slot.toObject());
         return NextResponse.json(slotsJson, { status: 200 });
     } catch (error: any) {

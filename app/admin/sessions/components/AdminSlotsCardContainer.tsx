@@ -13,7 +13,7 @@ export default function AdminSlotsCardContainer(props: {
     description: string;
     date: Date;
 }) {
-    const { programId: id, name, description, date } = props;
+    const { programId: id, name, date } = props;
     const { token } = useAuth();
     const [slots, setSlots] = useState<ISlot[]>([]);
     const [morningSlots, setMorningSlots] = useState<ISlot[]>([]);

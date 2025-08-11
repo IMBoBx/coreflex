@@ -47,7 +47,10 @@ export default function AdminSlotCard(props: {
         <div className="flex flex-col items-center">
             <button
                 className={`block w-28 text-center rounded-lg border shadow-sm px-3 py-2 my-0 md:my-0 focus:outline-none focus:ring-2 focus:ring-blue-400 transition ${getCardStyle()}`}
-                onClick={onClick}
+                onClick={() => {
+                    if (onClick) {onClick()}
+                    console.log(time_start)
+                }}
                 type="button"
             >
                 {" "}

@@ -66,3 +66,33 @@ export function isToday(date: Date): boolean {
     });
     return todayIST === dateIST;
 }
+
+/**
+ * Calculate end time by adding duration (in minutes) to start time
+ * @param startTime - The start time as a Date object
+ * @param durationMinutes - Duration in minutes to add
+ * @returns End time as a Date object
+ */
+export function calculateEndTime(
+    startTime: Date,
+    durationMinutes: number
+): Date {
+    const endTime = new Date(startTime);
+    endTime.setMinutes(endTime.getMinutes() + durationMinutes);
+    return endTime;
+}
+
+/**
+ * Create a Date object for a specific time on a given date in IST timezone
+ * @param dateString - Date in YYYY-MM-DD format
+ * @param timeString - Time in HH:MM format (24-hour)
+ * @returns Date object representing the specified time on the date in IST
+ */
+export function createISTDateTime(
+    dateString: string,
+    timeString: string
+): Date {
+    const [hours, minutes] = timeString.split(":").map(Number);
+    const istDate = new Date(`${dateString}T${timeString}:00+05:30`);
+    return istDate;
+}

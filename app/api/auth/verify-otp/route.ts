@@ -36,11 +36,16 @@ export async function POST(req: NextRequest) {
         process.env.JWT_SECRET!,
         { expiresIn: "15d" }
     );
-
     const userPopulated = await user.populate("package_details.$*.program");
 
     return NextResponse.json(
-        { success: true, token, user: await userPopulated.toJSON() },
+        {
+            success: true,
+            token,
+            userId: user._id.toString(),
+            role: user.role,
+            user: await userPopulated.toJSON(),
+        },
         { status: 200 }
     );
 }

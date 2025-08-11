@@ -26,6 +26,7 @@ export default function ClientModal({
 }) {
     const { token } = useAuth();
     const [isEditing, setIsEditing] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
     const [programs, setPrograms] = useState<IProgram[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -56,10 +57,10 @@ export default function ClientModal({
             return [];
         }
     );
-
     useEffect(() => {
         if (isOpen && token) {
             fetchPrograms();
+            setConfirmDelete(false); // Reset delete confirmation when modal opens
         }
     }, [isOpen, token]);
 
@@ -173,6 +174,37 @@ export default function ClientModal({
         });
         setIsEditing(false);
     };
+
+    const handleDeleteUser = async () => {
+        try {
+            const res = await FetchApi.delete(`/user/${client._id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            if (res && res.status === 200) {
+                console.log("Client deleted successfully");
+
+                // Call the onSave callback to refresh the clients list
+                if (onSave) {
+                    await onSave();
+                }
+
+                // Close the modal
+                onClose();
+            } else {
+                console.error(
+                    "Failed to delete client:",
+                    res?.data?.error || "Unknown error"
+                );
+                // TODO: Show error message to user
+            }
+        } catch (error) {
+            console.error("Error deleting client:", error);
+            // TODO: Show error message to user
+        } finally {
+            setConfirmDelete(false);
+        }
+    };
     const updatePackageDetail = (
         programId: string,
         field: keyof Omit<IPackageDetail, "programId">,
@@ -223,15 +255,45 @@ export default function ClientModal({
                 <div className="flex items-center justify-between p-6 border-b border-gray-200">
                     <h2 className="text-xl font-semibold text-gray-900">
                         Client Details
-                    </h2>
+                    </h2>{" "}
                     <div className="flex items-center space-x-2">
                         {!isEditing ? (
-                            <button
-                                onClick={() => setIsEditing(true)}
-                                className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-700 border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors"
-                            >
-                                Edit
-                            </button>
+                            <>
+                                <button
+                                    onClick={() => setIsEditing(true)}
+                                    className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-700 border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors"
+                                >
+                                    Edit
+                                </button>
+                                {!confirmDelete ? (
+                                    <button
+                                        onClick={() => setConfirmDelete(true)}
+                                        className="px-4 py-2 text-sm font-medium text-red-600 hover:text-red-700 border border-red-200 rounded-lg hover:bg-red-50 transition-colors"
+                                    >
+                                        Delete
+                                    </button>
+                                ) : (
+                                    <div className="flex items-center space-x-1">
+                                        <span className="px-2 py-1 text-xs text-gray-600">
+                                            Sure?
+                                        </span>
+                                        <button
+                                            onClick={handleDeleteUser}
+                                            className="px-2 py-1 text-xs text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
+                                        >
+                                            Yes
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                setConfirmDelete(false)
+                                            }
+                                            className="px-2 py-1 text-xs text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                                        >
+                                            No
+                                        </button>
+                                    </div>
+                                )}
+                            </>
                         ) : (
                             <div className="flex space-x-2">
                                 <button
