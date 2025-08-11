@@ -37,13 +37,9 @@ export async function GET(req: NextRequest) {
 
         programId && (query.program = new mongoose.Types.ObjectId(programId));
         if (date) {
-            // Subtract one day to compensate for timezone issues
-            const adjustedDate = new Date(date);
-            adjustedDate.setDate(adjustedDate.getDate() + 1);
-            const adjustedDateStr = adjustedDate.toISOString().split("T")[0];
-
-            const start = getISTStartOfDay(adjustedDateStr);
-            const end = getISTEndOfDay(adjustedDateStr);
+            // Use the date directly without adjustment
+            const start = getISTStartOfDay(date);
+            const end = getISTEndOfDay(date);
             query.time_start = { ...query.time_start, $gte: start, $lte: end };
         }
 

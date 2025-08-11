@@ -6,7 +6,7 @@ import AdminSlotsCardContainer from "./components/AdminSlotsCardContainer";
 import CreateSessionModal from "./components/CreateSessionModal";
 import DateScroller from "@/components/DateScroller";
 import { useAuth } from "@/components/ProtectedRoute";
-import { IST_TIMEZONE } from "@/lib/dateUtils";
+import { IST_TIMEZONE, getCurrentISTDate } from "@/lib/dateUtils";
 import TimedAlert from "@/components/TimedAlert";
 import Navbar from "@/components/Navbar";
 import NavbarButton from "@/components/NavbarButton";
@@ -15,7 +15,7 @@ export default function AdminSessionsPage() {
     const { token, userId } = useAuth();
     const [loading, setLoading] = useState(true);
     const [programs, setPrograms] = useState<IProgram[]>([]);
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(getCurrentISTDate());
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [alert, setAlert] = useState<{
         text: string;

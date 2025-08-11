@@ -6,6 +6,7 @@ import SlotCard from "./SlotCard";
 import BookingModal from "./BookingModal";
 import TimedAlert from "@/components/TimedAlert";
 import { useAuth } from "@/components/ProtectedRoute";
+import { IST_TIMEZONE } from "@/lib/dateUtils";
 
 export default function SlotsCardContainer(props: {
     programId: string;
@@ -26,8 +27,10 @@ export default function SlotsCardContainer(props: {
     useEffect(() => {
         const fetchSlots = async () => {
             if (!token) return;
-            // Format date as YYYY-MM-DD
-            const dateStr = date.toISOString().slice(0, 10);
+            // Format date as YYYY-MM-DD in IST timezone
+            const dateStr = date.toLocaleDateString("en-CA", {
+                timeZone: IST_TIMEZONE,
+            });
             const res = await FetchApi.get(
                 `/slot?programId=${id}&date=${dateStr}&all=true`,
                 { headers: { Authorization: `Bearer ${token}` } }
@@ -69,11 +72,12 @@ export default function SlotsCardContainer(props: {
             },
             { headers: { Authorization: `Bearer ${token}` } }
         );
-
         if (res?.data.success === true) {
             setShowAlert({ text: "Booking successful!", color: "green" });
             setSelectedSlot(null); // Optionally refresh slots
-            const dateStr = date.toISOString().slice(0, 10);
+            const dateStr = date.toLocaleDateString("en-CA", {
+                timeZone: IST_TIMEZONE,
+            });
             const refreshed = await FetchApi.get(
                 `/slot?programId=${id}&date=${dateStr}&all=true`,
                 { headers: { Authorization: `Bearer ${token}` } }

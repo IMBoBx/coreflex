@@ -6,6 +6,7 @@ import AdminSlotCard from "./AdminSlotCard";
 import AdminSessionModal from "./AdminSessionModal";
 import TimedAlert from "@/components/TimedAlert";
 import { useAuth } from "@/components/ProtectedRoute";
+import { IST_TIMEZONE } from "@/lib/dateUtils";
 
 export default function AdminSlotsCardContainer(props: {
     programId: string;
@@ -23,11 +24,12 @@ export default function AdminSlotsCardContainer(props: {
         text: string;
         color: "green" | "red" | "orange";
     }>(null);
-
     const fetchSlots = async () => {
         if (!token) return;
-        // Format date as YYYY-MM-DD
-        const dateStr = date.toISOString().slice(0, 10);
+        // Format date as YYYY-MM-DD in IST timezone
+        const dateStr = date.toLocaleDateString("en-CA", {
+            timeZone: IST_TIMEZONE,
+        });
         const res = await FetchApi.get(
             `/slot?programId=${id}&date=${dateStr}&all=true`,
             { headers: { Authorization: `Bearer ${token}` } }

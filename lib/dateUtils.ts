@@ -27,8 +27,12 @@ export function getISTEndOfDay(dateString: string): Date {
  */
 export function getCurrentISTDate(): Date {
     const now = new Date();
-    // Convert to IST by adding offset
-    return new Date(now.getTime() + IST_OFFSET_MS);
+    // Get today's date in IST timezone as a string (YYYY-MM-DD)
+    const istDateString = now.toLocaleDateString("en-CA", {
+        timeZone: IST_TIMEZONE,
+    });
+    // Return the start of today in IST
+    return getISTStartOfDay(istDateString);
 }
 
 /**

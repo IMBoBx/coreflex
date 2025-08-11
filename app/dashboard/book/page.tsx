@@ -5,13 +5,13 @@ import { FetchApi } from "@/lib/fetchApi";
 import SlotsCardContainer from "./components/SlotCardsContainer";
 import DateScroller from "@/components/DateScroller";
 import { useAuth } from "@/components/ProtectedRoute";
-
+import { getCurrentISTDate } from "@/lib/dateUtils";
 
 export default function Page() {
     const { token, userId } = useAuth();
     const [loading, setLoading] = useState(true);
     const [programs, setPrograms] = useState<IProgram[]>([]);
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(getCurrentISTDate());
 
     useEffect(() => {
         setLoading(false);
