@@ -19,8 +19,6 @@ export default function ClientCardContainer() {
     const [isNewClientModalOpen, setIsNewClientModalOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
 
-    // ...existing code...
-
     const isClientActive = (client: IUserPopulated): boolean => {
         if (!client.package_details) return false;
 
@@ -322,7 +320,7 @@ export default function ClientCardContainer() {
                     onClose={handleCloseModal}
                     onSave={getClients}
                 />
-            )}
+            )}{" "}
             <NewClientModal
                 isOpen={isNewClientModalOpen}
                 onClose={() => setIsNewClientModalOpen(false)}

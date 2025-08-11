@@ -19,6 +19,7 @@ export default function Page() {
     const { token, userId } = useAuth();
     const [username, setUsername] = useState<string>("");
     const [activePackages, setActivePackages] = useState<IPackageDetail[]>([]);
+    const [allPackages, setAllPackages] = useState<IPackageDetail[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -37,6 +38,7 @@ export default function Page() {
                         // Extract active packages
                         if (userData.package_details) {
                             const packages: IPackageDetail[] = [];
+                            const allPackagesLocal: IPackageDetail[] = [];
                             const today = new Date();
 
                             // Convert Map entries to array if it's a Map
@@ -50,6 +52,13 @@ export default function Page() {
                             packageEntries.forEach(
                                 //@ts-ignore
                                 ([programId, pkg]: [string, any]) => {
+                                    allPackagesLocal.push({
+                                        program: pkg.program,
+                                        sessions_left: pkg.sessions_left,
+                                        start_date: pkg.start_date,
+                                        end_date: pkg.end_date,
+                                    });
+
                                     const endDate = new Date(pkg.end_date);
 
                                     // Check if package is active (not expired and has sessions left)
@@ -68,6 +77,7 @@ export default function Page() {
                             );
 
                             setActivePackages(packages);
+                            setAllPackages(allPackagesLocal);
                         }
                     }
 
@@ -213,7 +223,7 @@ export default function Page() {
                         </div>
                     ) : (
                         <div className="space-y-4">
-                            {activePackages.map((pkg, index) => (
+                            {allPackages.map((pkg, index) => (
                                 <div
                                     key={index}
                                     className="bg-white/10 rounded-lg p-4 backdrop-blur-sm"
