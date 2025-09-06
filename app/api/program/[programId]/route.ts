@@ -5,12 +5,12 @@ import { authenticateToken } from "@/lib/authenticateToken";
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { programId: string } }
+    { params }: { params: Promise<{ programId: string }> }
 ) {
     const authResult = authenticateToken(req);
-        if (!authResult.success) {
-            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-        }
+    if (!authResult.success) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
     try {
         await connectDB();
         const { programId } = await params;
@@ -32,7 +32,7 @@ export async function GET(
 
 export async function PATCH(
     req: NextRequest,
-    { params }: { params: { programId: string } }
+    { params }: { params: Promise<{ programId: string }> }
 ) {
     const authResult = authenticateToken(req);
     if (!authResult.success || authResult.decoded?.role !== "admin") {

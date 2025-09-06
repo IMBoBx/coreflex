@@ -4,6 +4,7 @@ import { IProgram } from "@/models/Program";
 import { FetchApi } from "@/lib/fetchApi";
 import { useAuth } from "@/components/ProtectedRoute";
 import { useEffect, useState } from "react";
+import FileUpload from "./FileUpload";
 
 interface IPackageDetail {
     programId: string;
@@ -160,7 +161,7 @@ export default function NewClientModal({
                 className="absolute inset-0 bg-black/50"
                 onClick={onClose}
             ></div>
-            <div className="relative bg-white rounded-xl shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="relative bg-white rounded-xl shadow-xl max-w-2xl w-full mx-4 max-h-4/5 translate-y-5 overflow-y-auto">
                 <div className="p-6">
                     {/* Header */}
                     <div className="flex justify-between items-start mb-6">
@@ -249,7 +250,6 @@ export default function NewClientModal({
                                     />
                                 </div>
                             </div>
-
                             {/* Package Details */}
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between">
@@ -263,7 +263,6 @@ export default function NewClientModal({
                                         + Add Package
                                     </button>
                                 </div>
-
                                 {packages.length === 0 ? (
                                     <p className="text-gray-500 text-sm">
                                         No packages added yet. Click "Add
@@ -394,11 +393,10 @@ export default function NewClientModal({
                                             </div>
                                         ))}
                                     </div>
-                                )}
-                            </div>
-
+                                )}{" "}
+                            </div>{" "}
                             {/* Actions */}
-                            <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+                            <div className="flex justify-end gap-3 border-gray-200">
                                 <button
                                     onClick={onClose}
                                     className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
@@ -418,6 +416,20 @@ export default function NewClientModal({
                                 >
                                     {saving ? "Creating..." : "Create Client"}
                                 </button>
+                            </div>
+                            {/* Bulk Upload Section */}
+                            <div className="space-y-4">
+                                <div className="border-t border-gray-200 pt-6">
+                                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                                        Bulk Upload
+                                    </h3>
+                                    <p className="text-sm text-gray-600 mb-4">
+                                        Upload an Excel file to create multiple
+                                        clients at once. This is an alternative
+                                        to creating individual clients above.
+                                    </p>
+                                    <FileUpload />
+                                </div>
                             </div>
                         </div>
                     )}

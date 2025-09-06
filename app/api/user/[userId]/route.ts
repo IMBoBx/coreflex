@@ -7,7 +7,7 @@ import "@/models/Program";
 export async function GET(
     req: NextRequest,
 
-    { params }: { params: { userId: string } }
+    { params }: { params: Promise<{ userId: string }> }
 ) {
     const authResult = authenticateToken(req);
 
@@ -49,7 +49,7 @@ export async function GET(
 export async function PATCH(
     req: NextRequest,
 
-    { params }: { params: { userId: string } }
+    { params }: { params: Promise<{ userId: string }> }
 ) {
     const authResult = authenticateToken(req);
 
@@ -105,7 +105,7 @@ export async function PATCH(
 
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: { userId: string } }
+    { params }: { params: Promise<{ userId: string }> }
 ) {
     const authResult = authenticateToken(req);
     if (!authResult.success || authResult.decoded?.role !== "admin") {

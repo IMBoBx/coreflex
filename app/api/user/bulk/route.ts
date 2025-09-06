@@ -5,16 +5,7 @@ import Program from "@/models/Program";
 import mongoose, { AnyBulkWriteOperation } from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 import { getISTStartOfDay } from "@/lib/dateUtils";
-
-interface UserData {
-    username: string;
-    email: string;
-    phone: string;
-    // program: string;
-    sessions_left: number;
-    start_date?: string; // YYYY-MM-DD format
-    end_date: string; // YYYY-MM-DD format
-}
+import { BulkUserData } from "@/types/bulkUser";
 
 export async function POST(req: NextRequest) {
     const authResult = authenticateToken(req);
@@ -23,7 +14,7 @@ export async function POST(req: NextRequest) {
     }
     try {
         await connectDB();
-        const { userData }: { userData: UserData[] } = await req.json();
+        const { userData }: { userData: BulkUserData[] } = await req.json();
         const pilates = await Program.findOne({ name: "Pilates" });
         const pilatesId = pilates?._id.toString() ?? "Pilates";
 

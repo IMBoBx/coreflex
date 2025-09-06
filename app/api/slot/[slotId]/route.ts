@@ -6,7 +6,7 @@ import { authenticateToken } from "@/lib/authenticateToken";
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { slotId: string } }
+    { params }: { params: Promise<{ slotId: string }> }
 ) {
     const authResult = authenticateToken(req);
     if (!authResult.success) {
@@ -49,7 +49,7 @@ export async function GET(
 
 export async function PATCH(
     req: NextRequest,
-    { params }: { params: { slotId: string } }
+    { params }: { params: Promise<{ slotId: string }> }
 ) {
     // ADD AUTH
     const authResult = authenticateToken(req);
@@ -120,7 +120,7 @@ export async function PATCH(
 
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: { slotId: string } }
+    { params }: { params: Promise<{ slotId: string }> }
 ) {
     const authResult = authenticateToken(req);
     if (!authResult.success || authResult.decoded?.role !== "admin") {

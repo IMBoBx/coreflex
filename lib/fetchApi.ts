@@ -10,7 +10,7 @@ export class FetchApi {
             return res;
         } catch (e: any) {
             console.error("GET error:", e.response?.data || e.message);
-            // throw e;
+            throw e;
         }
     }
 
@@ -24,7 +24,7 @@ export class FetchApi {
             return res;
         } catch (e: any) {
             console.error("PATCH error:", e.response?.data || e.message);
-            // throw e;
+            throw e;
         }
     }
 
@@ -38,7 +38,7 @@ export class FetchApi {
             return res;
         } catch (e: any) {
             console.error("PUT error:", e.response?.data || e.message);
-            // throw e;
+            throw e;
         }
     }
 
@@ -51,7 +51,7 @@ export class FetchApi {
             return res;
         } catch (e: any) {
             console.error("DELETE error:", e.response?.data || e.message);
-            // throw e;
+            throw e;
         }
     }
 
@@ -65,7 +65,7 @@ export class FetchApi {
             return res;
         } catch (e: any) {
             console.error("POST error:", e.response?.data || e.message);
-            // throw e;
+            throw e;
         }
     }
 }
