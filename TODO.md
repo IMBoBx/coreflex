@@ -27,3 +27,5 @@ Maybe make /api/user/[userId]/GET admin only
 Times are messed up - shows up as one day later/before in places -- fix that
 
 in ProtectedRoute, if token expired, then log out
+
+Logos. Everywhere.

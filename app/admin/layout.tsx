@@ -5,9 +5,15 @@ import Navbar from "@/components/Navbar";
 import NavbarButton from "@/components/NavbarButton";
 
 export const metadata: Metadata = {
-    title: "Admin Dashboard | CoreFlex",
+    title: "Admin Dashboard | Coreflex",
     description:
-        "CoreFlex Admin Dashboard - Manage clients, programs, and sessions",
+        "Admin dashboard for managing Coreflex Pilates Studio operations, sessions, and clients.",
+    openGraph: {
+        title: "Admin Dashboard | Coreflex",
+        description:
+            "Admin dashboard for managing Coreflex Pilates Studio operations, sessions, and clients.",
+        type: "website",
+    },
 };
 
 export default function RootLayout({
