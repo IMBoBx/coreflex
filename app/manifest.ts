@@ -14,6 +14,14 @@ export default function manifest(): MetadataRoute.Manifest {
         scope: "/",
         lang: "en",
         categories: ["fitness", "health", "wellness", "pilates"],
+        screenshots: [
+            {
+                src: "/studio.png",
+                sizes: "1280x720",
+                type: "image/png",
+                form_factor: "wide",
+            },
+        ],
         icons: [
             {
                 src: "/coreflex-icon.svg",
@@ -28,15 +36,40 @@ export default function manifest(): MetadataRoute.Manifest {
                 purpose: "any",
             },
             {
-                src: "/icon-192.png",
-                sizes: "192x192",
-                type: "image/png",
-            },
-            {
-                src: "/icon-512.png",
-                sizes: "512x512",
-                type: "image/png",
+                src: "/favicon.ico",
+                sizes: "16x16 32x32 48x48",
+                type: "image/x-icon",
             },
         ],
+        shortcuts: [
+            {
+                name: "Book Session",
+                short_name: "Book",
+                description: "Book your next Pilates session",
+                url: "/dashboard/book",
+                icons: [
+                    {
+                        src: "/coreflex-icon.svg",
+                        sizes: "96x96",
+                        type: "image/svg+xml",
+                    },
+                ],
+            },
+            {
+                name: "Upcoming Sessions",
+                short_name: "Sessions",
+                description: "View your upcoming sessions",
+                url: "/dashboard/upcoming-sessions",
+                icons: [
+                    {
+                        src: "/coreflex-icon.svg",
+                        sizes: "96x96",
+                        type: "image/svg+xml",
+                    },
+                ],
+            },
+        ],
+        related_applications: [],
+        prefer_related_applications: false,
     };
 }
