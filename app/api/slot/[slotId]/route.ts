@@ -68,6 +68,7 @@ export async function PATCH(
             time_start,
             time_end,
         } = await req.json();
+        
         if (action === "update" && authResult.decoded?.role === "admin") {
             const slot = await Slot.findById(slotId);
             if (!slot) {

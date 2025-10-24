@@ -64,28 +64,45 @@ export default function SlotsCardContainer(props: {
     async function handleBook(slotId: string) {
         if (!token || !userId) return;
 
-        const res = await FetchApi.patch(
-            `/slot/${slotId}`,
-            {
-                action: "book",
-                userId: userId,
-            },
-            { headers: { Authorization: `Bearer ${token}` } }
-        );
-        if (res?.data.success === true) {
-            setShowAlert({ text: "Booking successful!", color: "green" });
-            setSelectedSlot(null); // Optionally refresh slots
-            const dateStr = date.toLocaleDateString("en-CA", {
-                timeZone: IST_TIMEZONE,
-            });
-            const refreshed = await FetchApi.get(
-                `/slot?programId=${id}&date=${dateStr}&all=true`,
+        try {
+            const res = await FetchApi.patch(
+                `/slot/${slotId}`,
+                {
+                    action: "book",
+                    userId: userId,
+                },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            setSlots(refreshed?.data || []);
-        } else if (res?.data.error) {
+            if (res?.data.success === true) {
+                setShowAlert({ text: "Booking successful!", color: "green" });
+                setSelectedSlot(null); // Optionally refresh slots
+                const dateStr = date.toLocaleDateString("en-CA", {
+                    timeZone: IST_TIMEZONE,
+                });
+                try {
+                    const refreshed = await FetchApi.get(
+                        `/slot?programId=${id}&date=${dateStr}&all=true`,
+                        { headers: { Authorization: `Bearer ${token}` } }
+                    );
+                    setSlots(refreshed?.data || []);
+                } catch (refreshError) {
+                    console.error("Failed to refresh slots:", refreshError);
+                    // Don't show error to user for refresh failure
+                }
+            } else if (res?.data.error) {
+                setShowAlert({
+                    text: res.data.error || "Booking failed.",
+                    color: "red",
+                });
+            }
+        } catch (error: any) {
+            // Handle errors thrown by FetchApi
+            const errorMessage =
+                error.response?.data?.error ||
+                error.message ||
+                "Booking failed.";
             setShowAlert({
-                text: res.data.error || "Booking failed.",
+                text: errorMessage,
                 color: "red",
             });
         }
@@ -157,7 +174,7 @@ export default function SlotsCardContainer(props: {
                 <TimedAlert
                     text={showAlert.text}
                     color={showAlert.color}
-                    duration={3}
+                    duration={showAlert.color === "green" ? 3 : 5}
                     onClose={() => setShowAlert(null)}
                 />
             )}

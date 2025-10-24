@@ -9,22 +9,31 @@ export class SlotService {
 
         try {
             await mongoSession.withTransaction(async () => {
-                const slot = await Slot.findById(slotId).session(mongoSession);
+                const slot = await Slot.findById(slotId).session(mongoSession); 
+                const user = await User.findById(userId).session(mongoSession);
+                
+                
                 if (!slot) {
                     throw new Error("Session not found");
                 }
-
-                const user = await User.findById(userId).session(mongoSession);
+                
                 if (!user) {
                     throw new Error("User not found");
                 }
-
+                
                 const programId = slot.program.toString();
-
+                
                 if (!user.isPackageActive(programId)) {
                     throw new Error(
                         "Cannot book. Package for this program not active."
                     );
+                }
+
+                const canBook = user.package_details.get(programId)?.end_date! > slot.time_start
+                if (!canBook) {
+                    throw new Error(
+                        "Cannot book. Your current package ends before this session is scheduled."
+                    )
                 }
 
                 const updatedSlot = await Slot.findOneAndUpdate(

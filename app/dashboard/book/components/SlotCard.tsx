@@ -78,12 +78,12 @@ export default function SlotCard(props: {
                     })}
                 </span>
             </button>
-            {capacity - filled === 1 && (
+            {capacity - filled === 1 && !booked && (
                 <div className="mt-1 text-xs text-red-400 font-semibold">
                     Last spot!
                 </div>
             )}
-            {capacity - filled <= capacity / 2 && capacity - filled !== 1 && (
+            {capacity - filled <= capacity / 2 && capacity - filled !== 1 && !booked && (
                 <div className="mt-1 text-xs text-orange-500 font-semibold">
                     Filling Fast!
                 </div>

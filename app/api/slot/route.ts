@@ -22,6 +22,7 @@ export async function GET(req: NextRequest) {
         await connectDB();
         const { searchParams } = new URL(req.url);
         const all = searchParams.get("all");
+        const past = searchParams.get("past");
         const programId = searchParams.get("programId");
         const date = searchParams.get("date"); // new param: expects YYYY-MM-DD
         const userId = searchParams.get("userId");
@@ -34,6 +35,11 @@ export async function GET(req: NextRequest) {
         all !== "true" &&
             !date &&
             (query.time_start = { $gte: getCurrentISTDate() });
+
+        past === "true" &&
+            all !== "true" &&
+            !date &&
+            (query.time_start = { $lt: getCurrentISTDate() });
 
         programId && (query.program = new mongoose.Types.ObjectId(programId));
         if (date) {

@@ -68,33 +68,50 @@ export default function Page() {
     async function handleCancel(slot: ISlotPopulated) {
         if (!token || !userId) return;
 
-        const res = await FetchApi.patch(
-            `/slot/${slot._id + ""}`,
-            {
-                action: "cancel",
-                userId: userId,
-            },
-            { headers: { Authorization: `Bearer ${token}` } }
-        );
+        try {
+            const res = await FetchApi.patch(
+                `/slot/${slot._id + ""}`,
+                {
+                    action: "cancel",
+                    userId: userId,
+                },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            if (res?.data.success === true) {
+                setShowAlert({
+                    text: "Cancellation successful!",
+                    color: "green",
+                });
 
-        if (res?.data.success === true) {
+                // Close modal first
+                setModalSlot(null);
+
+                // Refresh slots after a brief delay to ensure alert is visible
+                setTimeout(() => {
+                    fetchSlots(userId, token);
+                }, 100);
+
+                return;
+            }
+
             setShowAlert({
-                text: "Booking cancelled successfully",
-                color: "green",
+                text:
+                    res?.data.error ??
+                    "Some error occurred, booking not cancelled.",
+                color: "red",
             });
-
-            fetchSlots(userId, token);
-
-            setModalSlot(null);
-            return;
+        } catch (error: any) {
+            // Handle errors thrown by FetchApi
+            const errorMessage =
+                error.response?.data?.error ||
+                error.message ||
+                "Some error occurred, booking not cancelled.";
+            setShowAlert({
+                text: errorMessage,
+                color: "red",
+            });
         }
-
-        setShowAlert({
-            text:
-                res?.data.error ??
-                "Some error occurred, booking not cancelled.",
-            color: "red",
-        });
+        setModalSlot(null);
     }
 
     return (
@@ -109,7 +126,6 @@ export default function Page() {
                         View and manage your scheduled sessions
                     </p>
                 </div>
-
                 {/* Sessions Grid */}
                 <div className="flex flex-wrap justify-center gap-4 md:gap-6">
                     {slots.length <= 0 && (
@@ -153,7 +169,7 @@ export default function Page() {
                                     {/* Action Menu Button */}
                                     <div className="absolute top-4 right-4 z-10">
                                         <button
-                                            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                            className="p-2 text-gray-800 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                                             onClick={() =>
                                                 setDropdownOpen(
                                                     dropdownOpen ===
@@ -167,14 +183,14 @@ export default function Page() {
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 fill="none"
                                                 viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
+                                                strokeWidth="3"
                                                 stroke="currentColor"
                                                 className="w-5 h-5"
                                             >
                                                 <path
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
-                                                    d="M12 6.75v.008M12 12v.008M12 17.25v.008"
+                                                    d="M12 5v.008M12 11v.008M12 17.25v.008"
                                                 />
                                             </svg>
                                         </button>
@@ -296,14 +312,14 @@ export default function Page() {
                                 </div>
                             );
                         })}
-                </div>
-
+                </div>{" "}
                 {/* Alert */}
                 {showAlert && (
                     <TimedAlert
                         text={showAlert.text}
                         duration={3}
                         color={showAlert.color}
+                        onClose={() => setShowAlert(null)}
                     />
                 )}
             </div>
