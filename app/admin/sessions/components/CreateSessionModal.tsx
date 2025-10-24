@@ -223,7 +223,7 @@ export default function CreateSessionModal({
                 className="absolute inset-0 bg-black/93"
                 onClick={onClose}
             ></div>
-            <div className="relative bg-white rounded-xl shadow-xl max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="relative mt-10 bg-white rounded-xl shadow-xl max-w-md w-full mx-4 max-h-[80vh] overflow-y-auto">
                 <div className="p-6">
                     {/* Header */}
                     <div className="flex justify-between items-start mb-6">

@@ -83,9 +83,9 @@ export default function SlotsCardContainer(props: {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             setSlots(refreshed?.data || []);
-        } else {
+        } else if (res?.data.error) {
             setShowAlert({
-                text: res?.data.error || "Booking failed",
+                text: res.data.error || "Booking failed.",
                 color: "red",
             });
         }

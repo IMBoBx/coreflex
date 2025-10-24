@@ -40,23 +40,23 @@ export default function TimedAlert({
     let barClass = "";
     switch (color) {
         case "green":
-            colorClass += "text-green-600";
+            colorClass += "border-green-600 text-green-600";
             barClass = "bg-green-400";
             break;
         case "red":
-            colorClass += "text-red-600";
+            colorClass += "border-red-600 text-red-600";
             barClass = "bg-red-400";
             break;
         case "orange":
-            colorClass += "text-orange-500";
+            colorClass += "border-orange-500 text-orange-500";
             barClass = "bg-orange-300";
             break;
     }
 
     return (
-        <div className="fixed bottom-4 left-1/2 z-50 transform -translate-x-1/2 w-[90vw] max-w-md flex flex-col items-center">
+        <div className={`fixed bottom-4 left-1/2 z-50 transform -translate-x-1/2 w-[90vw] max-w-lg flex flex-col items-center`}>
             <div
-                className={`rounded-lg shadow-lg px-4 py-3 mb-1 w-full text-center font-semibold ${colorClass}`}
+                className={`rounded-lg shadow-lg px-4 py-3 mb-1 w-full text-center font-semibold border ${colorClass}`}
             >
                 {text}
                 <div className="h-1 w-full rounded-b-lg overflow-hidden bg-black/10 mt-2">

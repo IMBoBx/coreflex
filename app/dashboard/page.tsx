@@ -19,6 +19,9 @@ export default function Page() {
     const { token, userId } = useAuth();
     const [username, setUsername] = useState<string>("");
     const [activePackages, setActivePackages] = useState<IPackageDetail[]>([]);
+    const [expiredPackages, setExpiredPackages] = useState<IPackageDetail[]>(
+        []
+    );
     const [allPackages, setAllPackages] = useState<IPackageDetail[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -38,6 +41,7 @@ export default function Page() {
                         // Extract active packages
                         if (userData.package_details) {
                             const packages: IPackageDetail[] = [];
+                            const expPackages: IPackageDetail[] = [];
                             const allPackagesLocal: IPackageDetail[] = [];
                             const today = new Date();
 
@@ -50,7 +54,7 @@ export default function Page() {
                                     : Object.entries(userData.package_details);
 
                             packageEntries.forEach(
-                                //@ts-ignore
+                                // @ts-ignore
                                 ([programId, pkg]: [string, any]) => {
                                     allPackagesLocal.push({
                                         program: pkg.program,
@@ -72,11 +76,19 @@ export default function Page() {
                                             start_date: pkg.start_date,
                                             end_date: pkg.end_date,
                                         });
+                                    } else {
+                                        expPackages.push({
+                                            program: pkg.program,
+                                            sessions_left: pkg.sessions_left,
+                                            start_date: pkg.start_date,
+                                            end_date: pkg.end_date,
+                                        });
                                     }
                                 }
                             );
 
                             setActivePackages(packages);
+                            setExpiredPackages(expPackages);
                             setAllPackages(allPackagesLocal);
                         }
                     }
@@ -223,7 +235,7 @@ export default function Page() {
                         </div>
                     ) : (
                         <div className="space-y-4">
-                            {allPackages.map((pkg, index) => (
+                            {activePackages.map((pkg, index) => (
                                 <div
                                     key={index}
                                     className="bg-white/10 rounded-lg p-4 backdrop-blur-sm"
@@ -260,7 +272,59 @@ export default function Page() {
                         </div>
                     )}
                 </div>
-            </div>
+            </div>{" "}
+            {/* Expired Packages */}
+            {!loading && expiredPackages.length > 0 && (
+                <div className="max-w-sm mx-auto mt-8">
+                    <div className="bg-gradient-to-r from-gray-600 to-gray-700 rounded-xl text-white p-6">
+                        <h3 className="text-lg font-semibold mb-4">
+                            Expired Packages
+                        </h3>
+                        <div className="space-y-4">
+                            {expiredPackages.map((pkg, index) => (
+                                <div
+                                    key={index}
+                                    className="bg-white/10 rounded-lg p-4 backdrop-blur-sm"
+                                >
+                                    <h4 className="font-semibold text-sm mb-2 text-white">
+                                        {pkg.program.name}
+                                    </h4>
+                                    <div className="text-xs">
+                                        {pkg.sessions_left === 0 ? (
+                                            <div>
+                                                <p className="opacity-80">
+                                                    Sessions Left
+                                                </p>
+                                                <p className="text-lg font-bold">
+                                                    {pkg.sessions_left}
+                                                </p>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                <p className="opacity-80">
+                                                    Expired on
+                                                </p>
+                                                <p className="text-sm font-semibold">
+                                                    {new Date(
+                                                        pkg.end_date
+                                                    ).toLocaleDateString(
+                                                        "en-US",
+                                                        {
+                                                            month: "short",
+                                                            day: "numeric",
+                                                            year: "numeric",
+                                                        }
+                                                    )}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

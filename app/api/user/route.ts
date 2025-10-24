@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
 
     try {
         await connectDB();
-        const users = await User.find({ role: "client" })
+        const users = await User.find()
             .sort({ username: "asc" })
             .populate("package_details.$*.program");
 
