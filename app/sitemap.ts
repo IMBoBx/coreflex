@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.9,
         },
         {
-            url: `${baseUrl}/dashboard/upcoming-sessions`,
+            url: `${baseUrl}/dashboard/my-sessions`,
             lastModified: new Date(),
             changeFrequency: "daily",
             priority: 0.7,

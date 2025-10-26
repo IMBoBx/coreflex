@@ -64,7 +64,7 @@ export default function RootLayout({
                     Book a Session
                 </NavbarButton>
                 <NavbarButton
-                    href="/dashboard/upcoming-sessions"
+                    href="/dashboard/my-sessions"
                     icon={
                         <svg
                             fill="none"

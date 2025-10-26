@@ -59,7 +59,7 @@ export default function manifest(): MetadataRoute.Manifest {
                 name: "Upcoming Sessions",
                 short_name: "Sessions",
                 description: "View your upcoming sessions",
-                url: "/dashboard/upcoming-sessions",
+                url: "/dashboard/my-sessions",
                 icons: [
                     {
                         src: "/coreflex-icon.svg",

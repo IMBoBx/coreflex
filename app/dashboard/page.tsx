@@ -166,7 +166,7 @@ export default function Page() {
                 </Link>
 
                 {/* Upcoming Sessions Card */}
-                <Link href="/dashboard/upcoming-sessions">
+                <Link href="/dashboard/my-sessions">
                     <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg duration-200 active:scale-[0.98] transition-all">
                         <div className="flex items-center space-x-4">
                             <div className="bg-blue-100 p-3 rounded-full">
