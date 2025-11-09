@@ -8,7 +8,7 @@ export default function Home() {
             <section
                 className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
                 style={{
-                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/studio.png')`,
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/studio-compressed.jpg')`,
                 }}
             >
                 <div className="container mx-auto px-6 text-center text-white">
