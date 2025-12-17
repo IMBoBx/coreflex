@@ -1,0 +1,462 @@
+\documentclass[12pt, a4paper]{report}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % For images
+\usepackage{geometry} % For margins
+\usepackage{setspace} % For line spacing
+\usepackage{titlesec} % For title formatting
+\usepackage{times}    % Times New Roman font
+\usepackage{caption}  % For caption formatting
+\usepackage{tocloft}  % For TOC formatting
+\usepackage{hyperref} % For links
+\usepackage{float}    % For figure placement
+\usepackage{listings} % For code snippets
+\usepackage{xcolor}   % For code syntax highlighting
+
+% Code listing configuration
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt
+}
+
+% Page Format: Margins (left, right, top, bottom 1 inch)
+\geometry{left=1in, right=1in, top=1in, bottom=1in}
+
+% Body text: 12 pt, justified
+% % 1.5 line spacing
+% \onehalfspacing
+
+% Caption formatting: Times New Roman 10-point
+\captionsetup{font={small,bf}, labelfont={small,bf}, labelsep=colon}
+
+% Remove header and footer, but keep page numbers bottom middle
+\pagestyle{plain}
+
+% Title formatting
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{40pt}
+
+% Section formatting (left-aligned)
+\titleformat{\section}
+  {\normalfont\Large\bfseries\raggedright}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\raggedright}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\raggedright}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	COVER PAGE (Page 1)
+%----------------------------------------------------------------------------------------
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    
+    {\Large \textbf{A Report}} \\
+    \vspace{0.5cm}
+    {\Large \textbf{on}} \\
+    \vspace{0.5cm}
+    {\Huge \textbf{Session Booking Platform}} \\
+    \vspace{1.5cm}
+    
+    {\large carried out as part of the course Project Based Learning-3 (PBL-3)} \\
+    \vspace{1cm}
+    
+    \textbf{Submitted by} \\
+    \vspace{0.5cm}
+    {\Large \textbf{[Student Name]}} \\
+    {\large Roll no: [Roll No]} \\
+    {\large V Semester} \\
+    \vspace{1.5cm}
+    
+    {\large in partial fulfilment for the award of the degree} \\
+    \vspace{0.5cm}
+    {\large \textbf{of}} \\
+    \vspace{0.5cm}
+    {\Large \textbf{BACHELOR OF TECHNOLOGY}} \\
+    \vspace{0.5cm}
+    {\large In} \\
+    \vspace{0.5cm}
+    {\Large \textbf{Computer Science \& Engineering}} \\
+    \vspace{2cm}
+    
+    % \includegraphics[width=3cm]{university_logo.png} % Replace with actual University Logo
+    \textbf{[UNIVERSITY LOGO]}
+    \vspace{1cm}
+    
+    {\large \textbf{Department of Computer Science \& Engineering,}} \\
+    {\large School of Computer Science and Engineering,} \\
+    {\large \textbf{Manipal University Jaipur,}} \\
+    {\large July-Dec 2025}
+    
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE (Page 2)
+%----------------------------------------------------------------------------------------
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    
+    {\Large \textbf{A Report}} \\
+    \vspace{0.5cm}
+    {\Large \textbf{on}} \\
+    \vspace{0.5cm}
+    {\Huge \textbf{Session Booking Platform}} \\
+    \vspace{1.5cm}
+    
+    {\large carried out as part of the course Project Based Learning-3 (PBL-3)} \\
+    \vspace{1cm}
+    
+    \textbf{Submitted by} \\
+    \vspace{0.5cm}
+    {\Large \textbf{[Student Name]}} \\
+    {\large Roll no: [Roll No]} \\
+    {\large V Semester} \\
+    \vspace{1.5cm}
+    
+    {\large in partial fulfilment for the award of the degree} \\
+    \vspace{0.5cm}
+    {\large \textbf{of}} \\
+    \vspace{0.5cm}
+    {\Large \textbf{BACHELOR OF TECHNOLOGY}} \\
+    \vspace{0.5cm}
+    {\large In} \\
+    \vspace{0.5cm}
+    {\Large \textbf{Computer Science \& Engineering}} \\
+    \vspace{1.5cm}
+    
+    \textbf{Under the Guidance of:} \\
+    \vspace{1cm}
+    
+    \begin{flushleft}
+    \hspace{2cm} \textbf{Guide Name :} \underline{\hspace{6cm}} \\
+    \vspace{0.5cm}
+    \hspace{2cm} \textbf{Guide Signature (with date) :} \underline{\hspace{4cm}}
+    \end{flushleft}
+
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENT (Page 3)
+%----------------------------------------------------------------------------------------
+\chapter*{Acknowledgement}
+\addcontentsline{toc}{chapter}{Acknowledgement}
+
+This project would not have been completed without the help, support, comments, advice, cooperation and coordination of various people. However, it is impossible to thank everyone individually; I am hereby making a humble effort to thank some of them.
+
+I acknowledge and express my deepest sense of gratitude to my internal supervisor for his/her constant support, guidance, and continuous engagement. I highly appreciate his technical comments, suggestions, and criticism during the progress of this project titled ``Session Booking Platform''.
+
+I owe my profound gratitude to Dr. Neha Chaudhary, Head, Department of CSE, for her valuable guidance and for facilitating me during my work. I am also very grateful to all the faculty members and staff for their precious support and cooperation during the development of this project.
+
+Finally, I extend my heartfelt appreciation to my classmates for their help and encouragement.
+
+\vspace{2cm}
+\begin{flushright}
+    \textbf{[Registration No.]} \\
+    \textbf{[Student Name]}
+\end{flushright}
+
+%----------------------------------------------------------------------------------------
+%	CERTIFICATE (Page 4)
+%----------------------------------------------------------------------------------------
+\chapter*{Certificate}
+\addcontentsline{toc}{chapter}{Certificate}
+
+{\centering
+% \includegraphics[width=2.5cm]{university_logo.png} % Replace with actual University Logo
+\textbf{[UNIVERSITY LOGO]}
+\vspace{0.5cm}
+
+{\Large \textbf{MANIPAL UNIVERSITY JAIPUR}} \\
+{\small (University under Section 2(f) of the UGC Act)} \\
+\vspace{0.5cm}
+\textbf{Department of Computer Science and Engineering} \\
+\textbf{School of Computer Science and Engineering} \\
+\vspace{1cm}
+{\Large \textbf{CERTIFICATE}} \\
+\vspace{1cm}
+\par}
+
+\begin{flushleft}
+Date: \today
+\end{flushleft}
+
+This is to certify that the project entitled \textbf{``Session Booking Platform''} is a bonafide work carried out as PBL-3 End Term Assessment in partial fulfillment for the award of the degree of Bachelor of Technology in Computer Science and Engineering, by \textbf{[Name of Student]} bearing registration number \textbf{[Reg No.]}, during the academic semester V of year 2024-2025.
+
+\vspace{3cm}
+
+\begin{flushleft}
+Place: Manipal University Jaipur, Jaipur \\
+\vspace{1cm}
+Name of the project guide: \underline{\hspace{6cm}} \\
+\vspace{0.5cm}
+Signature of the project guide: \underline{\hspace{6cm}}
+\end{flushleft}
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT (Page 5)
+%----------------------------------------------------------------------------------------
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+The Coreflex Pilates Studio Management System is a comprehensive web application designed to modernize the administrative and client-facing operations of a Pilates studio. Built using the Next.js framework with TypeScript, the application serves two primary user roles: Administrators and Clients.
+
+For administrators, the system provides robust tools to manage class schedules, create recurring sessions, track client attendance, and handle memberships. It replaces manual scheduling with an automated, conflict-free booking system. For clients, the application offers a seamless mobile-responsive dashboard to view upcoming classes, book sessions using active membership packages, and manage their schedule.
+
+The project leverages MongoDB for scalable data storage, specifically handling complex relationships between users, membership packages, and time slots. Authentication is secured via JWT and OTP-based email verification. The user interface is crafted with Tailwind CSS to ensure a modern, responsive, and accessible experience across devices. This report details the design, implementation, and testing of the system, highlighting its efficiency in solving real-world scheduling challenges.
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+\tableofcontents
+\thispagestyle{plain}
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER 1: INTRODUCTION
+%----------------------------------------------------------------------------------------
+\chapter{Introduction}
+
+\section{Objective of the Project}
+The primary objective of the Coreflex Pilates Studio Management System is to digitize and automate the daily operations of a fitness studio. The specific goals include:
+\begin{itemize}
+    \item To provide a secure and user-friendly platform for clients to book and cancel class slots.
+    \item To enable administrators to easily schedule sessions, manage capacity, and track client attendance.
+    \item To implement a flexible membership package system that automatically deducts sessions upon booking.
+    \item To eliminate manual errors in scheduling and double-booking.
+    \item To provide a responsive web interface accessible on both desktop and mobile devices\cite{nextjs}.
+\end{itemize}
+
+\section{Brief Description of the Project}
+Coreflex is a full-stack web application built on the Next.js framework. It features a role-based access control system distinguishing between 'Admin' and 'Client' users. 
+
+The client interface allows users to log in via an OTP sent to their email, view their dashboard with active and expired packages, browse available time slots for different programs (e.g., Pilates, Aerial Yoga), and book sessions. The system enforces business logic such as preventing cancellations within specific time windows (12 hours for morning classes, 6 hours for evening classes).
+
+The admin interface empowers studio owners to upload client data in bulk via Excel, create sessions for specific dates and times, and view a roster of attendees for any given class\cite{nextjs}.
+
+\section{Technology Used}
+
+\subsection{Hardware Requirements}
+\begin{itemize}
+    \item \textbf{Server:} Cloud-based hosting (Vercel Platform).
+    \item \textbf{Client:} Any device with a modern web browser (Desktop, Laptop, Tablet, or Smartphone).
+\end{itemize}
+
+\subsection{Software Requirements}
+\begin{itemize}
+    \item \textbf{Framework:} Next.js 15 (React 19)
+    \item \textbf{Language:} TypeScript
+    \item \textbf{Styling:} Tailwind CSS
+    \item \textbf{Database:} MongoDB (NoSQL) with Mongoose ODM
+    \item \textbf{Authentication:} JSON Web Tokens (JWT)
+    \item \textbf{Email Service:} Nodemailer (SMTP)
+    \item \textbf{Deployment:} Vercel
+\end{itemize}
+
+\section{Organization Profile}
+Coreflex Pilates Studio is a fitness center located in Rajouri Garden, New Delhi, offering specialized classes in Pilates, posture correction, and core strengthening. The studio aims to transform bodies and elevate minds through structured fitness programs.
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER 2: DESIGN DESCRIPTION
+%----------------------------------------------------------------------------------------
+\chapter{Design Description}
+
+\section{Flow Chart}
+The application follows a linear flow for the user:
+\begin{enumerate}
+    \item \textbf{Login:} User enters email $\rightarrow$ System sends OTP $\rightarrow$ User enters OTP $\rightarrow$ Authenticated.
+    \item \textbf{Dashboard:} User views Active Packages and Quick Links.
+    \item \textbf{Booking:} Select Program $\rightarrow$ Select Date $\rightarrow$ View Slots (Morning/Evening) $\rightarrow$ Confirm Booking.
+    \item \textbf{Session Management:} Admin logs in $\rightarrow$ Selects Date $\rightarrow$ Adds Time Slots $\rightarrow$ System Updates Database.
+\end{enumerate}
+
+\section{Data Flow Diagrams (DFDs)}
+The system processes data through API routes located in the `app/api` directory. 
+\begin{itemize}
+    \item \textbf{Auth Flow:} Client requests OTP via `/api/auth/request-otp`. The system validates the email against the `User` database and sends an email. Verification via `/api/auth/verify-otp` returns a JWT.
+    \item \textbf{Booking Flow:} Client sends a booking request to `/api/slot/[slotId]`. The system checks package validity in the `User` collection, updates the `Slot` collection by adding the user ID to the members array, and decrements the user's session count\cite{mongoose}.
+\end{itemize}
+
+\section{Entity Relationship Diagram (ER Diagram)}
+The system relies on a NoSQL document structure but maintains relational integrity via references.
+\begin{itemize}
+    \item \textbf{User Entity:} Contains profile info and a map of `PackageDetails`.
+    \item \textbf{Program Entity:} Defines types of classes (e.g., "Pilates").
+    \item \textbf{Slot Entity:} Represents a scheduled class. It references a `Program` and an array of `User` objects (members).
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER 3: PROJECT DESCRIPTION
+%----------------------------------------------------------------------------------------
+\chapter{Project Description}
+
+\section{Database}
+The project uses MongoDB, a document-oriented database. The connection is managed via Mongoose, ensuring schema validation and easy data manipulation\cite{mongoose}.
+
+\section{Table Description}
+In MongoDB terms, we use **Collections**. The primary collections are:
+
+\subsection{Users Collection}
+Stores client and admin information.
+\begin{itemize}
+    \item \texttt{username}: String (Required)
+    \item \texttt{email}: String (Unique, Required)
+    \item \texttt{role}: Enum ['client', 'admin']
+    \item \texttt{package\_details}: Map of package objects containing `sessions_left`, `start_date`, and `end_date`\cite{mongoose}.
+\end{itemize}
+
+\subsection{Slots Collection}
+Stores scheduled sessions.
+\begin{itemize}
+    \item \texttt{program}: Reference to Program ID
+    \item \texttt{time\_start}: Date object
+    \item \texttt{time\_end}: Date object
+    \item \texttt{capacity}: Number (Max attendees)
+    \item \texttt{members}: Array of User References (Attendees)\cite{mongoose}.
+\end{itemize}
+
+\subsection{Programs Collection}
+Stores available class types.
+\begin{itemize}
+    \item \texttt{name}: String (e.g., "Reformer Pilates")
+    \item \texttt{description}: String\cite{mongoose}.
+\end{itemize}
+
+\section{File/Database Design}
+The project structure follows the Next.js App Router convention:
+\begin{itemize}
+    \item \texttt{/app}: Contains page routes (e.g., `/login`, `/dashboard`, `/admin`).
+    \item \texttt{/models}: Mongoose schema definitions (`User.ts`, `Slot.ts`).
+    \item \texttt{/lib}: Utility functions (`db.ts` for connection, `auth.ts` for JWT, `mailer.ts` for emails).
+    \item \texttt{/components}: Reusable UI components (`Navbar`, `SlotCard`, `BookingModal`).
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER 4: INPUT/OUTPUT FORM DESIGN
+%----------------------------------------------------------------------------------------
+\chapter{Input/Output Form Design}
+
+The application utilizes modern, responsive forms for data interaction.
+
+\section{Login Screen}
+A simplified two-step form.
+\begin{enumerate}
+    \item \textbf{Input:} Email Address field.
+    \item \textbf{Action:} "Send OTP" button.
+    \item \textbf{Input:} 6-digit OTP field.
+    \item \textbf{Validation:} Checks for valid email format and OTP expiration.
+\end{enumerate}
+
+\section{Admin Session Creation}
+A modal form allowing bulk creation of slots.
+\begin{itemize}
+    \item \textbf{Inputs:} Program Dropdown, Date Picker, Time Picker (multiple additions allowed), Duration (minutes), Capacity.
+    \item \textbf{Output:} A success alert confirming the number of sessions created\cite{react}.
+\end{itemize}
+
+\section{Client Booking Interface}
+\begin{itemize}
+    \item \textbf{Input:} Date Scroller (Horizontal scroll to select date).
+    \item \textbf{Output:} Grid of `SlotCards` showing time and availability status (e.g., "Filling Fast", "Waitlist").
+    \item \textbf{Interaction:} Clicking a slot opens a confirmation modal.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER 5: TESTING & TOOLS USED
+%----------------------------------------------------------------------------------------
+\chapter{Testing \& Tools used}
+
+\section{Tools Used}
+\begin{itemize}
+    \item \textbf{VS Code:} Integrated Development Environment.
+    \item \textbf{Postman:} Used for testing API endpoints (`GET`, `POST`, `PATCH`) independently of the frontend.
+    \item \textbf{MongoDB Atlas:} Cloud database GUI for verifying data persistence.
+    \item \textbf{Git/GitHub:} Version control for tracking changes and collaboration.
+\end{itemize}
+
+\section{Testing Strategy}
+\begin{itemize}
+    \item \textbf{Unit Testing:} Utility functions such as `dateUtils.ts` were tested to ensure IST timezone conversions are accurate\cite{nextjs}.
+    \item \textbf{Integration Testing:} The booking flow was tested to ensure that booking a slot correctly decreases the user's package balance and updates the slot's filled count atomically using MongoDB transactions\cite{mongoose}.
+    \item \textbf{User Acceptance Testing (UAT):} The admin dashboard was tested for responsiveness on mobile devices to ensure studio owners can manage operations on the go.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER 6: IMPLEMENTATION & MAINTENANCE
+%----------------------------------------------------------------------------------------
+\chapter{Implementation \& Maintenance}
+
+\section{Implementation}
+The application is deployed using the Vercel Platform, which provides seamless integration with Next.js.
+\begin{itemize}
+    \item \textbf{Frontend:} The interface is rendered server-side (SSR) and client-side (CSR) where appropriate, ensuring fast load times and SEO optimization.
+    \item \textbf{Backend:} API routes run as serverless functions, scaling automatically with traffic.
+    \item \textbf{Security:} Middleware protects routes such as `/admin` and `/dashboard`, checking for valid JWT tokens before rendering pages\cite{jwt}.
+\end{itemize}
+
+\section{Maintenance}
+\begin{itemize}
+    \item \textbf{Database Backups:} Automated backups provided by MongoDB Atlas.
+    \item \textbf{Error Logging:} Console errors in production are monitored. The system handles "Token Expired" errors by gracefully redirecting users to login.
+    \item \textbf{Updates:} The modular component structure allows for easy updates (e.g., changing the `Navbar` or `SlotCard` design) without affecting the core logic.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER 7: CONCLUSION AND FUTURE WORK
+%----------------------------------------------------------------------------------------
+\chapter{Conclusion and Future Work}
+
+\section{Conclusion}
+The Coreflex Pilates Studio Management System successfully addresses the scheduling needs of the studio. By moving from manual tracking to a centralized digital database, the studio operates more efficiently. Clients enjoy the flexibility of booking classes at their convenience, while administrators have immediate oversight of class attendance and revenue streams. The project meets all defined objectives, providing a secure, responsive, and functional web application.
+
+\section{Future Work}
+\begin{itemize}
+    \item \textbf{Payment Gateway Integration:} Implementing Razorpay or Stripe to allow clients to purchase packages directly through the app.
+    \item \textbf{Waitlist Feature:} Automatically notifying users when a slot opens up.
+    \item \textbf{Analytics Dashboard:} Providing admins with visual graphs of peak hours, revenue growth, and client retention rates.
+    \item \textbf{Push Notifications:} Sending reminders to clients 1 hour before their session.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER 8: OUTCOME
+%----------------------------------------------------------------------------------------
+\chapter{Outcome}
+
+\textbf{Deployment:} The project is fully functional and deployed. It is currently capable of handling live user traffic, processing bookings, and managing administrative tasks. The source code allows for rapid scaling and future feature additions.
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+\begin{thebibliography}{9}
+
+\bibitem{nextjs} 
+Vercel. (2025). "Next.js Documentation." \textit{nextjs.org}. Available: https://nextjs.org/docs.
+
+\bibitem{mongoose} 
+Automattic. (2024). "Mongoose ODM v8.16.0 Documentation." \textit{mongoosejs.com}.
+
+\bibitem{react} 
+Meta Open Source. (2024). "React: The library for web and native user interfaces." \textit{react.dev}.
+
+\bibitem{tailwind} 
+Tailwind Labs. (2025). "Tailwind CSS Documentation." \textit{tailwindcss.com}.
+
+\bibitem{jwt} 
+Auth0. (2023). "JSON Web Token Introduction." \textit{jwt.io}.
+
+\end{thebibliography}
+
+\end{document}

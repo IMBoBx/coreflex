@@ -1,0 +1,565 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\geometry{left=1in,right=1in,top=1in,bottom=1in}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Session Booking Platform - SRS}
+\fancyhead[R]{\thepage}
+% \fancyfoot[C]{CoreFlex Pilates Studio}
+
+\title{\textbf{Software Requirements Specification\\for\\Session Booking Platform}}
+\author{Garv Kundnani}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\Large
+\textbf{IEEE Standard 830-1998}\\
+\vspace{0.5cm}
+\normalsize
+% Prepared for: CoreFlex Pilates Studio\\
+Version 1.0\\
+\today
+\end{center}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+\subsection{Purpose}
+This Software Requirements Specification (SRS) document describes the functional and non-functional requirements for the Session Booking Platform developed for CoreFlex Pilates Studio. This document is intended for the development team, project stakeholders, and quality assurance personnel.
+
+The Session Booking Platform is a comprehensive web-based application that enables clients to book fitness sessions, manage their membership packages, and interact with the studio's services. It also provides administrative capabilities for studio management.
+
+\subsection{Document Conventions}
+This document follows the IEEE Standard 830-1998 for Software Requirements Specifications. The requirements are prioritized using the following conventions:
+\begin{itemize}
+    \item \textbf{High Priority}: Critical requirements that must be implemented
+    \item \textbf{Medium Priority}: Important requirements that should be implemented
+    \item \textbf{Low Priority}: Desirable requirements that may be implemented
+\end{itemize}
+
+\subsection{Intended Audience and Reading Suggestions}
+This document is intended for:
+\begin{itemize}
+    \item Software developers and architects
+    \item Project managers
+    \item Quality assurance personnel
+    \item CoreFlex Studio administrators
+    \item System integrators
+\end{itemize}
+
+It is recommended to read the entire document sequentially for first-time readers. Developers should focus on Sections 3 and 4, while project managers may concentrate on Sections 1, 2, and 5.
+
+\subsection{Product Scope}
+The Session Booking Platform is designed to digitize and streamline the session booking process for CoreFlex Pilates Studio. The system encompasses:
+
+\begin{itemize}
+    \item Client registration and authentication
+    \item Session booking and management
+    \item Package management and tracking
+    \item Administrative dashboard for studio management
+    \item Real-time session availability tracking
+    \item Automated notification system
+\end{itemize}
+
+The platform aims to enhance the customer experience while providing efficient management tools for studio operations.
+
+\subsection{References}
+\begin{itemize}
+    \item IEEE Standard 830-1998: IEEE Recommended Practice for Software Requirements Specifications
+    \item Next.js Documentation: https://nextjs.org/docs
+    \item MongoDB Documentation: https://docs.mongodb.com/
+    \item React Documentation: https://reactjs.org/docs/
+\end{itemize}
+
+\section{Overall Description}
+
+\subsection{Product Perspective}
+The Session Booking Platform is a standalone web application built using modern web technologies. The system architecture consists of:
+
+\begin{itemize}
+    \item \textbf{Frontend}: React-based web application using Next.js framework
+    \item \textbf{Backend}: RESTful API built with Next.js API routes
+    \item \textbf{Database}: MongoDB for data persistence
+    \item \textbf{Authentication}: JWT-based authentication with OTP verification
+    \item \textbf{Deployment}: Cloud-based deployment supporting web browsers
+\end{itemize}
+
+The system integrates with external services including email providers for notifications and SMS services for OTP delivery.
+
+\subsection{Product Functions}
+The major functions of the Session Booking Platform include:
+
+\subsubsection{Client Functions}
+\begin{itemize}
+    \item User registration and profile management
+    \item OTP-based secure authentication
+    \item Browse available programs (Pilates, Yoga, Aerial Yoga, etc.)
+    \item View real-time session availability
+    \item Book and cancel sessions
+    \item View upcoming sessions and booking history
+    \item Manage active membership packages
+    \item Track remaining sessions in packages
+\end{itemize}
+
+\subsubsection{Administrative Functions}
+\begin{itemize}
+    \item Admin dashboard with comprehensive analytics
+    \item Client management and package administration
+    \item Session scheduling and capacity management
+    \item Program management (add, modify, delete programs)
+    \item Generate reports on bookings and utilization
+    \item Manage studio calendar and availability
+\end{itemize}
+
+\subsection{User Classes and Characteristics}
+The system supports two primary user classes:
+
+\subsubsection{Clients}
+\begin{itemize}
+    \item \textbf{Characteristics}: End users seeking to book fitness sessions
+    \item \textbf{Technical Expertise}: Basic to intermediate computer/smartphone usage
+    \item \textbf{Frequency of Use}: Regular usage for booking and managing sessions
+    \item \textbf{Access Level}: Limited to personal data and booking functions
+\end{itemize}
+
+\subsubsection{Administrators}
+\begin{itemize}
+    \item \textbf{Characteristics}: Studio staff and management personnel
+    \item \textbf{Technical Expertise}: Intermediate to advanced system usage
+    \item \textbf{Frequency of Use}: Daily administrative tasks
+    \item \textbf{Access Level}: Full system access including client management
+\end{itemize}
+
+\subsection{Operating Environment}
+\subsubsection{Client-Side Environment}
+\begin{itemize}
+    \item \textbf{Web Browsers}: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+    \item \textbf{Mobile Devices}: iOS 13+, Android 8.0+
+    \item \textbf{Network}: Internet connectivity required
+    \item \textbf{Screen Resolution}: Responsive design supporting 320px to 4K displays
+\end{itemize}
+
+\subsubsection{Server-Side Environment}
+\begin{itemize}
+    \item \textbf{Runtime}: Node.js 18.0 or higher
+    \item \textbf{Database}: MongoDB 5.0 or higher
+    \item \textbf{Framework}: Next.js 15.x
+    \item \textbf{Deployment}: Cloud hosting platform (Vercel, AWS, etc.)
+\end{itemize}
+
+\subsection{Design and Implementation Constraints}
+\begin{itemize}
+    \item Must be responsive and mobile-friendly
+    \item Must comply with web accessibility standards (WCAG 2.1)
+    \item Authentication must use secure OTP-based verification
+    \item All sensitive data must be encrypted in transit and at rest
+    \item System must support concurrent users without performance degradation
+    \item Must integrate with existing studio communication channels
+\end{itemize}
+
+\subsection{User Documentation}
+The system will include:
+\begin{itemize}
+    \item User manual for clients
+    \item Administrator guide
+    \item API documentation for developers
+    \item Installation and deployment guide
+    \item Troubleshooting guide
+\end{itemize}
+
+\subsection{Assumptions and Dependencies}
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item Users have access to email for OTP verification
+    \item Stable internet connectivity is available
+    \item Users have basic familiarity with web applications
+    \item Studio operates during defined business hours
+\end{itemize}
+
+\subsubsection{Dependencies}
+\begin{itemize}
+    \item MongoDB database service availability
+    \item Email service provider for notifications
+    \item SMS service for OTP delivery
+    \item Cloud hosting platform reliability
+    \item Third-party library updates and security patches
+\end{itemize}
+
+\section{External Interface Requirements}
+
+\subsection{User Interfaces}
+The system provides intuitive web-based interfaces optimized for both desktop and mobile devices.
+
+\subsubsection{Client Interface}
+\begin{itemize}
+    \item \textbf{Home Page}: Studio information, program showcase, contact details
+    \item \textbf{Authentication}: Login/register forms with OTP verification
+    \item \textbf{Dashboard}: Personal session overview and quick booking access
+    \item \textbf{Booking Interface}: Program selection, date/time picker, confirmation
+    \item \textbf{Profile Management}: Account settings and package information
+    \item \textbf{Session History}: Past and upcoming session management
+\end{itemize}
+
+\subsubsection{Administrative Interface}
+\begin{itemize}
+    \item \textbf{Admin Dashboard}: System overview, analytics, and quick actions
+    \item \textbf{Client Management}: User accounts, packages, and session tracking
+    \item \textbf{Session Management}: Schedule creation, capacity management
+    \item \textbf{Program Management}: Program configuration and maintenance
+    \item \textbf{Reports}: Booking analytics and utilization reports
+\end{itemize}
+
+\subsection{Hardware Interfaces}
+The system operates as a web application and does not require specific hardware interfaces beyond standard web browser compatibility.
+
+\subsection{Software Interfaces}
+\subsubsection{Database Interface}
+\begin{itemize}
+    \item \textbf{Database Management System}: MongoDB 5.0+
+    \item \textbf{Connection}: Mongoose ODM for database operations
+    \item \textbf{Data Format}: BSON documents with JSON-like structure
+\end{itemize}
+
+\subsubsection{External Service Interfaces}
+\begin{itemize}
+    \item \textbf{Email Service}: SMTP integration for notifications
+    \item \textbf{Authentication Service}: JWT token management
+    \item \textbf{File Storage}: Cloud-based asset storage for images
+\end{itemize}
+
+\subsection{Communications Interfaces}
+\begin{itemize}
+    \item \textbf{HTTP/HTTPS}: RESTful API communication
+    \item \textbf{WebSocket}: Real-time updates for session availability
+    \item \textbf{Email Protocols}: SMTP for automated notifications
+    \item \textbf{JSON}: Data exchange format
+\end{itemize}
+
+\section{System Features}
+
+\subsection{User Authentication and Authorization}
+\subsubsection{Description and Priority}
+High priority feature providing secure access control through OTP-based authentication.
+
+\subsubsection{Stimulus/Response Sequences}
+\begin{enumerate}
+    \item User enters email address
+    \item System generates and sends OTP
+    \item User enters received OTP
+    \item System validates OTP and creates session
+    \item User gains access to authenticated features
+\end{enumerate}
+
+\subsubsection{Functional Requirements}
+\begin{itemize}
+    \item REQ-1.1: System shall support email-based user registration
+    \item REQ-1.2: System shall generate secure 6-digit OTP codes
+    \item REQ-1.3: System shall expire OTP codes after 10 minutes
+    \item REQ-1.4: System shall support role-based access (client/admin)
+    \item REQ-1.5: System shall maintain user sessions using JWT tokens
+    \item REQ-1.6: System shall automatically logout users after 15 days of inactivity
+\end{itemize}
+
+\subsection{Session Booking Management}
+\subsubsection{Description and Priority}
+High priority feature enabling clients to book, modify, and cancel fitness sessions.
+
+\subsubsection{Stimulus/Response Sequences}
+\begin{enumerate}
+    \item Client selects program type
+    \item System displays available time slots
+    \item Client selects preferred slot
+    \item System checks availability and package validity
+    \item System confirms booking and updates availability
+    \item Client receives booking confirmation
+\end{enumerate}
+
+\subsubsection{Functional Requirements}
+\begin{itemize}
+    \item REQ-2.1: System shall display real-time session availability
+    \item REQ-2.2: System shall prevent overbooking beyond session capacity
+    \item REQ-2.3: System shall validate user package before booking
+    \item REQ-2.4: System shall deduct sessions from user packages upon booking
+    \item REQ-2.5: System shall allow booking cancellation up to 2 hours before session
+    \item REQ-2.6: System shall restore session credits for valid cancellations
+    \item REQ-2.7: System shall send confirmation notifications via email
+\end{itemize}
+
+\subsection{Package Management}
+\subsubsection{Description and Priority}
+High priority feature for managing client membership packages and session credits.
+
+\subsubsection{Stimulus/Response Sequences}
+\begin{enumerate}
+    \item Admin creates package for client
+    \item System assigns sessions and validity period
+    \item Client views package details in dashboard
+    \item System tracks session usage and expiration
+    \item System notifies clients of low session counts
+\end{enumerate}
+
+\subsubsection{Functional Requirements}
+\begin{itemize}
+    \item REQ-3.1: System shall support multiple active packages per user
+    \item REQ-3.2: System shall track package start and end dates
+    \item REQ-3.3: System shall monitor remaining session counts
+    \item REQ-3.4: System shall prevent booking when no valid packages exist
+    \item REQ-3.5: System shall notify users when packages are near expiration
+    \item REQ-3.6: System shall support package extensions and modifications
+\end{itemize}
+
+\subsection{Administrative Dashboard}
+\subsubsection{Description and Priority}
+High priority feature providing comprehensive management capabilities for studio administrators.
+
+\subsubsection{Stimulus/Response Sequences}
+\begin{enumerate}
+    \item Administrator logs into admin dashboard
+    \item System displays overview of current bookings and statistics
+    \item Administrator selects management function
+    \item System provides detailed interface for selected function
+    \item Administrator performs required actions
+    \item System updates data and provides confirmation
+\end{enumerate}
+
+\subsubsection{Functional Requirements}
+\begin{itemize}
+    \item REQ-4.1: System shall provide client management interface
+    \item REQ-4.2: System shall enable session schedule management
+    \item REQ-4.3: System shall support program creation and modification
+    \item REQ-4.4: System shall generate booking and utilization reports
+    \item REQ-4.5: System shall provide real-time booking notifications
+    \item REQ-4.6: System shall allow bulk operations on sessions and clients
+\end{itemize}
+
+\subsection{Program Management}
+\subsubsection{Description and Priority}
+Medium priority feature for managing different types of fitness programs offered.
+
+\subsubsection{Stimulus/Response Sequences}
+\begin{enumerate}
+    \item Administrator accesses program management
+    \item System displays current programs
+    \item Administrator creates, modifies, or deletes programs
+    \item System validates program information
+    \item System updates program database
+    \item System reflects changes in booking interface
+\end{enumerate}
+
+\subsubsection{Functional Requirements}
+\begin{itemize}
+    \item REQ-5.1: System shall support multiple program types (Pilates, Yoga, etc.)
+    \item REQ-5.2: System shall allow program descriptions and details
+    \item REQ-5.3: System shall enable program activation and deactivation
+    \item REQ-5.4: System shall maintain program booking history
+    \item REQ-5.5: System shall support program-specific booking rules
+\end{itemize}
+
+\subsection{Notification System}
+\subsubsection{Description and Priority}
+Medium priority feature for automated communication with users.
+
+\subsubsection{Stimulus/Response Sequences}
+\begin{enumerate}
+    \item System event triggers notification requirement
+    \item System determines appropriate notification method
+    \item System generates personalized notification content
+    \item System sends notification via configured channel
+    \item System logs notification delivery status
+\end{enumerate}
+
+\subsubsection{Functional Requirements}
+\begin{itemize}
+    \item REQ-6.1: System shall send booking confirmation emails
+    \item REQ-6.2: System shall send session reminder notifications
+    \item REQ-6.3: System shall notify about package expiration warnings
+    \item REQ-6.4: System shall send cancellation confirmations
+    \item REQ-6.5: System shall provide notification preferences management
+\end{itemize}
+
+\section{Other Non-functional Requirements}
+
+\subsection{Performance Requirements}
+\begin{itemize}
+    \item PERF-1: System shall respond to user requests within 2 seconds under normal load
+    \item PERF-2: System shall support minimum 100 concurrent users
+    \item PERF-3: Database queries shall execute within 1 second for 95\% of requests
+    \item PERF-4: System shall handle peak booking periods with less than 5 seconds response time
+    \item PERF-5: System uptime shall be at least 99.5\% during business hours
+\end{itemize}
+
+\subsection{Safety Requirements}
+\begin{itemize}
+    \item SAFE-1: System shall prevent data loss through regular automated backups
+    \item SAFE-2: System shall maintain data integrity during concurrent operations
+    \item SAFE-3: System shall implement proper error handling to prevent system crashes
+    \item SAFE-4: System shall validate all user inputs to prevent injection attacks
+    \item SAFE-5: System shall log all critical operations for audit purposes
+\end{itemize}
+
+\subsection{Security Requirements}
+\begin{itemize}
+    \item SEC-1: All data transmission shall use HTTPS encryption
+    \item SEC-2: User passwords shall be hashed using industry-standard algorithms
+    \item SEC-3: System shall implement rate limiting to prevent abuse
+    \item SEC-4: Session tokens shall expire after defined periods
+    \item SEC-5: System shall log all authentication attempts
+    \item SEC-6: Administrative functions shall require additional authentication
+\end{itemize}
+
+\subsection{Software Quality Attributes}
+\subsubsection{Reliability}
+\begin{itemize}
+    \item The system shall maintain 99.5\% uptime during business hours
+    \item Mean Time Between Failures (MTBF) shall exceed 720 hours
+    \item System shall gracefully handle and recover from errors
+\end{itemize}
+
+\subsubsection{Availability}
+\begin{itemize}
+    \item System shall be available 24/7 with scheduled maintenance windows
+    \item Maintenance windows shall not exceed 4 hours monthly
+    \item System shall provide status page for service availability
+\end{itemize}
+
+\subsubsection{Maintainability}
+\begin{itemize}
+    \item Code shall follow established coding standards and documentation
+    \item System shall support modular architecture for easy updates
+    \item Database schema shall support non-destructive migrations
+\end{itemize}
+
+\subsubsection{Portability}
+\begin{itemize}
+    \item System shall run on multiple cloud platforms
+    \item Database shall be platform-independent
+    \item System shall support horizontal scaling
+\end{itemize}
+
+\subsection{Business Rules}
+\begin{itemize}
+    \item BR-1: Clients can only book sessions if they have valid active packages
+    \item BR-2: Session cancellations must be made at least 2 hours in advance
+    \item BR-3: Each session has a maximum capacity that cannot be exceeded
+    \item BR-4: Packages have specific validity periods and cannot be used after expiration
+    \item BR-5: Only administrators can create, modify, or delete programs
+    \item BR-6: Session credits are deducted immediately upon booking confirmation
+    \item BR-7: Refunded sessions are restored to the user's package balance
+\end{itemize}
+
+\section{Other Requirements}
+
+\subsection{Database Requirements}
+\begin{itemize}
+    \item The system shall use MongoDB as the primary database
+    \item Database shall maintain ACID properties for critical operations
+    \item Data shall be backed up daily with point-in-time recovery capability
+    \item Database shall support indexing for optimal query performance
+    \item Database schema shall accommodate future feature expansions
+\end{itemize}
+
+\subsection{Internationalization Requirements}
+\begin{itemize}
+    \item System shall support English language interface
+    \item System shall accommodate Indian timezone (IST) for all operations
+    \item Date and time formats shall follow local conventions
+    \item Currency display shall support Indian Rupee (INR)
+\end{itemize}
+
+\subsection{Legal Requirements}
+\begin{itemize}
+    \item System shall comply with Indian data protection regulations
+    \item User consent shall be obtained for data processing
+    \item System shall provide data export functionality for user requests
+    \item System shall support data deletion upon user request
+\end{itemize}
+
+\section*{Appendix A: Glossary}
+\addcontentsline{toc}{section}{Appendix A: Glossary}   
+
+\begin{longtable}{|p{3cm}|p{10cm}|}
+\hline
+\textbf{Term} & \textbf{Definition} \\
+\hline
+API & Application Programming Interface - a set of protocols and tools for building software applications \\
+\hline
+JWT & JSON Web Token - a compact, URL-safe means of representing claims between two parties \\
+\hline
+MongoDB & A document-based NoSQL database system \\
+\hline
+Next.js & A React-based web development framework \\
+\hline
+OTP & One-Time Password - a password that is valid for only one login session \\
+\hline
+REST & Representational State Transfer - an architectural style for distributed systems \\
+\hline
+SRS & Software Requirements Specification \\
+\hline
+Package & A membership bundle containing a specific number of sessions with validity period \\
+\hline
+Session & A scheduled fitness class with defined start time, duration, and capacity \\
+\hline
+Slot & A time period during which a session can be scheduled \\
+\hline
+\end{longtable}
+
+\iffalse
+\section*{Appendix B: Analysis Models}
+\addcontentsline{toc}{section}{Appendix B: Analysis Models}
+
+\subsection*{Data Flow Diagrams}
+The system processes data through the following main flows:
+\begin{itemize}
+    \item User authentication and session management
+    \item Session booking and cancellation workflows
+    \item Package management and credit tracking
+    \item Administrative operations and reporting
+\end{itemize}
+
+\subsection*{State-Transition Diagrams}
+Key system states include:
+\begin{itemize}
+    \item User states: Guest, Authenticated, Active Session
+    \item Booking states: Available, Reserved, Confirmed, Completed, Cancelled
+    \item Package states: Active, Expired, Suspended
+\end{itemize}
+\fi
+
+\section*{Appendix B: To Be Determined List}
+\addcontentsline{toc}{section}{Appendix B: To Be Determined List}
+
+\begin{itemize}
+    \item Integration with payment gateway for online payments
+    \item Mobile application development timeline
+    \item Advanced reporting and analytics features
+    \item Integration with third-party calendar systems
+    \item Multi-language support implementation
+    \item Automated waitlist management system
+\end{itemize}
+
+\end{document}

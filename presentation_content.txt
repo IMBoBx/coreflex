@@ -1,0 +1,251 @@
+COREFLEX PILATES STUDIO - PRESENTATION CONTENT
+
+===============================================================================
+SLIDE 1: PROJECT OVERVIEW
+===============================================================================
+Title: Coreflex Pilates Studio Management System
+
+- Next.js 15 application for Pilates studio management
+- Role-based authentication (Client/Admin)
+- Real-time session booking and management
+- Built with TypeScript, MongoDB, and Tailwind CSS
+- OTP-based secure authentication system
+
+===============================================================================
+SLIDE 2: HOME PAGE (/)
+===============================================================================
+Title: Landing Page - First Impression
+File: app/page.tsx
+
+Purpose: Public-facing homepage with studio information
+
+Key Features:
+- Hero section with studio background image
+- Contact information display (WhatsApp, Phone, Email, Location)
+- Navigation to login and contact sections
+- Responsive design with Tailwind CSS animations
+- Clean, professional studio branding
+
+===============================================================================
+SLIDE 3: LOGIN PAGE (/login)
+===============================================================================
+Title: Authentication Gateway
+File: app/login/page.tsx
+
+Purpose: OTP-based authentication system
+
+Key Features:
+- Email input with OTP generation
+- OTP verification with countdown timer
+- JWT token generation for session management
+- Automatic redirect based on user role (admin/client)
+- Secure, passwordless authentication
+
+===============================================================================
+SLIDE 4: CLIENT DASHBOARD (/dashboard)
+===============================================================================
+Title: Client Dashboard - Main Hub
+File: app/dashboard/page.tsx
+
+Purpose: Central hub for client activities
+
+Key Features:
+- Welcome message with personalized greeting
+- Quick action cards (Book Session, View Sessions)
+- Active packages display with session counts
+- Expired packages section
+- Package expiry dates and session tracking
+- User-friendly interface with clear navigation
+
+===============================================================================
+SLIDE 5: BOOK SESSIONS (/dashboard/book)
+===============================================================================
+Title: Session Booking Interface
+File: app/dashboard/book/page.tsx
+Components: SlotCardsContainer.tsx, SlotCard.tsx
+
+Purpose: Interactive session booking system
+
+Key Features:
+- Date selector with 15-day booking window
+- Program-wise slot organization (Morning/Evening)
+- Real-time availability checking
+- Color-coded slot status:
+  * Green: Available
+  * Yellow: Filling Fast
+  * Orange: Last Spot
+  * Red: Full
+  * Blue: Already Booked
+- One-click booking with confirmation
+
+===============================================================================
+SLIDE 6: MY SESSIONS (/dashboard/my-sessions)
+===============================================================================
+Title: Session Management
+File: app/dashboard/my-sessions/page.tsx
+Components: CancelModal.tsx
+
+Purpose: Personal session tracking and management
+
+Key Features:
+- Upcoming sessions with program details
+- Session cancellation with confirmation modal
+- Past sessions history
+- Session status indicators (Confirmed/Completed)
+- Date and time display in IST
+- Easy session overview
+
+===============================================================================
+SLIDE 7: ADMIN DASHBOARD (/admin)
+===============================================================================
+Title: Administrative Control Center
+File: app/admin/page.tsx
+
+Purpose: Main admin navigation hub
+
+Key Features:
+- Session management access
+- Client management access
+- Clean card-based navigation
+- Admin-only route protection
+- Centralized studio management
+
+===============================================================================
+SLIDE 8: ADMIN SESSIONS (/admin/sessions)
+===============================================================================
+Title: Session Administration
+File: app/admin/sessions/page.tsx
+Components: AdminSlotsCardContainer.tsx, CreateSessionModal.tsx, AdminSessionModal.tsx
+
+Purpose: Complete session management for administrators
+
+Key Features:
+- Date-wise session viewing
+- Bulk session creation
+- Session member management
+- Capacity and booking oversight
+- Real-time session status updates
+- Member list management
+
+===============================================================================
+SLIDE 9: CLIENT MANAGEMENT (/admin/clients)
+===============================================================================
+Title: User Administration
+File: app/admin/clients/page.tsx
+Components: ClientCardContainer.tsx, NewClientModal.tsx, ClientModal.tsx
+
+Purpose: Comprehensive client management system
+
+Key Features:
+- Client search and filtering
+- New client creation
+- Package management per client
+- Active/inactive client status tracking
+- Client profile management
+- Package assignment and tracking
+
+===============================================================================
+SLIDE 10: API ARCHITECTURE
+===============================================================================
+Title: Backend Integration
+
+Key API Endpoints:
+- /api/auth/request-otp - OTP generation
+- /api/auth/verify-otp - OTP verification
+- /api/slot - Session management
+- /api/user - User management
+- /api/program - Program management
+
+Technical Features:
+- JWT-based authentication with role verification
+- MongoDB database with Mongoose ODM
+- Real-time data updates
+- IST timezone management
+- RESTful API design
+
+===============================================================================
+SLIDE 11: KEY FEATURES & TECHNOLOGY STACK
+===============================================================================
+Title: Technical Highlights
+
+Frontend Technologies:
+- Next.js 15 (App Router)
+- TypeScript for type safety
+- Tailwind CSS for styling
+- React hooks for state management
+
+Backend Technologies:
+- Next.js API Routes
+- MongoDB database
+- Mongoose ODM
+- JWT authentication
+
+Unique Features:
+- OTP-based authentication system
+- IST timezone handling via dateUtils
+- Responsive mobile-first design
+- Real-time availability updates
+
+===============================================================================
+SLIDE 12: USER EXPERIENCE FLOW
+===============================================================================
+Title: Complete User Journey
+
+Client Flow:
+1. Landing Page → Studio information and contact
+2. Login → OTP verification system
+3. Dashboard → Package overview and quick actions
+4. Book Sessions → Date selection and slot booking
+5. My Sessions → View and manage bookings
+
+Admin Flow:
+1. Login → Admin authentication
+2. Admin Dashboard → Central management hub
+3. Sessions → Create and manage all sessions
+4. Clients → User and package management
+
+===============================================================================
+SLIDE 13: UNIQUE SELLING POINTS
+===============================================================================
+Title: What Makes This Special
+
+Key Differentiators:
+- IST Timezone Handling: Proper date management for Indian users
+- Real-time Availability: Live slot status updates
+- Role-based Access: Distinct admin and client experiences
+- Mobile Responsive: Optimized for all devices
+- Package Management: Flexible session credit system
+- OTP Authentication: Secure, passwordless login
+- Modern Tech Stack: Next.js 15 with TypeScript
+
+Business Benefits:
+- Streamlined booking process
+- Reduced administrative overhead
+- Better client experience
+- Real-time studio management
+- Secure and reliable system
+
+===============================================================================
+SLIDE 14: FUTURE ENHANCEMENTS
+===============================================================================
+Title: Roadmap and Possibilities
+
+Potential Features:
+- Payment gateway integration
+- Automated email/SMS notifications
+- Instructor scheduling system
+- Client progress tracking
+- Mobile app development
+- Analytics and reporting dashboard
+- Multi-location support
+
+Technical Improvements:
+- Progressive Web App (PWA)
+- Offline booking capabilities
+- Advanced caching strategies
+- Performance optimizations
+- Enhanced security features
+
+===============================================================================
+
+This presentation covers all major frontend endpoints and features of the Coreflex Pilates Studio Management System. Each slide provides detailed information about the purpose, implementation, and key features of different parts of the application.
