@@ -1,41 +1,68 @@
 "use client";
 import Link from "next/link";
 
-const OFFER_ITEMS = [
+// Image placeholders - replace src values with your actual image paths
+const PILATES_CLASSES = [
 	{
-		name: "Reformer Pilates",
-		desc: "Precision-focused work on our equipment for deep core engagement.",
+		name: "Reformer",
+		imageSrc: "",
 	},
 	{
-		name: "Mat, Wall & Chair Pilates",
-		desc: "Bodyweight and prop-based sequences for accessibility and strength.",
+		name: "Mat | Wall | Chair",
+		imageSrc: "",
 	},
 	{
-		name: "Aerial Yoga",
-		desc: "Suspended practice for spinal decompression and ease of movement.",
+		name: "Barre | Core | Sculpt",
+		imageSrc: "",
+	},
+];
+
+const YOGA_CLASSES = [
+	{
+		name: "Aerial",
+		imageSrc: "",
 	},
 	{
-		name: "Strength & Conditioning",
-		desc: "Functional training to build resilience and athletic performance.",
+		name: "Iyengar-Inspired Rope & Chair",
+		imageSrc: "",
 	},
 	{
-		name: "Mobility & Rehabilitation",
-		desc: "Therapeutic movement to restore range, reduce pain, rebuild function.",
+		name: "Ashtanga",
+		imageSrc: "",
 	},
 	{
-		name: "Specialised & Personalised Programs",
-		desc: "One-on-one or small-group training tailored to your goals.",
+		name: "Chakra & Mobility",
+		imageSrc: "",
+	},
+];
+
+const TRAINING_CLASSES = [
+	{
+		name: "Strength",
+		imageSrc: "",
+	},
+	{
+		name: "EMS (Electric Muscle Stimulation)",
+		imageSrc: "",
+	},
+	{
+		name: "Sports Performance Enhancement",
+		imageSrc: "",
+	},
+	{
+		name: "Rehabilitation & Pelvic Floor Work",
+		imageSrc: "",
 	},
 ];
 
 export default function Offers() {
 	return (
-		<section id="offers" className="py-16 md:py-28 bg-slate-50">
+		<section id="offers" className="py-16 md:py-28 bg-yellow-600/20">
 			<div className="container mx-auto px-6">
 				<div className="max-w-5xl mx-auto">
 					<div className="text-center mb-12 md:mb-16">
 						<h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
-							What We Offer
+							Our Classes
 						</h2>
 						<p className="text-base md:text-lg text-slate-600">
 							Movement modalities designed to meet you where you
@@ -43,48 +70,100 @@ export default function Offers() {
 						</p>
 					</div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12">
-						{OFFER_ITEMS.map((item) => (
-							<div
-								key={item.name}
-								className="p-5 md:p-7 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-300"
-							>
-								<div className="flex items-start gap-4">
-									<div className="flex-shrink-0 w-11 h-11 md:w-12 md:h-12 bg-slate-900 text-white rounded-lg flex items-center justify-center">
-										<svg
-											className="w-5 h-5 md:w-6 md:h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M13 10V3L4 14h7v7l9-11h-7z"
+					{/* PILATES Section */}
+					<div className="mb-16 md:mb-20">
+						<h3 className="text-2xl md:text-3xl font-bold text-slate-900 text-center mb-10 md:mb-12">
+							Pilates
+						</h3>
+						<div className="flex flex-wrap justify-center gap-8 md:gap-12 max-w-3xl mx-auto">
+							{PILATES_CLASSES.map((item, idx) => (
+								<div
+									key={idx}
+									className="flex flex-col items-center w-32 md:w-40"
+								>
+									<div className="w-full aspect-[3/4] rounded-full overflow-hidden bg-white mb-4 md:mb-5 flex items-center justify-center shadow-sm border border-slate-200">
+										{item.imageSrc ? (
+											<img
+												src={item.imageSrc}
+												alt={item.name}
+												className="w-full h-full object-cover"
 											/>
-										</svg>
+										) : (
+											<span className="text-4xl md:text-5xl opacity-20">
+												📷
+											</span>
+										)}
 									</div>
-									<div className="flex-1 min-w-0">
-										<h3 className="text-base md:text-lg font-semibold text-slate-900 mb-2">
-											{item.name}
-										</h3>
-										<p className="text-sm md:text-base text-slate-600 leading-relaxed">
-											{item.desc}
-										</p>
-									</div>
+									<p className="text-sm md:text-base font-medium text-slate-700 text-center leading-snug">
+										{item.name}
+									</p>
 								</div>
-							</div>
-						))}
+							))}
+						</div>
 					</div>
 
-					<div className="text-center">
-						<Link
-							href="/classes"
-							className="inline-block px-6 md:px-8 py-3 md:py-4 bg-slate-900 text-white rounded-full font-semibold text-sm md:text-base hover:bg-slate-800 transition-colors duration-300 shadow-lg hover:shadow-xl"
-						>
-							Explore All Classes
-						</Link>
+					{/* YOGA Section */}
+					<div>
+						<h3 className="text-2xl md:text-3xl font-bold text-slate-900 text-center mb-10 md:mb-12">
+							Yoga
+						</h3>
+						<div className="flex flex-wrap justify-center gap-8 md:gap-12 max-w-4xl mx-auto">
+							{YOGA_CLASSES.map((item, idx) => (
+								<div
+									key={idx}
+									className="flex flex-col items-center w-32 md:w-40"
+								>
+									<div className="w-full aspect-[3/4] rounded-full overflow-hidden bg-white mb-4 md:mb-5 flex items-center justify-center shadow-sm border border-slate-200">
+										{item.imageSrc ? (
+											<img
+												src={item.imageSrc}
+												alt={item.name}
+												className="w-full h-full object-cover"
+											/>
+										) : (
+											<span className="text-4xl md:text-5xl opacity-20">
+												📷
+											</span>
+										)}
+									</div>
+									<p className="text-sm md:text-base font-medium text-slate-700 text-center leading-snug">
+										{item.name}
+									</p>
+								</div>
+							))}
+						</div>
+					</div>
+
+					{/* TRAINING & ENHANCEMENT Section */}
+					<div className="mt-16 md:mt-20">
+						<h3 className="text-2xl md:text-3xl font-bold text-slate-900 text-center mb-10 md:mb-12">
+							Training & Enhancement
+						</h3>
+						<div className="flex flex-wrap justify-center gap-8 md:gap-12 max-w-4xl mx-auto">
+							{TRAINING_CLASSES.map((item, idx) => (
+								<div
+									key={idx}
+									className="flex flex-col items-center w-32 md:w-40"
+								>
+									<div className="w-full aspect-[3/4] rounded-full overflow-hidden bg-white mb-4 md:mb-5 flex items-center justify-center shadow-sm border border-slate-200">
+										{item.imageSrc ? (
+											<img
+												src={item.imageSrc}
+												alt={item.name}
+												className="w-full h-full object-cover"
+											/>
+										) : (
+											<span className="text-4xl md:text-5xl opacity-20">
+												📷
+											</span>
+										)}
+									</div>
+									<p className="text-sm md:text-base font-medium text-slate-700 text-center leading-snug">
+										{item.name}
+									</p>
+								</div>
+							))}
+						</div>
 					</div>
 				</div>
 			</div>

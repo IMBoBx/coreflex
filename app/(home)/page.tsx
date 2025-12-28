@@ -6,6 +6,7 @@ import FounderTeaser from "./components/FounderTeaser";
 import CommunityCTA from "./components/CommunityCTA";
 import Hero from "./components/Hero";
 import Contact from "./components/Contact";
+import CTABanner from "./components/CTABanner";
 
 export default function Home() {
 	return (
@@ -15,8 +16,9 @@ export default function Home() {
 			{/* Section components */}
 			<About />
 			<Offers />
-			<ForWho />
+			<CTABanner />
 			<FounderTeaser />
+			<ForWho />
 			<CommunityCTA />
 
 			<Contact />

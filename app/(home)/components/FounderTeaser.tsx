@@ -5,7 +5,7 @@ import Link from "next/link";
 let FOUNDER_IMAGE = "pilateswithhimanya.jpg";
 export default function FounderTeaser() {
 	return (
-		<section id="founder" className="py-16 md:py-28 bg-slate-50">
+		<section id="founder" className="py-16 md:py-28 bg-yellow-600/20">
 			<div className="container mx-auto px-6">
 				<div className="max-w-5xl mx-auto">
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
