@@ -19,8 +19,7 @@ export default function Home() {
 			<CTABanner />
 			<FounderTeaser />
 			<ForWho />
-			<CommunityCTA />
-
+			{/* <CommunityCTA /> */}
 			<Contact />
 
 			{/* Footer */}

@@ -81,7 +81,7 @@ export default function Offers() {
 									key={idx}
 									className="flex flex-col items-center w-32 md:w-40"
 								>
-									<div className="w-full aspect-[3/4] rounded-full overflow-hidden bg-white mb-4 md:mb-5 flex items-center justify-center shadow-sm border border-slate-200">
+									<div className="w-full aspect-square rounded-lg overflow-hidden bg-white mb-4 md:mb-5 flex items-center justify-center shadow-sm border border-slate-200">
 										{item.imageSrc ? (
 											<img
 												src={item.imageSrc}
@@ -94,7 +94,7 @@ export default function Offers() {
 											</span>
 										)}
 									</div>
-									<p className="text-sm md:text-base font-medium text-slate-700 text-center leading-snug">
+									<p className="text-sm md:text-base font-medium text-slate-700 text-center leading-snug whitespace-nowrap">
 										{item.name}
 									</p>
 								</div>
@@ -113,7 +113,7 @@ export default function Offers() {
 									key={idx}
 									className="flex flex-col items-center w-32 md:w-40"
 								>
-									<div className="w-full aspect-[3/4] rounded-full overflow-hidden bg-white mb-4 md:mb-5 flex items-center justify-center shadow-sm border border-slate-200">
+									<div className="w-full aspect-square rounded-lg overflow-hidden bg-white mb-4 md:mb-5 flex items-center justify-center shadow-sm border border-slate-200">
 										{item.imageSrc ? (
 											<img
 												src={item.imageSrc}
@@ -126,7 +126,7 @@ export default function Offers() {
 											</span>
 										)}
 									</div>
-									<p className="text-sm md:text-base font-medium text-slate-700 text-center leading-snug">
+									<p className="text-sm md:text-base font-medium text-slate-700 text-center leading-snug ">
 										{item.name}
 									</p>
 								</div>
@@ -145,7 +145,7 @@ export default function Offers() {
 									key={idx}
 									className="flex flex-col items-center w-32 md:w-40"
 								>
-									<div className="w-full aspect-[3/4] rounded-full overflow-hidden bg-white mb-4 md:mb-5 flex items-center justify-center shadow-sm border border-slate-200">
+									<div className="w-full aspect-square rounded-lg overflow-hidden bg-white mb-4 md:mb-5 flex items-center justify-center shadow-sm border border-slate-200">
 										{item.imageSrc ? (
 											<img
 												src={item.imageSrc}
