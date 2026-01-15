@@ -7,6 +7,7 @@ import CommunityCTA from "./components/CommunityCTA";
 import Hero from "./components/Hero";
 import Contact from "./components/Contact";
 import CTABanner from "./components/CTABanner";
+import Testimonials from "./components/Testimonials";
 
 export default function Home() {
 	return (
@@ -20,6 +21,7 @@ export default function Home() {
 			<FounderTeaser />
 			<ForWho />
 			{/* <CommunityCTA /> */}
+			<Testimonials />
 			<Contact />
 
 			{/* Footer */}
