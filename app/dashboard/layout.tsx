@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
     return (
         <ProtectedRoute allowedRoles={["client", "admin"]}>
-            <Navbar>
+            <Navbar logoUrl="/dashboard">
                 {" "}
                 <NavbarButton
                     href="/dashboard"
