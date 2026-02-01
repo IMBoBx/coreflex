@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     user.otp = { value: otp, expiresAt };
     await user.save();
 
-    sendOTPEmail(email, otp);
+    await sendOTPEmail(email, otp);
 
     return NextResponse.json(
         { success: true, message: "OTP sent" },
