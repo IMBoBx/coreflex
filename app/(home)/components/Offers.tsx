@@ -5,41 +5,45 @@ import Link from "next/link";
 const PILATES_CLASSES = [
 	{
 		name: "Reformer",
-		imageSrc: "",
+		imageSrc: "/images/our_classes/pilates/reformer.jpg",
 	},
 	{
-		name: "Mat | Wall | Chair",
-		imageSrc: "",
+		name: "Mat",
+		imageSrc: "/images/our_classes/pilates/mat.jpg",
+	},
+	{
+		name: "Chair | Wall",
+		imageSrc: "/images/our_classes/pilates/wall.jpg",
 	},
 	{
 		name: "Barre | Core | Sculpt",
-		imageSrc: "",
+		imageSrc: "/images/our_classes/pilates/barre.jpg",
 	},
 ];
 
 const YOGA_CLASSES = [
 	{
 		name: "Aerial",
-		imageSrc: "",
+		imageSrc: "/images/our_classes/yoga/aerial.jpg",
 	},
 	{
 		name: "Iyengar-Inspired Rope & Chair",
-		imageSrc: "",
+		imageSrc: "/images/our_classes/yoga/chair.jpg",
 	},
 	{
 		name: "Ashtanga",
-		imageSrc: "",
+		imageSrc: "/images/our_classes/yoga/ashthanga.jpg",
 	},
 	{
 		name: "Chakra & Mobility",
-		imageSrc: "",
+		imageSrc: "/images/our_classes/yoga/chakra.jpg",
 	},
 ];
 
 const TRAINING_CLASSES = [
 	{
 		name: "Strength",
-		imageSrc: "",
+		imageSrc: "/images/our_classes/strength/strength.jpg",
 	},
 	{
 		name: "EMS (Electric Muscle Stimulation)",
@@ -75,7 +79,7 @@ export default function Offers() {
 						<h3 className="text-2xl md:text-3xl font-bold text-slate-900 text-center mb-10 md:mb-12">
 							Pilates
 						</h3>
-						<div className="flex flex-wrap justify-center gap-8 md:gap-12 max-w-3xl mx-auto">
+						<div className="flex flex-wrap md:flex-nowrap justify-center gap-8 md:gap-12 max-w-3xl mx-auto">
 							{PILATES_CLASSES.map((item, idx) => (
 								<div
 									key={idx}

@@ -14,7 +14,7 @@ type Slide = {
 const SLIDES: Slide[] = [
 	{
 		id: "slide-1",
-		image: "/studio-compressed.jpg",
+		image: "studio-compressed.jpg",
 		headline: "Welcome to Coreflex Pilates Studio",
 		subtext:
 			"Pilates, yoga & movement therapy designed to support real bodies and real goals.",
@@ -23,18 +23,18 @@ const SLIDES: Slide[] = [
 	},
 	{
 		id: "slide-2",
-		image: "/reformer.jpg",
+		image: "/images/hero_banner/hero_banner_2.jpg",
 		headline: "Reformer Pilates for meaningful strength",
 		subtext:
 			"Guided reformer sessions focused on alignment, breath and long-term resilience.",
-		primaryCta: { label: "Explore Reformer", href: "/classes#reformer" },
+		// primaryCta: { label: "Explore Reformer", href: "/classes#reformer" },
 	},
 	{
 		id: "slide-3",
-		image: "/aerial.jpg",
+		image: "/images/hero_banner/hero_banner_3.jpg",
 		headline: "Move freely — aerial yoga and mobility",
 		subtext: "Rediscover range of motion with safe, supported aerial work.",
-		primaryCta: { label: "See Classes", href: "/classes#yoga" },
+		// primaryCta: { label: "See Classes", href: "/classes#yoga" },
 	},
 ];
 

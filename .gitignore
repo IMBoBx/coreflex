@@ -42,5 +42,6 @@ next-env.d.ts
 
 # dev stuff
 /tests/
+/public/uncompressed/
 
 /CACHING_IMPLEMENTATION.md
