@@ -28,7 +28,7 @@ const YOGA_CLASSES = [
 	},
 	{
 		name: "Iyengar-Inspired Rope & Chair",
-		imageSrc: "/images/our_classes/yoga/chair.jpg",
+		imageSrc: "/images/our_classes/yoga/chair_.jpg",
 	},
 	{
 		name: "Ashtanga",
