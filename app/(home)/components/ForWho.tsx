@@ -9,7 +9,7 @@ const AUDIENCES = [
 	},
 	{
 		label: "Beginners & First-Timers",
-		imageSrc: "",
+		imageSrc: "/images/for_who/beginners.jpg",
 	},
 	{
 		label: "Pre & Post-Natal Clients",
@@ -17,7 +17,7 @@ const AUDIENCES = [
 	},
 	{
 		label: "Athletes & Sports Performance",
-		imageSrc: "",
+		imageSrc: "/images/for_who/athletes.jpg",
 	},
 	{
 		label: "Seniors (Pelvic Rehab & Rebuilding)",
@@ -25,7 +25,7 @@ const AUDIENCES = [
 	},
 	{
 		label: "Adults & Working Professionals",
-		imageSrc: "",
+		imageSrc: "/images/for_who/working_professionals.jpg",
 	},
 ];
 

@@ -38,6 +38,14 @@ const YOGA_CLASSES = [
 		name: "Chakra & Mobility",
 		imageSrc: "/images/our_classes/yoga/chakra.jpg",
 	},
+	{
+		name: "Mat Yoga",
+		imageSrc: "/images/our_classes/yoga/mat.jpg"
+	},
+	{
+		name: "Rope Yoga",
+		imageSrc: "/images/our_classes/yoga/rope.jpg"
+	}
 ];
 
 const TRAINING_CLASSES = [
@@ -47,23 +55,23 @@ const TRAINING_CLASSES = [
 	},
 	{
 		name: "EMS (Electric Muscle Stimulation)",
-		imageSrc: "",
+		imageSrc: "/images/our_classes/strength/ems.jpg",
 	},
 	{
 		name: "Sports Performance Enhancement",
-		imageSrc: "",
+		imageSrc: "/images/our_classes/strength/sports.jpg",
 	},
 	{
 		name: "Rehabilitation & Pelvic Floor Work",
-		imageSrc: "",
+		imageSrc: "/images/our_classes/strength/pelvic_floor.jpg",
 	},
 ];
 
 export default function Offers() {
 	return (
 		<section id="offers" className="py-16 md:py-28 bg-yellow-600/20">
-			<div className="container mx-auto px-6">
-				<div className="max-w-5xl mx-auto">
+			<div className="container mx-auto ">
+				<div className=" mx-auto">
 					<div className="text-center mb-12 md:mb-16">
 						<h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
 							Our Classes
@@ -111,7 +119,7 @@ export default function Offers() {
 						<h3 className="text-2xl md:text-3xl font-bold text-slate-900 text-center mb-10 md:mb-12">
 							Yoga
 						</h3>
-						<div className="flex flex-wrap justify-center gap-8 md:gap-12 max-w-4xl mx-auto">
+						<div className="flex flex-wrap justify-center gap-8 md:gap-12 max-w-2xl mx-auto">
 							{YOGA_CLASSES.map((item, idx) => (
 								<div
 									key={idx}
