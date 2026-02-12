@@ -5,7 +5,7 @@ import { useState } from "react";
 const AUDIENCES = [
 	{
 		label: "Teens",
-		imageSrc: "/studio.png",
+		imageSrc: "/images/for_who/teens.jpg",
 	},
 	{
 		label: "Beginners & First-Timers",
@@ -13,7 +13,7 @@ const AUDIENCES = [
 	},
 	{
 		label: "Pre & Post-Natal Clients",
-		imageSrc: "",
+		imageSrc: "/images/for_who/prenatal.jpg",
 	},
 	{
 		label: "Athletes & Sports Performance",
@@ -21,7 +21,7 @@ const AUDIENCES = [
 	},
 	{
 		label: "Seniors (Pelvic Rehab & Rebuilding)",
-		imageSrc: "",
+		imageSrc: "/images/for_who/seniors.jpg",
 	},
 	{
 		label: "Adults & Working Professionals",
