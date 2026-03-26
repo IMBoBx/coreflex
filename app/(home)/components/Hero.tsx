@@ -18,7 +18,10 @@ const SLIDES: Slide[] = [
 		headline: "Welcome to Coreflex Pilates Studio",
 		subtext:
 			"Pilates, yoga & movement therapy designed to support real bodies and real goals.",
-		primaryCta: { label: "Book a Trial", href: "/book" },
+		primaryCta: {
+			label: "Book a Trial",
+			href: "https://wa.me/+919911775563/?text=Hi! I want to book a trial session.",
+		},
 		secondaryCta: { label: "View Schedule", href: "/schedule" },
 	},
 	{
@@ -92,12 +95,14 @@ export default function Hero() {
 
 							<div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-12 md:px-0">
 								{s.primaryCta && (
-									<Link
+									<a
 										href={s.primaryCta.href}
+										target="_blank"
+										rel="noopener noreferrer"
 										className="bg-white text-slate-800 hover:bg-slate-100 transition-all duration-300 px-6 py-3 rounded-full font-semibold text-sm md:text-lg shadow-lg hover:shadow-xl"
 									>
 										{s.primaryCta.label}
-									</Link>
+									</a>
 								)}
 								{s.secondaryCta && (
 									<Link

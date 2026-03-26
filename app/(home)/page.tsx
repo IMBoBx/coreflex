@@ -11,7 +11,7 @@ import Testimonials from "./components/Testimonials";
 
 export default function Home() {
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 scroll-smooth">
+		<>
 			<Hero />
 
 			{/* Section components */}
@@ -32,6 +32,6 @@ export default function Home() {
 					</p>
 				</div>
 			</footer>
-		</div>
+		</>
 	);
 }

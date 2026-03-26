@@ -69,7 +69,7 @@ const TRAINING_CLASSES = [
 
 export default function Offers() {
 	return (
-		<section id="offers" className="py-16 md:py-28 bg-yellow-600/20">
+		<section id="classes" className="py-16 md:py-28 bg-yellow-600/20">
 			<div className="container mx-auto ">
 				<div className=" mx-auto">
 					<div className="text-center mb-12 md:mb-16">

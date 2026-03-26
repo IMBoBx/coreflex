@@ -63,12 +63,14 @@ export default function CommunityCTA() {
 						>
 							Explore Stories
 						</Link>
-						<Link
-							href="/book"
+						<a
+							href="https://wa.me/+919911775563/?text=Hi! I want to book a trial session."
+							target="_blank"
+							rel="noopener noreferrer"
 							className="inline-block px-6 md:px-8 py-3 md:py-4 bg-white border-2 border-slate-900 text-slate-900 rounded-full font-semibold text-sm md:text-base hover:bg-slate-50 transition-colors duration-300 order-1 sm:order-2"
 						>
 							Book First Session
-						</Link>
+						</a>
 					</div>
 				</div>
 			</div>

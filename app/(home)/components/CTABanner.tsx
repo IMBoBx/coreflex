@@ -33,12 +33,14 @@ export default function CTABanner() {
 						transforms.
 					</p>
 					<div className="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center items-center">
-						<Link
-							href="/book"
+						<a
+							href="https://wa.me/+919911775563/?text=Hi! I want to book a trial session."
+							target="_blank"
+							rel="noopener noreferrer"
 							className="inline-block px-10 md:px-12 py-4 md:py-4 bg-white text-slate-900 rounded-full font-semibold text-base md:text-lg hover:bg-slate-100 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 text-center min-w-[200px]"
 						>
 							Book a Trial
-						</Link>
+						</a>
 						<Link
 							href="/schedule"
 							className="inline-block px-10 md:px-12 py-4 md:py-4 bg-transparent text-white rounded-full font-semibold text-base md:text-lg hover:bg-white hover:text-slate-900 transition-all duration-300 border-2 border-white text-center min-w-[200px]"
