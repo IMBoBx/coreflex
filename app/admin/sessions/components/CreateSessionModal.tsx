@@ -44,6 +44,8 @@ export default function CreateSessionModal({
     const [currentTimeInput, setCurrentTimeInput] = useState<string>("");
     const [duration, setDuration] = useState<number>(60); // Default 60 minutes
     const [capacity, setCapacity] = useState<number>(1);
+    const [sessionDescription, setSessionDescription] =
+        useState<string>("");
 
     useEffect(() => {
         if (isOpen) {
@@ -59,6 +61,7 @@ export default function CreateSessionModal({
             setCurrentTimeInput("");
             setDuration(60);
             setCapacity(1);
+            setSessionDescription("");
         }
     }, [isOpen]);
 
@@ -157,6 +160,7 @@ export default function CreateSessionModal({
                         "/slot",
                         {
                             program: selectedProgram,
+                            description: sessionDescription.trim() || undefined,
                             time_start: startDateTime,
                             time_end: endDateTime,
                             capacity: capacity,
@@ -274,6 +278,22 @@ export default function CreateSessionModal({
                                         </option>
                                     ))}
                                 </select>
+                            </div>
+
+                            {/* Session Description */}
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Session Description (optional)
+                                </label>
+                                <textarea
+                                    value={sessionDescription}
+                                    onChange={(e) =>
+                                        setSessionDescription(e.target.value)
+                                    }
+                                    rows={3}
+                                    placeholder="E.g. Pilates/Yoga/EMS"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                />
                             </div>
 
                             {/* Date Selection */}
@@ -413,6 +433,12 @@ export default function CreateSessionModal({
                                                 })}
                                             </strong>
                                         </p>
+                                        {sessionDescription.trim() && (
+                                            <p className="text-xs text-blue-700 mb-2">
+                                                <strong>Description:</strong>{" "}
+                                                {sessionDescription.trim()}
+                                            </p>
+                                        )}
                                         <div className="space-y-1">
                                             {startTimes.map((startTime) => {
                                                 const start = new Date(
