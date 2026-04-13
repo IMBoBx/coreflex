@@ -5,6 +5,7 @@ import { IUser } from "./User";
 export interface ISlot extends Document {
     _id: Types.ObjectId;
     program: mongoose.Types.ObjectId;
+    description?: String;
     time_start: Date;
     time_end?: Date;
     capacity: number;
@@ -29,6 +30,9 @@ const slotSchema: Schema<ISlot> = new Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Program",
         required: true,
+    },
+    description: {
+        type: String,
     },
     time_start: {
         type: Date,

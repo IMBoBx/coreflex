@@ -15,8 +15,8 @@ export async function POST(req: NextRequest) {
     try {
         await connectDB();
         const { userData }: { userData: BulkUserData[] } = await req.json();
-        const pilates = await Program.findOne({ name: "Pilates" });
-        const pilatesId = pilates?._id.toString() ?? "Pilates";
+        const pilates = await Program.findOne({ name: "Group Classes" });
+        const pilatesId = pilates?._id.toString() ?? "Group Classes";
 
         const operations = userData.map((user) => {
             return {

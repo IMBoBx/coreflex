@@ -97,6 +97,7 @@ export async function POST(req: NextRequest) {
 
         const slot = await Slot.create({
             program: new mongoose.Types.ObjectId(slotData.program),
+            description: slotData.description,
             time_start: slotData.time_start,
             ...(slotData.time_end && { time_end: slotData.time_end }),
             capacity: slotData.capacity,

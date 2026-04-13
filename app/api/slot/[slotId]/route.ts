@@ -63,6 +63,7 @@ export async function PATCH(
             userId,
             action,
             force = false,
+            description,
             capacity,
             filled,
             time_start,
@@ -77,6 +78,8 @@ export async function PATCH(
                     { status: 404 }
                 );
             }
+
+            if (description !== undefined) slot.description = description;
             if (capacity !== undefined) slot.capacity = capacity;
             if (filled !== undefined) slot.filled = filled;
             if (time_start !== undefined)
