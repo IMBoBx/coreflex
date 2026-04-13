@@ -14,7 +14,7 @@ export default function SlotsCardContainer(props: {
     description: string;
     date: Date;
 }) {
-    const { programId: id, name, description, date } = props;
+    const { programId: id, name, description: programDescription, date } = props;
     const { token, userId } = useAuth();
     const [slots, setSlots] = useState<ISlot[]>([]);
     const [morningSlots, setMorningSlots] = useState<ISlot[]>([]);
@@ -123,6 +123,11 @@ export default function SlotsCardContainer(props: {
                             key={slot._id + ""}
                             slotId={slot._id + ""}
                             program={name}
+                            description={
+                                slot.description?.toString() ||
+                                programDescription ||
+                                "Session"
+                            }
                             time_start={slot.time_start}
                             time_end={slot.time_end}
                             capacity={slot.capacity}
@@ -146,6 +151,11 @@ export default function SlotsCardContainer(props: {
                             key={slot._id + ""}
                             slotId={slot._id + ""}
                             program={name}
+                            description={
+                                slot.description?.toString() ||
+                                programDescription ||
+                                "Session"
+                            }
                             time_start={slot.time_start}
                             time_end={slot.time_end}
                             capacity={slot.capacity}
@@ -160,6 +170,11 @@ export default function SlotsCardContainer(props: {
                 <BookingModal
                     slotId={selectedSlot._id + ""}
                     program_name={name}
+                    description={
+                        selectedSlot.description?.toString() ||
+                        programDescription ||
+                        "Session"
+                    }
                     time_start={selectedSlot.time_start}
                     time_end={selectedSlot.time_end}
                     capacity={selectedSlot.capacity}

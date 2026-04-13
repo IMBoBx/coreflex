@@ -141,6 +141,14 @@ export default function Page() {
 		setModalSlot(null);
 	}
 
+	function getSessionDescription(slot: ISlotPopulated): string {
+		return (
+			slot.description?.toString().trim() ||
+			slot.program.description?.toString().trim() ||
+			"Session"
+		);
+	}
+
 	return (
 		<div className="min-h-screen bg-gray-50">
 			<div className="max-w-sm md:max-w-7xl mx-auto p-4 md:p-6">
@@ -254,6 +262,9 @@ export default function Page() {
 												{slot.program.name}
 											</span>
 										</div>
+										<p className="mb-4 text-sm text-gray-600">
+											{getSessionDescription(slot)}
+										</p>
 
 										{/* Date and Time */}
 										<div className="space-y-2">
@@ -352,6 +363,9 @@ export default function Page() {
 												{slot.program.name}
 											</span>
 										</div>
+										<p className="mb-4 text-sm text-gray-500">
+											{getSessionDescription(slot)}
+										</p>
 
 										{/* Date and Time */}
 										<div className="space-y-2">

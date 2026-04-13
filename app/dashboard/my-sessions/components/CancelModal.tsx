@@ -1,4 +1,3 @@
-import { FetchApi } from "@/lib/fetchApi";
 import { ISlotPopulated } from "@/models/Slot";
 
 export function CancelModal({
@@ -18,6 +17,10 @@ export function CancelModal({
 
     // const canCancel = isMorningSession ? timeLeft > 12 : timeLeft > 6;
 
+	const sessionDescription =
+		slot.description?.toString().trim() ||
+		slot.program.description?.toString().trim() ||
+		"Session";
 
     return (
         <div className="fixed top-0 left-0 modal-bg w-screen h-screen bg-black/40 flex items-center justify-center z-10">
@@ -25,6 +28,12 @@ export function CancelModal({
                 <div className="text-black text-xl mb-4">
                     Are you sure you want to cancel this booking?
                 </div>
+
+				<div className="text-gray-700 text-sm mb-3">
+					<span className="font-semibold">{slot.program.name}</span>
+					{" - "}
+					{sessionDescription}
+				</div>
 
                 <div className="text-red-500 text-sm mb-4">
                     Note: Morning sessions cannot be cancelled within 12 hours

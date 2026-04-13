@@ -6,6 +6,7 @@ import { useState } from "react";
 export default function SlotCard(props: {
     slotId: string;
     program: string;
+    description?: string;
     time_start: Date | string;
     time_end?: Date | string;
     capacity: number;
@@ -14,7 +15,7 @@ export default function SlotCard(props: {
     members: mongoose.Types.ObjectId[];
     userId: string;
 }) {
-    const { capacity, filled, onClick, members, userId } = props;
+    const { description, capacity, filled, onClick, members, userId } = props;
     const time_start = new Date(props.time_start);
 
     const checkBooked = () => {
@@ -65,6 +66,9 @@ export default function SlotCard(props: {
 
     return (
         <div className="flex flex-col items-center">
+            <div className={`mt-1 text-xs font-semibold ${getFontColor()}`}>
+                {description?.trim() || "Session"}
+            </div>
             <button
                 className={`block w-28 text-center rounded-lg border shadow-sm px-3 py-2 my-0 md:my-0 focus:outline-none focus:ring-2 focus:ring-blue-400 transition ${getButtonColor()}`}
                 onClick={onClick}

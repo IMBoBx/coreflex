@@ -2,6 +2,7 @@
 export default function BookingModal(props: {
     slotId: string;
     program_name: string;
+    description?: string;
     time_start: Date | string;
     time_end?: Date | string;
     capacity: number;
@@ -11,7 +12,7 @@ export default function BookingModal(props: {
     onClose: () => void;
     onBook?: () => void | Promise<void>;
 }) {
-    const { program_name, onClose, onBook } = props;
+    const { program_name, description, onClose, onBook } = props;
     const time_start = new Date(props.time_start);
     const time_end = props.time_end ? new Date(props.time_end) : undefined;
 
@@ -31,6 +32,9 @@ export default function BookingModal(props: {
                     <div className="text-lg font-bold mb-2">Book Session</div>
                     <div className="mb-1 text-base font-semibold">
                         {program_name}
+                    </div>
+                    <div className="mb-1 text-sm text-gray-700">
+                        {description?.trim() || "Session"}
                     </div>
                     <div className="mb-1 text-sm text-gray-700">
                         {time_start.toLocaleDateString([], {
