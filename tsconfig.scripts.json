@@ -1,10 +1,10 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
-    "outDir": "dist"
-  },
-  "include": ["tests/**/*", "lib/**/*", "models/**/*"]
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"module": "CommonJS",
+		"moduleResolution": "Node",
+		"esModuleInterop": true,
+		"outDir": "dist"
+	},
+	"include": ["tests/**/*", "scripts/**/*", "lib/**/*", "models/**/*"]
 }

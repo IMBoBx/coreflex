@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed:group-sessions-clients": "ts-node --project tsconfig.scripts.json scripts/seedGroupSessionClients.ts"
   },
   "dependencies": {
     "axios": "^1.10.0",

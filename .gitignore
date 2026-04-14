@@ -41,6 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 # dev stuff
+/scripts/
 /tests/
 /public/uncompressed/
 
